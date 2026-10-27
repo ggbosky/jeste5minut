@@ -75,6 +75,10 @@ npm run og
 
 Šablona je přímo v `scripts/og.mjs`. Screenshoty webu ve 375 / 768 / 1440 px udělá `npm run shots` (při běžícím `npm run preview`).
 
+## Náhled jako jeden soubor
+
+`npm run preview:artifact` vytvoří `dist-preview/artifact.html` – celý web v jednom HTML (fonty i skripty vložené). Hodí se pro sdílení náhledu tam, kde nejde nahrát celá složka. Odkazy na právní stránky v něm nevedou nikam, na skutečný hosting nasazuj normální `npm run build`.
+
 ## Slovenská verze (později)
 
 1. Zkopíruj `src/content/cs.ts` → `src/content/sk.ts`, přejmenuj export na `sk` a přelož texty (TypeScript ohlídá, že nic nechybí – typ `SiteContent`).

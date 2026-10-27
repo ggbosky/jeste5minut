@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "og": "node scripts/og.mjs",
-    "shots": "node scripts/screenshots.mjs"
+    "shots": "node scripts/screenshots.mjs",
+    "preview:artifact": "node scripts/preview-artifact.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
