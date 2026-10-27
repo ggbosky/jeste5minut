@@ -1,0 +1,42 @@
+---
+import Base from './Base.astro';
+import Logo from '../components/Logo.astro';
+import Footer from '../components/Footer.astro';
+import { getContent } from '../content';
+import type { LegalPage } from '../content/types';
+import { rich } from '../lib/rich';
+
+interface Props {
+  page: LegalPage;
+}
+const { page } = Astro.props;
+const t = getContent();
+---
+
+<Base title={`${page.title} – Ještě 5 minut`} description={page.description}>
+  <header class="border-b-[3px] border-ink">
+    <div class="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-4 sm:h-[4.5rem] sm:px-6 lg:px-10">
+      <a href="/" class="text-[1.35rem] sm:text-2xl" aria-label={t.nav.logoLabel}><Logo /></a>
+      <a href="/" class="link text-sm font-semibold">{t.legal.back}</a>
+    </div>
+  </header>
+  <main id="main" class="grain py-16 sm:py-24">
+    <article class="mx-auto max-w-[46rem] px-4 sm:px-6">
+      <h1 class="display-md">{page.title}</h1>
+      <p class="mt-4 font-mono text-sm text-ink/70">{t.legal.updatedLabel}: {page.updated}</p>
+      <!-- TODO: právní text je šablona – doplň v src/content/cs.ts → legal -->
+      <p class="mt-8 rounded-xl border-[3px] border-ink bg-marker px-4 py-3 text-[0.9375rem] font-semibold">{t.legal.placeholderNote}</p>
+      {
+        page.sections.map((s) => (
+          <section class="mt-10">
+            <h2 class="text-2xl leading-tight sm:text-3xl">{s.heading}</h2>
+            {s.body.map((para) => (
+              <p class="mt-4 text-lg leading-relaxed" set:html={rich(para)} />
+            ))}
+          </section>
+        ))
+      }
+    </article>
+  </main>
+  <Footer />
+</Base>

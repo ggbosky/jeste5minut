@@ -1,0 +1,8 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { getContent } from '../content';
+
+const page = getContent().legal.pages.reklamacniRad;
+---
+
+<Legal page={page} />

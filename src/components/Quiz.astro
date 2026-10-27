@@ -1,0 +1,257 @@
+---
+import LeadForm from './LeadForm.astro';
+import { getContent } from '../content';
+import type { QuizTypeId } from '../content/types';
+import { rich } from '../lib/rich';
+
+const t = getContent();
+const q = t.quiz;
+const typeIds = Object.keys(q.types) as QuizTypeId[];
+const total = q.questions.length;
+
+// Jednoduché ikonky typů (čistě dekorativní)
+const icons: Record<QuizTypeId, string> = {
+  perfekcionista:
+    '<path d="M6 30 30 6l6 6-24 24H6v-6Z" fill="var(--color-marker)"/><path d="M6 30 30 6l6 6-24 24H6v-6Zm19-19 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>',
+  mobil:
+    '<rect x="11" y="4" width="20" height="34" rx="4" fill="var(--color-coral)" stroke="currentColor" stroke-width="3"/><path d="M18 32h6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="31" cy="8" r="6" fill="var(--color-marker)" stroke="currentColor" stroke-width="3"/>',
+  zahlceny:
+    '<rect x="5" y="25" width="32" height="9" rx="2" fill="var(--color-mint)" stroke="currentColor" stroke-width="3"/><rect x="8" y="15" width="28" height="10" rx="2" fill="var(--color-paper)" stroke="currentColor" stroke-width="3" transform="rotate(-4 22 20)"/><rect x="7" y="5" width="26" height="10" rx="2" fill="var(--color-marker)" stroke="currentColor" stroke-width="3" transform="rotate(5 20 10)"/>',
+  posledni:
+    '<circle cx="21" cy="23" r="14" fill="var(--color-coral)" stroke="currentColor" stroke-width="3"/><path d="M21 15v8l5 3M16 4h10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+};
+---
+
+<section id="kviz" class="grain relative py-20 sm:py-28 lg:py-32" aria-labelledby="quiz-title">
+  <div class="mx-auto grid max-w-[90rem] gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
+    <div class="lg:col-span-5">
+      <p class="kicker mb-5" data-reveal>{q.kicker}</p>
+      <h2 id="quiz-title" class="display-lg" data-reveal style="--i:1" set:html={rich(q.title)} />
+      <p class="mt-6 max-w-[30rem] text-lg leading-relaxed" data-reveal style="--i:2" set:html={rich(q.intro)} />
+      <button type="button" class="btn btn-lg btn-ink js-only mt-8" data-quiz-start data-reveal style="--i:3" data-magnetic="0.25">
+        {q.start}
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" fill="currentColor"></path></svg>
+      </button>
+    </div>
+
+    <div id="kviz-hra" class="quiz-stage lg:col-span-7" data-quiz>
+      <!-- 1) náhled 4 typů -->
+      <ul class="grid grid-cols-2 gap-4 sm:gap-5" data-quiz-panel="intro">
+        {
+          typeIds.map((id, i) => (
+            <li class="card type-card flex flex-col gap-3 p-4 sm:p-6" data-reveal style={`--i:${i}; --tilt:${[-2, 1.5, 1, -1.5][i]}deg`}>
+              <svg class="size-10 sm:size-12" viewBox="0 0 42 42" aria-hidden="true" set:html={icons[id]} />
+              <h3 class="text-xl leading-none sm:text-[1.7rem]">{q.types[id].name}</h3>
+              <p class="hidden text-[0.9375rem] leading-snug text-ink/80 sm:block">{q.types[id].text}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- 2) otázky -->
+      <div class="card hidden p-5 sm:p-8" data-quiz-panel="questions">
+        <div class="flex items-center justify-between gap-4 font-mono text-sm">
+          <span>
+            {q.progress} <span data-quiz-current>1</span>/{total}
+          </span>
+          <button type="button" class="link disabled:invisible" data-quiz-back>← {q.back}</button>
+        </div>
+        <div class="quiz-progress mt-3" aria-hidden="true"><span data-quiz-bar></span></div>
+
+        {
+          q.questions.map((question, qi) => (
+            <fieldset class="quiz-q mt-7 hidden" data-q={qi}>
+              <legend class="font-display text-[1.75rem] leading-[1.05] font-bold tracking-tight sm:text-4xl">{question.q}</legend>
+              <div class="mt-6 grid gap-3">
+                {question.answers.map((ans) => (
+                  <button type="button" class="answer" data-type={ans.type}>
+                    <span set:html={rich(ans.text)} />
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          ))
+        }
+      </div>
+
+      <!-- 3) výsledek -->
+      <div class="hidden" data-quiz-panel="result" tabindex="-1">
+        {
+          typeIds.map((id) => (
+            <div class="card hidden overflow-clip" data-result={id}>
+              <div class="flex items-center gap-4 border-b-[3px] border-ink bg-marker p-5 sm:p-8">
+                <svg class="size-14 shrink-0 sm:size-16" viewBox="0 0 42 42" aria-hidden="true" set:html={icons[id]} />
+                <div>
+                  <p class="font-mono text-sm uppercase">{q.resultKicker}</p>
+                  <p class="font-display text-4xl leading-none font-bold tracking-tight sm:text-5xl">{q.types[id].name}</p>
+                </div>
+              </div>
+              <div class="p-5 sm:p-8">
+                <p class="text-lg leading-relaxed" set:html={rich(q.types[id].text)} />
+                <p class="mt-5 rounded-xl border-[3px] border-ink bg-mint/25 p-4 leading-snug">
+                  <strong class="block font-mono text-xs tracking-wide uppercase">{q.tipLabel}</strong>
+                  <span class="mt-1 block text-lg font-semibold" set:html={rich(q.types[id].tip)} />
+                </p>
+              </div>
+            </div>
+          ))
+        }
+        <div class="card mt-5 p-5 sm:p-8">
+          <p class="font-display text-2xl leading-tight font-bold tracking-tight sm:text-3xl">{t.lead.quizTitle}</p>
+          <p class="mt-2 mb-6 leading-relaxed text-ink/80">{t.lead.quizText}</p>
+          <LeadForm id="lead-quiz" source="kviz" />
+        </div>
+        <button type="button" class="link mt-5 font-mono text-sm" data-quiz-restart>↺ {q.restart}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  html:not(.js) .js-only {
+    display: none;
+  }
+  .type-card {
+    rotate: var(--tilt);
+    transition: rotate 0.4s var(--ease-snap);
+  }
+  .type-card:hover {
+    rotate: 0deg;
+  }
+  .quiz-progress {
+    height: 14px;
+    border: 2.5px solid var(--color-ink);
+    border-radius: 999px;
+    overflow: hidden;
+    background: repeating-linear-gradient(90deg, transparent 0 10px, color-mix(in srgb, var(--color-ink) 18%, transparent) 10px 12px);
+  }
+  .quiz-progress span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--color-coral);
+    border-right: 2.5px solid var(--color-ink);
+    transition: width 0.5s var(--ease-out-expo);
+  }
+  .answer {
+    text-align: left;
+    padding: 1rem 1.15rem;
+    min-height: 3.5rem;
+    border: 3px solid var(--color-ink);
+    border-radius: 14px;
+    background: var(--color-paper);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.3;
+    box-shadow: var(--shadow-hard-sm);
+    transition:
+      transform 0.12s,
+      box-shadow 0.12s,
+      background-color 0.2s;
+    cursor: pointer;
+  }
+  .answer:hover {
+    background: color-mix(in srgb, var(--color-marker) 45%, var(--color-paper));
+  }
+  .answer:active,
+  .answer.is-picked {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--color-ink);
+    background: var(--color-marker);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .quiz-q:not(.hidden),
+    [data-quiz-panel]:not(.hidden) {
+      animation: quiz-in 0.45s var(--ease-out-expo);
+    }
+  }
+  @keyframes quiz-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+  }
+</style>
+
+<script>
+  import { track } from '../lib/analytics';
+  import { scrollToId } from '../lib/scroll';
+
+  const root = document.querySelector<HTMLElement>('[data-quiz]');
+  const startBtn = document.querySelector<HTMLButtonElement>('[data-quiz-start]');
+
+  if (root && startBtn) {
+    const panels = {
+      intro: root.querySelector<HTMLElement>('[data-quiz-panel=intro]')!,
+      questions: root.querySelector<HTMLElement>('[data-quiz-panel=questions]')!,
+      result: root.querySelector<HTMLElement>('[data-quiz-panel=result]')!,
+    };
+    const qs = [...root.querySelectorAll<HTMLElement>('.quiz-q')];
+    const current = root.querySelector<HTMLElement>('[data-quiz-current]')!;
+    const bar = root.querySelector<HTMLElement>('[data-quiz-bar]')!;
+    const back = root.querySelector<HTMLButtonElement>('[data-quiz-back]')!;
+    const tagInput = panels.result.querySelector<HTMLInputElement>('input[name=tag]');
+    let answers: string[] = [];
+    let locked = false;
+
+    const show = (name: keyof typeof panels) => {
+      for (const [k, el] of Object.entries(panels)) el.classList.toggle('hidden', k !== name);
+    };
+
+    const goTo = (i: number) => {
+      qs.forEach((el, j) => el.classList.toggle('hidden', j !== i));
+      qs[i].querySelectorAll('.is-picked').forEach((b) => b.classList.remove('is-picked'));
+      current.textContent = String(i + 1);
+      bar.style.width = `${(i / qs.length) * 100}%`;
+      back.disabled = i === 0;
+      qs[i].querySelector<HTMLButtonElement>('.answer')?.focus({ preventScroll: true });
+    };
+
+    const result = () => {
+      const score: Record<string, number> = {};
+      answers.forEach((a) => (score[a] = (score[a] || 0) + 1));
+      const best = Math.max(...Object.values(score));
+      // při remíze vyhrává typ z pozdější odpovědi
+      const winner = [...answers].reverse().find((a) => score[a] === best)!;
+      panels.result.querySelectorAll<HTMLElement>('[data-result]').forEach((el) => el.classList.toggle('hidden', el.dataset.result !== winner));
+      if (tagInput) tagInput.value = `kviz-${winner}`;
+      show('result');
+      panels.result.focus({ preventScroll: true });
+      scrollToId('kviz-hra');
+      track('quiz_result', { type: winner });
+    };
+
+    const start = () => {
+      answers = [];
+      show('questions');
+      goTo(0);
+      if (innerWidth < 1024) scrollToId('kviz-hra');
+    };
+
+    startBtn.addEventListener('click', start);
+    root.querySelector('[data-quiz-restart]')!.addEventListener('click', start);
+    back.addEventListener('click', () => {
+      const i = answers.length - 1;
+      if (i < 0) return;
+      answers.pop();
+      goTo(i);
+    });
+
+    qs.forEach((fs, i) =>
+      fs.querySelectorAll<HTMLButtonElement>('.answer').forEach((b) =>
+        b.addEventListener('click', () => {
+          if (locked) return;
+          locked = true;
+          b.classList.add('is-picked');
+          answers[i] = b.dataset.type!;
+          answers.length = i + 1;
+          setTimeout(() => {
+            locked = false;
+            if (i + 1 < qs.length) goTo(i + 1);
+            else result();
+          }, 260);
+        }),
+      ),
+    );
+  }
+</script>

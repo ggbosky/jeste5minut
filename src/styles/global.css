@@ -1,0 +1,411 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens
+------------------------------------------------------------------ */
+@theme {
+  --color-ink: #14213d;
+  --color-ink-soft: #24335a;
+  --color-coral: #ff5a36;
+  --color-paper: #faf7f0;
+  --color-paper-deep: #f1ebdd;
+  --color-mint: #2ec4b6;
+  --color-marker: #ffd23f;
+
+  --font-display: 'Space Grotesk', 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --shadow-hard-sm: 3px 3px 0 var(--color-ink);
+  --shadow-hard: 6px 6px 0 var(--color-ink);
+  --shadow-hard-lg: 10px 10px 0 var(--color-ink);
+  --shadow-hard-paper: 6px 6px 0 var(--color-paper);
+
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.2);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+    20% {
+      transform: rotate(-4deg);
+    }
+    40% {
+      transform: rotate(3deg);
+    }
+    60% {
+      transform: rotate(-2deg);
+    }
+    80% {
+      transform: rotate(1deg);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    overflow-x: clip;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-marker);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-coral);
+    outline-offset: 3px;
+  }
+  .bg-ink :focus-visible,
+  .bg-coral :focus-visible {
+    outline-color: var(--color-marker);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Sekce pod ohybem se vykreslí až když jsou blízko → rychlejší první vykreslení */
+.cv-host > section:not(.marquee) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1500px;
+}
+@media (min-width: 1024px) {
+  .cv-host > section:not(.marquee) {
+    contain-intrinsic-size: auto 1000px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Grain (papírová textura) – jedna malá SVG dlaždice, žádný JS
+------------------------------------------------------------------ */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.13 0 0 0 0 0.24 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.grain-dark::before {
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------
+   Typografické detaily
+------------------------------------------------------------------ */
+.strike {
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.strike::after {
+  content: '';
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  top: 52%;
+  height: 0.12em;
+  min-height: 2px;
+  background: var(--color-coral);
+  transform: rotate(-4deg) scaleX(var(--strike, 1));
+  transform-origin: left center;
+  border-radius: 2px;
+  transition: transform 0.6s var(--ease-out-expo) 0.25s;
+}
+.marker {
+  background: linear-gradient(
+      100deg,
+      transparent 0.3em,
+      var(--color-marker) 0.3em,
+      var(--color-marker) calc(100% - 0.2em),
+      transparent calc(100% - 0.2em)
+    )
+    no-repeat 0 88% / var(--mark, 100%) 0.42em;
+  color: inherit;
+  padding-inline: 0.06em;
+  transition: background-size 0.9s var(--ease-out-expo) 0.35s;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.bg-ink .marker {
+  background-image: linear-gradient(
+    100deg,
+    transparent 0.3em,
+    var(--color-coral) 0.3em,
+    var(--color-coral) calc(100% - 0.2em),
+    transparent calc(100% - 0.2em)
+  );
+}
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.link:hover {
+  text-decoration-color: var(--color-coral);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.kicker::before {
+  content: '';
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 999px;
+  background: var(--color-coral);
+  box-shadow: 0 0 0 2px var(--color-ink);
+}
+.bg-ink .kicker::before {
+  box-shadow: 0 0 0 2px var(--color-paper);
+}
+
+/* Ciferník „5“ (nadpis hera, 404) */
+.hero-five {
+  display: inline-grid;
+  place-items: center;
+  min-width: 0.78em;
+  padding: 0 0.08em;
+  margin-inline: 0.02em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  background: var(--color-coral);
+  border: max(3px, 0.04em) solid var(--color-ink);
+  border-radius: 0.14em;
+  box-shadow: 0.06em 0.06em 0 var(--color-ink);
+  transform: rotate(-4deg) translateY(-0.02em);
+}
+
+.display-xl {
+  font-size: clamp(3.1rem, 13vw, 9rem);
+}
+.display-lg {
+  font-size: clamp(2.5rem, 9vw, 6.5rem);
+}
+.display-md {
+  font-size: clamp(2.1rem, 6.4vw, 4.5rem);
+}
+
+/* ------------------------------------------------------------------
+   Neo-brutalistické komponenty
+------------------------------------------------------------------ */
+.card {
+  background: var(--color-paper);
+  border: 3px solid var(--color-ink);
+  border-radius: 18px;
+  box-shadow: var(--shadow-hard);
+}
+
+.btn {
+  --btn-shadow: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 3.5rem;
+  padding: 0.85rem 1.5rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  box-shadow: var(--btn-shadow) var(--btn-shadow) 0 var(--color-ink);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: calc(var(--btn-shadow) + 1px) calc(var(--btn-shadow) + 1px) 0 var(--color-ink);
+}
+.btn:active,
+.btn.is-pressed {
+  transform: translate(var(--btn-shadow), var(--btn-shadow));
+  box-shadow: 0 0 0 var(--color-ink);
+}
+.btn-coral {
+  background: var(--color-coral);
+}
+.btn-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.btn-marker {
+  background: var(--color-marker);
+}
+.btn-sm {
+  --btn-shadow: 3px;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-width: 2.5px;
+}
+.btn-lg {
+  min-height: 4.25rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+}
+@media (min-width: 640px) {
+  .btn-lg {
+    padding-inline: 2rem;
+    font-size: 1.3rem;
+  }
+}
+.btn > span {
+  white-space: nowrap;
+}
+[data-magnetic] {
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.2s,
+    translate 0.3s var(--ease-out-expo);
+}
+.on-dark .btn,
+.btn.on-dark {
+  border-color: var(--color-paper);
+  box-shadow: var(--btn-shadow) var(--btn-shadow) 0 var(--color-paper);
+}
+.on-dark .btn:active {
+  box-shadow: 0 0 0 var(--color-paper);
+}
+
+/* Tikající dělítko sekcí (motiv časovače) */
+.ticks {
+  height: 22px;
+  background:
+    repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 12px) bottom / 100% 10px no-repeat,
+    repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 60px) bottom / 100% 22px no-repeat;
+}
+
+/* ------------------------------------------------------------------
+   Scroll reveal (jen když běží JS a uživatel nechce omezit pohyb)
+------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.8s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .js [data-reveal] .marker,
+  .js [data-reveal].marker {
+    --mark: 0%;
+  }
+  .js [data-reveal].is-in .marker,
+  .js [data-reveal].is-in.marker {
+    --mark: 100%;
+  }
+  .js [data-reveal] .strike {
+    --strike: 0;
+  }
+  .js [data-reveal].is-in .strike {
+    --strike: 1;
+  }
+}
+
+/* Hero: animace jen v CSS a jen posunem (bez skrývání) → nezdržuje LCP ani bez JS */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in {
+    animation: hero-in 0.9s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+@keyframes hero-in {
+  from {
+    transform: translateY(28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

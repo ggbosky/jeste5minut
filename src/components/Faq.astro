@@ -1,0 +1,92 @@
+---
+import { getContent } from '../content';
+import { rich } from '../lib/rich';
+
+const f = getContent().faq;
+---
+
+<section id="faq" class="relative py-20 sm:py-28 lg:py-32" aria-labelledby="faq-title">
+  <div class="mx-auto grid max-w-[90rem] gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-10">
+    <div class="lg:col-span-4">
+      <div class="lg:sticky lg:top-28">
+        <p class="kicker mb-5" data-reveal>{f.kicker}</p>
+        <h2 id="faq-title" class="display-md" data-reveal style="--i:1" set:html={rich(f.title)} />
+      </div>
+    </div>
+    <div class="grid gap-4 lg:col-span-8">
+      {
+        f.items.map((item, n) => (
+          <details class="faq card group" data-reveal style={`--i:${n % 3}`} name="faq">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:p-6">
+              <span class="font-display text-xl leading-tight font-bold tracking-tight sm:text-2xl" set:html={rich(item.q)} />
+              <span class="faq-icon" aria-hidden="true" />
+            </summary>
+            <div class="faq-a px-5 pb-6 sm:px-6">
+              <p class="max-w-[46rem] text-lg leading-relaxed text-ink/85" set:html={rich(item.a)} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    box-shadow: var(--shadow-hard-sm);
+    transition:
+      box-shadow 0.2s,
+      translate 0.2s;
+  }
+  .faq[open] {
+    box-shadow: var(--shadow-hard);
+    translate: -2px -2px;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 3px solid var(--color-ink);
+    border-radius: 999px;
+    background: var(--color-paper);
+    transition:
+      background-color 0.2s,
+      rotate 0.35s var(--ease-snap);
+  }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 12px;
+    height: 3px;
+    background: var(--color-ink);
+    translate: -50% -50%;
+    border-radius: 2px;
+  }
+  .faq-icon::after {
+    rotate: 90deg;
+  }
+  .faq[open] .faq-icon {
+    background: var(--color-marker);
+    rotate: 135deg;
+  }
+  .faq summary:hover .faq-icon {
+    background: var(--color-marker);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .faq[open] .faq-a {
+      animation: faq-in 0.35s var(--ease-out-expo);
+    }
+  }
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+</style>

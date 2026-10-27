@@ -1,0 +1,56 @@
+---
+import { getContent } from '../content';
+import { rich } from '../lib/rich';
+
+const h = getContent().how;
+---
+
+<section class="grain grain-dark relative bg-ink py-20 text-paper sm:py-28 lg:py-32" aria-labelledby="how-title">
+  <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
+    <p class="kicker mb-5" data-reveal>{h.kicker}</p>
+    <h2 id="how-title" class="display-md max-w-[18ch]" data-reveal style="--i:1" set:html={rich(h.title)} />
+
+    <ol class="mt-14 grid gap-5 lg:mt-20 lg:grid-cols-3 lg:gap-6">
+      {
+        h.steps.map((s, n) => (
+          <li class="step relative rounded-[18px] border-[3px] border-paper p-6 sm:p-8" data-reveal style={`--i:${n}`}>
+            <span class="step-n font-mono" aria-hidden="true">
+              {n + 1}
+            </span>
+            <h3 class="mt-6 text-[2rem] leading-none sm:text-4xl" set:html={rich(s.title)} />
+            <p class="mt-4 text-lg leading-relaxed text-paper/80" set:html={rich(s.text)} />
+            {n < h.steps.length - 1 && (
+              <svg class="step-arrow hidden lg:block" width="44" height="24" viewBox="0 0 44 24" fill="none" aria-hidden="true">
+                <path d="M2 12h36m0 0-9-9m9 9-9 9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .step-n {
+    display: inline-grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border-radius: 999px;
+  }
+  .step:last-child .step-n {
+    background: var(--color-mint);
+  }
+  .step-arrow {
+    position: absolute;
+    right: -2.1rem;
+    top: 2.6rem;
+    z-index: 1;
+    color: var(--color-coral);
+  }
+</style>

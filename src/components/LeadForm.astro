@@ -1,0 +1,166 @@
+---
+import { getContent } from '../content';
+import { rich } from '../lib/rich';
+
+interface Props {
+  /** unikátní id formuláře na stránce */
+  id: string;
+  /** odkud lead přišel – pošle se do e-mailové služby */
+  source: string;
+  dark?: boolean;
+}
+
+const { id, source, dark = false } = Astro.props;
+const l = getContent().lead;
+const field = dark
+  ? 'border-paper bg-ink text-paper placeholder:text-paper/55'
+  : 'border-ink bg-paper text-ink placeholder:text-ink/50';
+---
+
+<div class="lead-form" data-lead-form>
+  <form id={id} novalidate data-source={source} class="grid gap-4">
+    <input type="hidden" name="tag" value="" />
+    <div class="grid gap-4 sm:grid-cols-2">
+      <label class="grid gap-1.5">
+        <span class="text-sm font-semibold">{l.nameLabel}</span>
+        <input
+          type="text"
+          name="name"
+          autocomplete="given-name"
+          placeholder={l.namePlaceholder}
+          class:list={['h-14 rounded-xl border-[3px] px-4 text-base transition-shadow outline-none focus:shadow-[4px_4px_0_var(--color-coral)]', field]}
+        />
+      </label>
+      <label class="grid gap-1.5">
+        <span class="text-sm font-semibold">{l.emailLabel} <span aria-hidden="true">*</span></span>
+        <input
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          inputmode="email"
+          placeholder={l.emailPlaceholder}
+          aria-describedby={`${id}-email-err`}
+          class:list={['h-14 rounded-xl border-[3px] px-4 text-base transition-shadow outline-none focus:shadow-[4px_4px_0_var(--color-coral)]', field]}
+        />
+        <span id={`${id}-email-err`} class="field-err hidden text-sm font-semibold" data-err-for="email">{l.invalidEmail}</span>
+      </label>
+    </div>
+
+    <label class="consent flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-snug">
+      <input type="checkbox" name="consent" class="peer sr-only" aria-describedby={`${id}-consent-err`} />
+      <span class:list={['consent-box mt-0.5 grid size-6 shrink-0 place-items-center rounded-md border-[3px]', dark ? 'border-paper' : 'border-ink']} aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="m4 12.5 5 5L20 6.5" stroke="var(--color-ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </span>
+      <span set:html={rich(l.consent)} />
+    </label>
+    <span id={`${id}-consent-err`} class="field-err -mt-2 hidden text-sm font-semibold" data-err-for="consent">{l.consentRequired}</span>
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <button type="submit" class:list={['btn btn-coral', dark && 'on-dark']} data-label={l.submit} data-sending={l.sending}>
+        {l.submit}
+      </button>
+      <p class="form-error hidden text-sm font-semibold" role="alert">{l.error}</p>
+    </div>
+  </form>
+
+  <div class="form-success hidden" tabindex="-1">
+    <div class="flex items-start gap-4">
+      <svg class="shrink-0" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10.5" fill="var(--color-mint)" stroke="var(--color-ink)" stroke-width="2"></circle>
+        <path d="m7 12.5 3.2 3.2L17 8.8" fill="none" stroke="var(--color-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <div>
+        <p class="font-display text-2xl font-bold tracking-tight">{l.successTitle}</p>
+        <p class="mt-1 leading-relaxed opacity-90">{l.successText}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .consent input:checked + .consent-box {
+    background: var(--color-mint);
+  }
+  .consent-box svg {
+    opacity: 0;
+    transform: scale(0.4);
+    transition:
+      opacity 0.15s,
+      transform 0.25s var(--ease-snap);
+  }
+  .consent input:checked + .consent-box svg {
+    opacity: 1;
+    transform: none;
+  }
+  .consent input:focus-visible + .consent-box {
+    outline: 3px solid var(--color-coral);
+    outline-offset: 2px;
+  }
+  .field-err,
+  .form-error {
+    color: inherit;
+  }
+  .field-err::before,
+  .form-error::before {
+    content: '↳ ';
+    color: var(--color-coral);
+  }
+  [aria-invalid='true'] {
+    border-color: var(--color-coral) !important;
+  }
+</style>
+
+<script>
+  import { isValidEmail, subscribe } from '../lib/subscribe';
+  import { track } from '../lib/analytics';
+
+  document.querySelectorAll<HTMLElement>('[data-lead-form]').forEach((wrap) => {
+    const form = wrap.querySelector('form')!;
+    const success = wrap.querySelector<HTMLElement>('.form-success')!;
+    const errorBox = wrap.querySelector<HTMLElement>('.form-error')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const email = form.elements.namedItem('email') as HTMLInputElement;
+    const consent = form.elements.namedItem('consent') as HTMLInputElement;
+
+    const setErr = (name: 'email' | 'consent', on: boolean) => {
+      form.querySelector(`[data-err-for=${name}]`)!.classList.toggle('hidden', !on);
+      (name === 'email' ? email : consent).setAttribute('aria-invalid', String(on));
+    };
+    email.addEventListener('input', () => email.getAttribute('aria-invalid') === 'true' && isValidEmail(email.value) && setErr('email', false));
+    consent.addEventListener('change', () => consent.checked && setErr('consent', false));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.add('hidden');
+      const okEmail = isValidEmail(email.value);
+      setErr('email', !okEmail);
+      setErr('consent', !consent.checked);
+      if (!okEmail) return email.focus();
+      if (!consent.checked) return consent.focus();
+
+      const data = new FormData(form);
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending!;
+      try {
+        await subscribe({
+          email: email.value,
+          name: String(data.get('name') || ''),
+          consent: consent.checked,
+          source: form.dataset.source || 'web',
+          tag: String(data.get('tag') || '') || undefined,
+        });
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        success.focus();
+        track('lead', { source: form.dataset.source || 'web' });
+      } catch (err) {
+        console.error(err);
+        errorBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btn.dataset.label!;
+      }
+    });
+  });
+</script>

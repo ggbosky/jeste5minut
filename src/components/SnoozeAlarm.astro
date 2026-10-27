@@ -1,0 +1,193 @@
+---
+import { getContent } from '../content';
+
+const a = getContent().hero.alarm;
+---
+
+<div
+  class="snooze hero-in relative mx-auto w-full max-w-[30rem] lg:ml-auto"
+  style="--i:3"
+  data-time={a.time}
+  data-reactions={JSON.stringify(a.reactions)}
+>
+  <!-- ručně psaná poznámka se šipkou -->
+  <p class="snooze-hint" aria-hidden="true">
+    <span>{a.hint}</span>
+    <svg width="70" height="58" viewBox="0 0 70 58" fill="none">
+      <path d="M6 5c18 2 40 10 48 38" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"></path>
+      <path d="M44 36l10 9 6-12" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </p>
+
+  <div class="snooze-card grain-dark grain bg-ink text-paper on-dark" data-snooze-card>
+    <div class="flex items-center justify-between font-mono text-[0.8125rem] tracking-wide uppercase opacity-80">
+      <span class="flex items-center gap-2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="snooze-bell">
+          <path d="M12 21a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm7-5V11a7 7 0 1 0-14 0v5l-2 2v1h18v-1l-2-2Z" fill="currentColor"></path>
+        </svg>
+        Budík
+      </span>
+      <span>{a.day}</span>
+    </div>
+
+    <p class="snooze-time font-display" data-snooze-time aria-hidden="true">{a.time}</p>
+    <p class="snooze-label font-display">{a.label}</p>
+
+    <div class="mt-7 grid gap-3 sm:mt-8">
+      <button type="button" class="snooze-btn btn btn-coral" data-snooze-btn aria-describedby="snooze-status">
+        <span data-snooze-text>{a.snooze}</span>
+      </button>
+      <a href="#cena" class="btn btn-sm justify-self-center !bg-transparent !text-paper" data-track="alarm_stop">{a.stop}</a>
+    </div>
+
+    <p class="mt-5 flex items-center justify-center gap-2 font-mono text-sm opacity-80" aria-hidden="true">
+      {a.counter}: <span data-snooze-count>0</span>×
+    </p>
+    <p id="snooze-status" class="sr-only" aria-live="polite" data-snooze-live></p>
+  </div>
+</div>
+
+<style>
+  .snooze-card {
+    position: relative;
+    border: 3px solid var(--color-ink);
+    border-radius: 2rem;
+    padding: 1.5rem 1.25rem 1.25rem;
+    box-shadow: 12px 12px 0 var(--color-marker), 12px 12px 0 3px var(--color-ink);
+    rotate: 1.5deg;
+    transition: rotate 0.5s var(--ease-snap);
+  }
+  @media (min-width: 640px) {
+    .snooze-card {
+      padding: 1.75rem 2rem 1.5rem;
+    }
+  }
+  .snooze-time {
+    font-size: clamp(5rem, 26vw, 8.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-align: center;
+    margin-top: 1.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .snooze-label {
+    text-align: center;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    opacity: 0.9;
+  }
+  .snooze-btn {
+    width: 100%;
+    min-height: 5.25rem;
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    --btn-shadow: 6px;
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease,
+      background-color 0.25s,
+      translate 0.45s var(--ease-snap),
+      rotate 0.45s var(--ease-snap);
+  }
+  .snooze-btn.is-done {
+    background: var(--color-mint);
+  }
+  .snooze-hint {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    right: calc(100% + 0.75rem);
+    top: 9rem;
+    width: 11rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.35;
+    rotate: -6deg;
+  }
+  .snooze-hint svg {
+    margin-left: auto;
+    margin-top: 0.25rem;
+  }
+  @media (min-width: 1280px) {
+    .snooze-hint {
+      display: block;
+    }
+  }
+  .snooze.is-ringing .snooze-bell {
+    animation: var(--animate-wiggle);
+  }
+  .snooze.is-ringing .snooze-card {
+    animation: var(--animate-wiggle);
+  }
+  .snooze-time.is-flip {
+    animation: flip 0.35s var(--ease-snap);
+  }
+  @keyframes flip {
+    from {
+      transform: translateY(-12%) scaleY(0.85);
+      opacity: 0.3;
+    }
+  }
+</style>
+
+<script>
+  import { track } from '../lib/analytics';
+  import { scrollToId } from '../lib/scroll';
+
+  const root = document.querySelector<HTMLElement>('.snooze');
+  const btn = root?.querySelector<HTMLButtonElement>('[data-snooze-btn]');
+
+  if (root && btn) {
+    const text = root.querySelector<HTMLElement>('[data-snooze-text]')!;
+    const time = root.querySelector<HTMLElement>('[data-snooze-time]')!;
+    const count = root.querySelector<HTMLElement>('[data-snooze-count]')!;
+    const live = root.querySelector<HTMLElement>('[data-snooze-live]')!;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const reactions: string[] = JSON.parse(root.dataset.reactions || '[]');
+    const [hh, mm] = (root.dataset.time || '23:55').split(':').map(Number);
+    let minutes = hh * 60 + mm;
+    let clicks = 0;
+    const last = reactions.length;
+
+    const goToOffer = () => scrollToId('cena');
+
+    const ring = () => {
+      root.classList.remove('is-ringing');
+      void root.offsetWidth; // restart animace
+      root.classList.add('is-ringing');
+    };
+
+    btn.addEventListener('click', () => {
+      if (clicks >= last) return goToOffer();
+      clicks++;
+      minutes = (minutes + 5) % (24 * 60);
+      time.textContent = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+      time.classList.remove('is-flip');
+      void time.offsetWidth;
+      time.classList.add('is-flip');
+      count.textContent = String(clicks);
+
+      const msg = reactions[clicks - 1];
+      text.textContent = msg;
+      live.textContent = msg;
+      navigator.vibrate?.(clicks === last ? [30, 60, 30] : 25);
+
+      if (clicks < last) {
+        ring();
+        if (!calm) {
+          // tlačítko uhne – pokaždé jinam, ale pořád zůstane klikatelné
+          const dir = clicks % 2 ? 1 : -1;
+          btn.style.translate = `${dir * (18 + Math.random() * 26)}px ${-6 - Math.random() * 10}px`;
+          btn.style.rotate = `${dir * (3 + Math.random() * 4)}deg`;
+        }
+      } else {
+        btn.style.translate = '';
+        btn.style.rotate = '';
+        btn.classList.add('is-done');
+        track('snooze_complete');
+        setTimeout(goToOffer, calm ? 300 : 900);
+      }
+    });
+  }
+</script>

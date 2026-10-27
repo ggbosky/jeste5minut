@@ -1,0 +1,142 @@
+---
+import '../styles/global.css';
+import Fonts from '../components/Fonts.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { site, pricing } from '../../site.config';
+import { getContent } from '../content';
+import { plain } from '../lib/rich';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** schema.org Product + FAQ (jen na hlavní stránce) */
+  productSchema?: boolean;
+  noindex?: boolean;
+}
+
+const t = getContent();
+const { title = t.meta.title, description = t.meta.description, productSchema = false, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href.replace(/\/$/, '') || site.url;
+const ogImage = new URL('/og.png', site.url).href;
+
+const offer = (price: number, currency: string, url: string) => ({
+  '@type': 'Offer',
+  price: price.toFixed(2),
+  priceCurrency: currency,
+  availability: 'https://schema.org/InStock',
+  url: url.includes('{{') ? site.url : url,
+});
+
+const schema = productSchema
+  ? [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: site.name,
+        description: t.meta.productDescription,
+        image: ogImage,
+        brand: { '@type': 'Brand', name: site.name },
+        category: 'E-book',
+        offers: [
+          offer(pricing.basic.launch ?? pricing.basic.regular, 'CZK', pricing.basic.checkoutUrl),
+          offer(pricing.basic.eur, 'EUR', pricing.basic.checkoutUrl),
+          offer(pricing.bundle.launch ?? pricing.bundle.regular, 'CZK', pricing.bundle.checkoutUrl),
+          offer(pricing.bundle.eur, 'EUR', pricing.bundle.checkoutUrl),
+        ],
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: t.faq.items.map((i) => ({
+          '@type': 'Question',
+          name: plain(i.q),
+          acceptedAnswer: { '@type': 'Answer', text: plain(i.a) },
+        })),
+      },
+    ]
+  : null;
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#14213D" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <Fonts />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body class="bg-paper text-ink">
+    <a href="#main" class="sr-only-focusable btn btn-sm btn-marker fixed top-3 left-3 z-[100]">{t.nav.skip}</a>
+    <slot />
+    <CookieConsent />
+
+    <script>
+      // Staggered reveal při scrollu
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+
+      // Magnetická CTA tlačítka (jen myš, jen když pohyb nevadí)
+      const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (fine && !calm) {
+        document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+          const strength = Number(el.dataset.magnetic) || 0.3;
+          el.addEventListener('pointermove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = (e.clientX - r.left - r.width / 2) * strength;
+            const y = (e.clientY - r.top - r.height / 2) * strength;
+            el.style.translate = `${x}px ${y}px`;
+          });
+          el.addEventListener('pointerleave', () => {
+            el.style.translate = '';
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

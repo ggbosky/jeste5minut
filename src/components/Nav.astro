@@ -1,0 +1,67 @@
+---
+import Logo from './Logo.astro';
+import { pricing } from '../../site.config';
+import { getContent } from '../content';
+import { czk, currentPrice } from '../lib/format';
+
+const t = getContent();
+const price = czk(currentPrice(pricing.basic));
+---
+
+<header id="nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300">
+  <nav
+    class="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6 lg:px-10"
+    aria-label={t.nav.ariaLabel}
+  >
+    <a href="#top" class="text-[1.35rem] sm:text-2xl" aria-label={t.nav.logoLabel}>
+      <Logo />
+    </a>
+    <ul class="hidden items-center gap-8 font-medium md:flex">
+      {
+        t.nav.links.map((l) => (
+          <li>
+            <a href={l.href} class="nav-link relative py-2">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="#cena" class="btn btn-sm btn-coral whitespace-nowrap" data-magnetic="0.25">
+      {t.nav.cta}
+      <span class="font-mono text-[0.9em]">({price})</span>
+    </a>
+  </nav>
+</header>
+
+<style>
+  #nav.is-stuck {
+    background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+    backdrop-filter: saturate(1.4) blur(8px);
+    -webkit-backdrop-filter: saturate(1.4) blur(8px);
+    box-shadow: 0 3px 0 var(--color-ink);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.15rem;
+    height: 0.4em;
+    background: var(--color-marker);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav')!;
+  const onScroll = () => nav.classList.toggle('is-stuck', scrollY > 12);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

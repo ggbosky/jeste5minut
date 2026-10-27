@@ -1,0 +1,144 @@
+---
+import { pricing } from '../../site.config';
+import { getContent } from '../content';
+import { czk, eur } from '../lib/format';
+import { rich } from '../lib/rich';
+
+const p = getContent().pricing;
+const plans = [
+  { key: 'basic' as const, cfg: pricing.basic, featured: false },
+  { key: 'bundle' as const, cfg: pricing.bundle, featured: true },
+];
+---
+
+<section id="cena" class="grain relative bg-paper-deep py-20 sm:py-28 lg:py-32" aria-labelledby="price-title">
+  <div class="mx-auto grid max-w-[90rem] gap-12 px-4 sm:px-6 lg:px-10 xl:grid-cols-12 xl:gap-10">
+    <div class="max-w-[40rem] xl:col-span-4 xl:pt-6">
+      <p class="kicker mb-5" data-reveal>{p.kicker}</p>
+      <h2 id="price-title" class="display-md" data-reveal style="--i:1" set:html={rich(p.title)} />
+      <p class="mt-5 text-lg leading-relaxed" data-reveal style="--i:2" set:html={rich(p.intro)} />
+    </div>
+
+    <div class="xl:col-span-8">
+    <div class="grid gap-8 md:grid-cols-2 md:items-stretch lg:gap-8">
+      {
+        plans.map(({ key, cfg, featured }, n) => {
+          const plan = p.plans[key];
+          const now = cfg.launch ?? cfg.regular;
+          return (
+            <article
+              class:list={['price-card relative flex flex-col rounded-[22px] border-[3px] border-ink p-6 sm:p-8', featured ? 'is-featured bg-ink text-paper on-dark' : 'bg-paper']}
+              data-reveal
+              style={`--i:${n}`}
+              aria-labelledby={`plan-${key}`}
+            >
+              {featured && <span class="price-badge">{p.popular}</span>}
+              {cfg.launch && <span class="price-badge price-badge--launch">{p.launchBadge}</span>}
+
+              <h3 id={`plan-${key}`} class="text-[2rem] leading-none sm:text-4xl">
+                {plan.name}
+              </h3>
+              <p class:list={['mt-3 leading-relaxed', featured ? 'text-paper/80' : 'text-ink/80']} set:html={rich(plan.text)} />
+
+              <div class="mt-7 flex flex-wrap items-end gap-x-4 gap-y-1">
+                <p class="font-display text-[3.75rem] leading-[0.85] font-bold tracking-[-0.04em] sm:text-7xl">{czk(now)}</p>
+                {cfg.launch && (
+                  <p class="pb-1.5 font-mono text-lg">
+                    <span class="sr-only">{p.regularLabel}: </span>
+                    <s class="strike">{czk(cfg.regular)}</s>
+                  </p>
+                )}
+              </div>
+              <p class:list={['mt-3 font-mono text-sm', featured ? 'text-paper/80' : 'text-ink/75']}>
+                {p.eurLabel}: <strong class="font-bold">{eur(cfg.eur)}</strong>
+              </p>
+
+              <ul class="mt-7 grid gap-3">
+                {plan.features.map((f) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="mt-0.5 shrink-0" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10.5" fill="var(--color-mint)" stroke={featured ? 'var(--color-paper)' : 'var(--color-ink)'} stroke-width="2" />
+                      <path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="var(--color-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span set:html={rich(f)} />
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={cfg.checkoutUrl}
+                class:list={['btn btn-lg w-full', featured ? 'btn-coral' : 'btn-ink']}
+                data-magnetic="0.15"
+                data-track={`checkout_${key}`}
+                rel="nofollow"
+              >
+                {plan.cta}
+              </a>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <p class="mt-10 flex max-w-[40rem] items-start gap-3 text-[0.9375rem] leading-snug text-ink/80" data-reveal>
+      <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2.4"></rect>
+        <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="2.4"></path>
+      </svg>
+      <span set:html={rich(p.paymentNote)} />
+    </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .price-card {
+    box-shadow: var(--shadow-hard);
+  }
+  .price-card.is-featured {
+    box-shadow: 10px 10px 0 var(--color-coral), 10px 10px 0 3px var(--color-ink);
+  }
+  .price-card .btn {
+    margin-top: 2.25rem;
+  }
+  .price-badge {
+    position: absolute;
+    top: -1.05rem;
+    right: 1.5rem;
+    padding: 0.35rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+    background: var(--color-marker);
+    border: 3px solid var(--color-ink);
+    border-radius: 999px;
+    rotate: 3deg;
+  }
+  .price-badge--launch {
+    background: var(--color-mint);
+    rotate: -3deg;
+  }
+  @media (min-width: 768px) {
+    .price-card.is-featured {
+      margin-top: -1.5rem;
+      margin-bottom: -1.5rem;
+      padding-top: 2.75rem;
+    }
+    .price-card .btn {
+      margin-top: auto;
+    }
+    .price-card ul {
+      margin-bottom: 2.25rem;
+    }
+  }
+</style>
+
+<script>
+  import { track } from '../lib/analytics';
+  document.querySelectorAll<HTMLAnchorElement>('[data-track^=checkout_]').forEach((a) =>
+    a.addEventListener('click', () => track('checkout_click', { plan: a.dataset.track!.replace('checkout_', '') })),
+  );
+</script>

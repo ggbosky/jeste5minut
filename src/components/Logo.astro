@@ -1,0 +1,19 @@
+---
+interface Props {
+  class?: string;
+  dark?: boolean;
+}
+const { class: cls = '', dark = false } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-[0.3em] font-display font-bold tracking-tight leading-none', cls]}>
+  <span>ještě</span>
+  <span
+    class:list={[
+      'inline-grid place-items-center rounded-[0.35em] border-[2.5px] bg-coral px-[0.32em] py-[0.08em] font-mono text-[0.95em] text-ink',
+      dark ? 'border-paper' : 'border-ink',
+    ]}
+    >5</span
+  >
+  <span>minut</span>
+</span>
