@@ -13,8 +13,8 @@ interface Props {
 const { id, source, dark = false } = Astro.props;
 const l = getContent().lead;
 const field = dark
-  ? 'border-paper bg-ink text-paper placeholder:text-paper/55'
-  : 'border-ink bg-paper text-ink placeholder:text-ink/50';
+  ? 'border-paper/40 bg-ink text-paper placeholder:text-paper/55'
+  : 'border-[var(--color-line)] bg-white/70 text-ink placeholder:text-ink/45';
 ---
 
 <div class="lead-form" data-lead-form>
@@ -28,7 +28,7 @@ const field = dark
           name="name"
           autocomplete="given-name"
           placeholder={l.namePlaceholder}
-          class:list={['h-14 rounded-xl border-[3px] px-4 text-base transition-shadow outline-none focus:shadow-[4px_4px_0_var(--color-coral)]', field]}
+          class:list={['h-13 rounded-xl border px-4 text-base transition-colors outline-none focus:border-coral focus:ring-2 focus:ring-coral/30', field]}
         />
       </label>
       <label class="grid gap-1.5">
@@ -41,7 +41,7 @@ const field = dark
           inputmode="email"
           placeholder={l.emailPlaceholder}
           aria-describedby={`${id}-email-err`}
-          class:list={['h-14 rounded-xl border-[3px] px-4 text-base transition-shadow outline-none focus:shadow-[4px_4px_0_var(--color-coral)]', field]}
+          class:list={['h-13 rounded-xl border px-4 text-base transition-colors outline-none focus:border-coral focus:ring-2 focus:ring-coral/30', field]}
         />
         <span id={`${id}-email-err`} class="field-err hidden text-sm font-semibold" data-err-for="email">{l.invalidEmail}</span>
       </label>
@@ -49,8 +49,8 @@ const field = dark
 
     <label class="consent flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-snug">
       <input type="checkbox" name="consent" class="peer sr-only" aria-describedby={`${id}-consent-err`} />
-      <span class:list={['consent-box mt-0.5 grid size-6 shrink-0 place-items-center rounded-md border-[3px]', dark ? 'border-paper' : 'border-ink']} aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="m4 12.5 5 5L20 6.5" stroke="var(--color-ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span class:list={['consent-box mt-0.5 grid size-5 shrink-0 place-items-center rounded-[5px] border-[1.5px]', dark ? 'border-paper' : 'border-ink']} aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m4 12.5 5 5L20 6.5" stroke="var(--color-paper)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </span>
       <span set:html={rich(l.consent)} />
     </label>
@@ -67,11 +67,11 @@ const field = dark
   <div class="form-success hidden" tabindex="-1">
     <div class="flex items-start gap-4">
       <svg class="shrink-0" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="10.5" fill="var(--color-mint)" stroke="var(--color-ink)" stroke-width="2"></circle>
+        <circle cx="12" cy="12" r="11" fill="var(--color-mint)"></circle>
         <path d="m7 12.5 3.2 3.2L17 8.8" fill="none" stroke="var(--color-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
       <div>
-        <p class="font-display text-2xl font-bold tracking-tight">{l.successTitle}</p>
+        <p class="font-display text-3xl leading-none font-extrabold [font-stretch:72%]">{l.successTitle}</p>
         <p class="mt-1 leading-relaxed opacity-90">{l.successText}</p>
       </div>
     </div>
@@ -80,14 +80,14 @@ const field = dark
 
 <style>
   .consent input:checked + .consent-box {
-    background: var(--color-mint);
+    background: var(--color-ink);
   }
   .consent-box svg {
     opacity: 0;
     transform: scale(0.4);
     transition:
       opacity 0.15s,
-      transform 0.25s var(--ease-snap);
+      transform 0.25s var(--ease-out-expo);
   }
   .consent input:checked + .consent-box svg {
     opacity: 1;

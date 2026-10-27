@@ -3,17 +3,17 @@ interface Props {
   class?: string;
   dark?: boolean;
 }
-const { class: cls = '', dark = false } = Astro.props;
+const { class: cls = '' } = Astro.props;
 ---
 
-<span class:list={['inline-flex items-center gap-[0.3em] font-display font-bold tracking-tight leading-none', cls]}>
-  <span>ještě</span>
-  <span
-    class:list={[
-      'inline-grid place-items-center rounded-[0.35em] border-[2.5px] bg-coral px-[0.32em] py-[0.08em] font-mono text-[0.95em] text-ink',
-      dark ? 'border-paper' : 'border-ink',
-    ]}
-    >5</span
-  >
-  <span>minut</span>
+<span class:list={['logo inline-flex items-baseline gap-[0.22em] font-display leading-none', cls]}>
+  <span>ještě</span><span class="text-coral">5</span><span>minut</span>
 </span>
+
+<style>
+  .logo {
+    font-weight: 800;
+    font-stretch: 72%;
+    letter-spacing: -0.005em;
+  }
+</style>

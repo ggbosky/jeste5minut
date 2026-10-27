@@ -4,18 +4,15 @@ import { getContent } from '../content';
 const { marquee: quotes, marqueeLabel } = getContent();
 ---
 
-<section class="marquee relative z-10 -mx-4 -rotate-[1.5deg] overflow-clip border-y-[3px] border-ink bg-marker py-4 sm:py-5" aria-label={marqueeLabel}>
+<section class="marquee relative overflow-clip bg-ink py-5 text-paper sm:py-6" aria-label={marqueeLabel}>
   <div class="flex w-max animate-marquee motion-reduce:animate-none">
     {
       [0, 1].map((copy) => (
         <ul class="flex shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
           {quotes.map((q) => (
-            <li class="flex items-center font-display text-xl font-bold tracking-tight whitespace-nowrap sm:text-2xl">
-              <span class="px-6 sm:px-8">{q}</span>
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2.6" />
-                <path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
-              </svg>
+            <li class="flex items-center text-lg whitespace-nowrap text-paper/85 sm:text-xl">
+              <span class="px-6 sm:px-9">{q}</span>
+              <span class="size-1.5 rounded-full bg-coral" aria-hidden="true" />
             </li>
           ))}
         </ul>

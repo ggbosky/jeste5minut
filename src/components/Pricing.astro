@@ -27,13 +27,17 @@ const plans = [
           const now = cfg.launch ?? cfg.regular;
           return (
             <article
-              class:list={['price-card relative flex flex-col rounded-[22px] border-[3px] border-ink p-6 sm:p-8', featured ? 'is-featured bg-ink text-paper on-dark' : 'bg-paper']}
+              class:list={['price-card relative flex flex-col rounded-[24px] p-6 sm:p-8', featured ? 'is-featured bg-ink text-paper on-dark' : 'bg-[var(--color-card)] border border-[var(--color-line)]']}
               data-reveal
               style={`--i:${n}`}
               aria-labelledby={`plan-${key}`}
             >
-              {featured && <span class="price-badge">{p.popular}</span>}
-              {cfg.launch && <span class="price-badge price-badge--launch">{p.launchBadge}</span>}
+              {(featured || cfg.launch) && (
+                <div class="mb-4 flex gap-2">
+                  {featured && <span class="price-badge">{p.popular}</span>}
+                  {cfg.launch && <span class="price-badge price-badge--launch">{p.launchBadge}</span>}
+                </div>
+              )}
 
               <h3 id={`plan-${key}`} class="text-[2rem] leading-none sm:text-4xl">
                 {plan.name}
@@ -41,7 +45,7 @@ const plans = [
               <p class:list={['mt-3 leading-relaxed', featured ? 'text-paper/80' : 'text-ink/80']} set:html={rich(plan.text)} />
 
               <div class="mt-7 flex flex-wrap items-end gap-x-4 gap-y-1">
-                <p class="font-display text-[3.75rem] leading-[0.85] font-bold tracking-[-0.04em] sm:text-7xl">{czk(now)}</p>
+                <p class="font-display text-[4.5rem] leading-[0.85] font-extrabold [font-stretch:72%] sm:text-[5.5rem]">{czk(now)}</p>
                 {cfg.launch && (
                   <p class="pb-1.5 font-mono text-lg">
                     <span class="sr-only">{p.regularLabel}: </span>
@@ -57,7 +61,7 @@ const plans = [
                 {plan.features.map((f) => (
                   <li class="flex items-start gap-3">
                     <svg class="mt-0.5 shrink-0" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle cx="12" cy="12" r="10.5" fill="var(--color-mint)" stroke={featured ? 'var(--color-paper)' : 'var(--color-ink)'} stroke-width="2" />
+                      <circle cx="12" cy="12" r="11" fill="var(--color-mint)" />
                       <path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="var(--color-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span set:html={rich(f)} />
@@ -92,41 +96,26 @@ const plans = [
 </section>
 
 <style>
-  .price-card {
-    box-shadow: var(--shadow-hard);
-  }
   .price-card.is-featured {
-    box-shadow: 10px 10px 0 var(--color-coral), 10px 10px 0 3px var(--color-ink);
+    box-shadow: var(--shadow-lift);
   }
   .price-card .btn {
     margin-top: 2.25rem;
   }
   .price-badge {
-    position: absolute;
-    top: -1.05rem;
-    right: 1.5rem;
-    padding: 0.35rem 0.85rem;
+    padding: 0.3rem 0.65rem;
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    font-weight: 700;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: var(--color-ink);
     background: var(--color-marker);
-    border: 3px solid var(--color-ink);
-    border-radius: 999px;
-    rotate: 3deg;
+    border-radius: 6px;
   }
   .price-badge--launch {
     background: var(--color-mint);
-    rotate: -3deg;
   }
   @media (min-width: 768px) {
-    .price-card.is-featured {
-      margin-top: -1.5rem;
-      margin-bottom: -1.5rem;
-      padding-top: 2.75rem;
-    }
     .price-card .btn {
       margin-top: auto;
     }

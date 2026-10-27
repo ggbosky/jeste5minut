@@ -49,9 +49,8 @@ const price = czk(currentPrice(pricing.basic));
     padding: 0.45rem 0.45rem 0.45rem 1rem;
     background: var(--color-ink);
     color: var(--color-paper);
-    border: 3px solid var(--color-ink);
     border-radius: 999px;
-    box-shadow: 4px 4px 0 var(--color-coral);
+    box-shadow: var(--shadow-lift);
   }
   .mini-clock {
     display: flex;
@@ -76,10 +75,9 @@ const price = czk(currentPrice(pricing.basic));
     border-radius: 999px;
     background: var(--color-coral);
     color: var(--color-ink);
-    font-family: var(--font-display);
-    font-weight: 700;
+    font-family: var(--font-sans);
+    font-weight: 600;
     white-space: nowrap;
-    border: 2.5px solid var(--color-paper);
   }
   @media (max-width: 359px) {
     .mini-label {
@@ -99,7 +97,7 @@ const price = czk(currentPrice(pricing.basic));
       padding: 0.6rem 1.1rem;
     }
     .mini-inner:hover {
-      box-shadow: 6px 6px 0 var(--color-coral);
+      background: var(--color-ink-soft);
     }
   }
 </style>

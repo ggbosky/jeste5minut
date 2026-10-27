@@ -14,9 +14,9 @@ const t = getContent();
 ---
 
 <Base title={`${page.title} – Ještě 5 minut`} description={page.description}>
-  <header class="border-b-[3px] border-ink">
+  <header class="border-b border-[var(--color-line)]">
     <div class="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-4 sm:h-[4.5rem] sm:px-6 lg:px-10">
-      <a href="/" class="text-[1.35rem] sm:text-2xl" aria-label={t.nav.logoLabel}><Logo /></a>
+      <a href="/" class="text-[1.65rem] sm:text-[1.9rem]" aria-label={t.nav.logoLabel}><Logo /></a>
       <a href="/" class="link text-sm font-semibold">{t.legal.back}</a>
     </div>
   </header>
@@ -25,7 +25,7 @@ const t = getContent();
       <h1 class="display-md">{page.title}</h1>
       <p class="mt-4 font-mono text-sm text-ink/70">{t.legal.updatedLabel}: {page.updated}</p>
       <!-- TODO: právní text je šablona – doplň v src/content/cs.ts → legal -->
-      <p class="mt-8 rounded-xl border-[3px] border-ink bg-marker px-4 py-3 text-[0.9375rem] font-semibold">{t.legal.placeholderNote}</p>
+      <p class="mt-8 rounded-xl bg-marker/60 px-4 py-3 text-[0.9375rem] font-medium">{t.legal.placeholderNote}</p>
       {
         page.sections.map((s) => (
           <section class="mt-10">

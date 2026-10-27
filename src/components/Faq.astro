@@ -13,15 +13,15 @@ const f = getContent().faq;
         <h2 id="faq-title" class="display-md" data-reveal style="--i:1" set:html={rich(f.title)} />
       </div>
     </div>
-    <div class="grid gap-4 lg:col-span-8">
+    <div class="border-t border-[var(--color-line)] lg:col-span-8">
       {
         f.items.map((item, n) => (
-          <details class="faq card group" data-reveal style={`--i:${n % 3}`} name="faq">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 sm:p-6">
-              <span class="font-display text-xl leading-tight font-bold tracking-tight sm:text-2xl" set:html={rich(item.q)} />
+          <details class="faq group" data-reveal style={`--i:${n % 3}`} name="faq">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 sm:py-6">
+              <span class="text-lg leading-snug font-semibold sm:text-xl" set:html={rich(item.q)} />
               <span class="faq-icon" aria-hidden="true" />
             </summary>
-            <div class="faq-a px-5 pb-6 sm:px-6">
+            <div class="faq-a pb-6">
               <p class="max-w-[46rem] text-lg leading-relaxed text-ink/85" set:html={rich(item.a)} />
             </div>
           </details>
@@ -33,14 +33,7 @@ const f = getContent().faq;
 
 <style>
   .faq {
-    box-shadow: var(--shadow-hard-sm);
-    transition:
-      box-shadow 0.2s,
-      translate 0.2s;
-  }
-  .faq[open] {
-    box-shadow: var(--shadow-hard);
-    translate: -2px -2px;
+    border-bottom: 1px solid var(--color-line);
   }
   .faq summary::-webkit-details-marker {
     display: none;
@@ -48,35 +41,34 @@ const f = getContent().faq;
   .faq-icon {
     position: relative;
     flex-shrink: 0;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 3px solid var(--color-ink);
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--color-line);
     border-radius: 999px;
-    background: var(--color-paper);
     transition:
       background-color 0.2s,
-      rotate 0.35s var(--ease-snap);
+      rotate 0.35s var(--ease-out-expo);
   }
   .faq-icon::before,
   .faq-icon::after {
     content: '';
     position: absolute;
     inset: 50% auto auto 50%;
-    width: 12px;
-    height: 3px;
+    width: 11px;
+    height: 1.5px;
     background: var(--color-ink);
     translate: -50% -50%;
-    border-radius: 2px;
   }
   .faq-icon::after {
     rotate: 90deg;
   }
   .faq[open] .faq-icon {
-    background: var(--color-marker);
-    rotate: 135deg;
+    background: var(--color-coral);
+    border-color: var(--color-coral);
+    rotate: 45deg;
   }
   .faq summary:hover .faq-icon {
-    background: var(--color-marker);
+    border-color: var(--color-ink);
   }
   @media (prefers-reduced-motion: no-preference) {
     .faq[open] .faq-a {
@@ -86,7 +78,7 @@ const f = getContent().faq;
   @keyframes faq-in {
     from {
       opacity: 0;
-      transform: translateY(-8px);
+      transform: translateY(-6px);
     }
   }
 </style>

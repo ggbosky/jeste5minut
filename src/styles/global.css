@@ -12,21 +12,22 @@
   --color-mint: #2ec4b6;
   --color-marker: #ffd23f;
 
-  --font-display: 'Space Grotesk', 'Arial Narrow', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --color-line: color-mix(in srgb, #14213d 14%, transparent);
+  --color-card: #fffdf8;
 
-  --shadow-hard-sm: 3px 3px 0 var(--color-ink);
-  --shadow-hard: 6px 6px 0 var(--color-ink);
-  --shadow-hard-lg: 10px 10px 0 var(--color-ink);
-  --shadow-hard-paper: 6px 6px 0 var(--color-paper);
+  /* Archivo: úzký tučný řez na nadpisy, normální šířka na text */
+  --font-display: 'Archivo Display', 'Arial Narrow', 'Roboto Condensed', system-ui, sans-serif;
+  --font-sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --shadow-soft: 0 1px 2px rgb(20 33 61 / 0.06), 0 8px 24px -12px rgb(20 33 61 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(20 33 61 / 0.06), 0 24px 48px -20px rgb(20 33 61 / 0.35);
 
   --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.2);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --animate-marquee: marquee 38s linear infinite;
   --animate-blink: blink 1s steps(1) infinite;
-  --animate-wiggle: wiggle 0.5s ease-in-out;
 
   @keyframes marquee {
     to {
@@ -36,24 +37,6 @@
   @keyframes blink {
     50% {
       opacity: 0;
-    }
-  }
-  @keyframes wiggle {
-    0%,
-    100% {
-      transform: rotate(0);
-    }
-    20% {
-      transform: rotate(-4deg);
-    }
-    40% {
-      transform: rotate(3deg);
-    }
-    60% {
-      transform: rotate(-2deg);
-    }
-    80% {
-      transform: rotate(1deg);
     }
   }
 }
@@ -72,7 +55,6 @@
   }
   body {
     font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'cv11';
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: clip;
@@ -82,7 +64,7 @@
     color: var(--color-ink);
   }
   :focus-visible {
-    outline: 3px solid var(--color-coral);
+    outline: 2px solid var(--color-coral);
     outline-offset: 3px;
   }
   .bg-ink :focus-visible,
@@ -93,9 +75,10 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 0.92;
+    font-weight: 800;
+    font-stretch: 72%;
+    letter-spacing: -0.01em;
+    line-height: 0.9;
     text-wrap: balance;
   }
   p {
@@ -114,27 +97,8 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Grain (papírová textura) – jedna malá SVG dlaždice, žádný JS
------------------------------------------------------------------- */
 .grain {
   position: relative;
-  isolation: isolate;
-}
-.grain::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.13 0 0 0 0 0.24 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.grain-dark::before {
-  mix-blend-mode: screen;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ------------------------------------------------------------------
@@ -151,23 +115,23 @@
   left: -0.06em;
   right: -0.06em;
   top: 52%;
-  height: 0.12em;
+  height: 0.09em;
   min-height: 2px;
   background: var(--color-coral);
-  transform: rotate(-4deg) scaleX(var(--strike, 1));
+  transform: scaleX(var(--strike, 1));
   transform-origin: left center;
   border-radius: 2px;
   transition: transform 0.6s var(--ease-out-expo) 0.25s;
 }
 .marker {
   background: linear-gradient(
-      100deg,
+      90deg,
       transparent 0.3em,
       var(--color-marker) 0.3em,
       var(--color-marker) calc(100% - 0.2em),
       transparent calc(100% - 0.2em)
     )
-    no-repeat 0 88% / var(--mark, 100%) 0.42em;
+    no-repeat 0 92% / var(--mark, 100%) 0.3em;
   color: inherit;
   padding-inline: 0.06em;
   transition: background-size 0.9s var(--ease-out-expo) 0.35s;
@@ -176,7 +140,7 @@
 }
 .bg-ink .marker {
   background-image: linear-gradient(
-    100deg,
+    90deg,
     transparent 0.3em,
     var(--color-coral) 0.3em,
     var(--color-coral) calc(100% - 0.2em),
@@ -185,7 +149,7 @@
 }
 .link {
   text-decoration: underline;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 .link:hover {
@@ -193,153 +157,138 @@
 }
 
 .kicker {
+  display: block;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6em;
-}
-.kicker::before {
-  content: '';
-  width: 0.7em;
-  height: 0.7em;
-  border-radius: 999px;
-  background: var(--color-coral);
-  box-shadow: 0 0 0 2px var(--color-ink);
-}
-.bg-ink .kicker::before {
-  box-shadow: 0 0 0 2px var(--color-paper);
+  opacity: 0.7;
 }
 
-/* Ciferník „5“ (nadpis hera, 404) */
+/* „5“ v nadpisu hera a 404 */
 .hero-five {
-  display: inline-grid;
-  place-items: center;
-  min-width: 0.78em;
-  padding: 0 0.08em;
-  margin-inline: 0.02em;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  line-height: 0.95;
-  background: var(--color-coral);
-  border: max(3px, 0.04em) solid var(--color-ink);
-  border-radius: 0.14em;
-  box-shadow: 0.06em 0.06em 0 var(--color-ink);
-  transform: rotate(-4deg) translateY(-0.02em);
+  color: var(--color-coral);
 }
 
 .display-xl {
-  font-size: clamp(3.1rem, 13vw, 9rem);
+  font-size: clamp(4rem, 17vw, 11.5rem);
 }
 .display-lg {
-  font-size: clamp(2.5rem, 9vw, 6.5rem);
+  font-size: clamp(3rem, 11vw, 7.5rem);
 }
 .display-md {
-  font-size: clamp(2.1rem, 6.4vw, 4.5rem);
+  font-size: clamp(2.5rem, 8vw, 5.25rem);
 }
 
 /* ------------------------------------------------------------------
-   Neo-brutalistické komponenty
+   Komponenty
 ------------------------------------------------------------------ */
 .card {
-  background: var(--color-paper);
-  border: 3px solid var(--color-ink);
-  border-radius: 18px;
-  box-shadow: var(--shadow-hard);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
 }
 
 .btn {
-  --btn-shadow: 5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6em;
-  min-height: 3.5rem;
-  padding: 0.85rem 1.5rem;
-  border: 3px solid var(--color-ink);
+  min-height: 3.25rem;
+  padding: 0.8rem 1.5rem;
+  border: 1.5px solid var(--color-ink);
   border-radius: 999px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.0625rem;
   line-height: 1.1;
   text-align: center;
   color: var(--color-ink);
-  background: var(--color-paper);
-  box-shadow: var(--btn-shadow) var(--btn-shadow) 0 var(--color-ink);
+  background: transparent;
   transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    background-color 0.2s;
+    transform 0.15s ease,
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    translate 0.3s var(--ease-out-expo);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   cursor: pointer;
 }
 .btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: calc(var(--btn-shadow) + 1px) calc(var(--btn-shadow) + 1px) 0 var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 .btn:active,
 .btn.is-pressed {
-  transform: translate(var(--btn-shadow), var(--btn-shadow));
-  box-shadow: 0 0 0 var(--color-ink);
+  transform: scale(0.97);
 }
 .btn-coral {
   background: var(--color-coral);
+  border-color: var(--color-coral);
+}
+.btn-coral:hover {
+  background: #ee4a27;
+  border-color: #ee4a27;
+  color: var(--color-ink);
 }
 .btn-ink {
   background: var(--color-ink);
   color: var(--color-paper);
 }
+.btn-ink:hover {
+  background: var(--color-ink-soft);
+  border-color: var(--color-ink-soft);
+}
 .btn-marker {
   background: var(--color-marker);
+  border-color: var(--color-marker);
 }
 .btn-sm {
-  --btn-shadow: 3px;
-  min-height: 2.75rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-width: 2.5px;
+  min-height: 2.5rem;
+  padding: 0.45rem 1rem;
+  font-size: 0.9375rem;
 }
 .btn-lg {
-  min-height: 4.25rem;
-  padding: 1rem 1.5rem;
-  font-size: 1.2rem;
+  min-height: 3.75rem;
+  padding: 0.9rem 1.6rem;
+  font-size: 1.125rem;
 }
 @media (min-width: 640px) {
   .btn-lg {
     padding-inline: 2rem;
-    font-size: 1.3rem;
   }
 }
 .btn > span {
   white-space: nowrap;
 }
-[data-magnetic] {
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    background-color 0.2s,
-    translate 0.3s var(--ease-out-expo);
-}
 .on-dark .btn,
 .btn.on-dark {
-  border-color: var(--color-paper);
-  box-shadow: var(--btn-shadow) var(--btn-shadow) 0 var(--color-paper);
+  border-color: color-mix(in srgb, var(--color-paper) 60%, transparent);
+  color: var(--color-paper);
 }
-.on-dark .btn:active {
-  box-shadow: 0 0 0 var(--color-paper);
+.on-dark .btn:hover {
+  background: var(--color-paper);
+  border-color: var(--color-paper);
+  color: var(--color-ink);
+}
+.on-dark .btn-coral,
+.btn-coral.on-dark {
+  border-color: var(--color-coral);
+  color: var(--color-ink);
+}
+.on-dark .btn-coral:hover {
+  background: #ee4a27;
+  border-color: #ee4a27;
 }
 
 /* Tikající dělítko sekcí (motiv časovače) */
 .ticks {
-  height: 22px;
+  height: 14px;
   background:
-    repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 12px) bottom / 100% 10px no-repeat,
-    repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 60px) bottom / 100% 22px no-repeat;
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 10px) bottom / 100% 6px no-repeat,
+    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 60px) bottom / 100% 14px no-repeat;
 }
 
 /* ------------------------------------------------------------------
@@ -347,15 +296,11 @@
 ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-      opacity 0.7s var(--ease-out-expo),
-      transform 0.8s var(--ease-out-expo);
+    transform: translateY(24px);
+    transition: transform 0.9s var(--ease-out-expo);
     transition-delay: calc(var(--i, 0) * 80ms);
   }
   .js [data-reveal].is-in {
-    opacity: 1;
     transform: none;
   }
   .js [data-reveal] .marker,

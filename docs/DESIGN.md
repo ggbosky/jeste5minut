@@ -51,3 +51,12 @@ scripts/screenshots.mjs     ← screenshoty 375 / 768 / 1440 pro kontrolu
 | Čeština | 8.5 | Tykání, krátké věty, vtip bez kázání. Doporučuji ještě rychlou kontrolu rodilým copywriterem (hlavně kvíz a FAQ). |
 
 Vědomé odchylky od zadání: místo Motion One / GSAP jsou animace v CSS + pár řádků vanilla JS (celkem ~8 kB JS) – stejný efekt, lepší Lighthouse. Astro je připnuté na 7.4.1 (7.4.2 už vyžaduje Node 22.23+).
+
+## Revize 2 – méně „kreslené“, méně AI
+
+Zpětná vazba: moc cartoon, divný font, čtverec budíku, celé to působí moc „AI“.
+
+- **Typografie:** Space Grotesk / Inter / Space Mono → **Archivo** (úzký řez 800 na plakátové nadpisy, normální šířka na text) + JetBrains Mono na drobné popisky. Jedna rodina = klidnější a ucelenější.
+- **Budík:** kreslená karta se žlutým stínem → realistický zamčený displej telefonu (23:55, notifikace od mamky, ze studijního systému a „čas u obrazovky“, budík s tlačítkem Odložit). Telefon při odložení zabzučí.
+- **Pryč:** tvrdé posunuté stíny, 3px rámečky, natočené karty a štítky, ručně psaná poznámka, kreslené ikonky kvízu, tečky u nadpisů, rotující pečeť, grain.
+- **Nově:** tenké linky, jemné stíny jen tam, kde jde o fyzický předmět (telefon, kniha, SOS karta), ploché bloky, rovný zvýrazňovač.

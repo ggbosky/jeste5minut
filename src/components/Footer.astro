@@ -8,11 +8,11 @@ const f = getContent().footer;
 const year = new Date().getFullYear();
 ---
 
-<footer class="grain grain-dark relative bg-ink pt-16 pb-28 text-paper sm:pt-20 md:pb-12">
+<footer class="relative bg-ink pt-16 pb-28 text-paper sm:pt-20 md:pb-12">
   <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
     <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
       <div class="sm:col-span-2 lg:col-span-5">
-        <a href="#top" class="text-3xl sm:text-4xl" aria-label={f.toTop}><Logo dark /></a>
+        <a href="#top" class="text-4xl sm:text-5xl" aria-label={f.toTop}><Logo dark /></a>
         <p class="mt-5 max-w-[24rem] leading-relaxed text-paper/80" set:html={rich(f.tagline)} />
       </div>
 
@@ -73,7 +73,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="mt-14 flex flex-col gap-3 border-t-2 border-paper/20 pt-6 font-mono text-xs text-paper/70 sm:flex-row sm:justify-between">
+    <div class="mt-14 flex flex-col gap-3 border-t border-paper/20 pt-6 font-mono text-xs text-paper/70 sm:flex-row sm:justify-between">
       <p>© {year} {contact.company}. {f.rights}</p>
       <p aria-hidden="true" set:html={rich(f.signoff)} />
     </div>
@@ -86,7 +86,7 @@ const year = new Date().getFullYear();
     place-items: center;
     width: 2.9rem;
     height: 2.9rem;
-    border: 2.5px solid var(--color-paper);
+    border: 1px solid rgb(250 247 240 / 0.35);
     border-radius: 999px;
     transition:
       background-color 0.2s,

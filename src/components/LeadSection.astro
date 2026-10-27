@@ -8,7 +8,7 @@ const l = getContent().lead;
 
 <section id="sos-karta" class="relative py-20 sm:py-28" aria-labelledby="sos-title">
   <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
-    <div class="card grain relative grid gap-12 overflow-clip !bg-paper-deep p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-14" data-reveal>
+    <div class="relative grid gap-12 overflow-clip rounded-[28px] bg-paper-deep p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-14" data-reveal>
       <div class="lg:col-span-7">
         <p class="kicker mb-5">{l.kicker}</p>
         <h2 id="sos-title" class="display-md" set:html={rich(l.title)} />
@@ -16,7 +16,7 @@ const l = getContent().lead;
         <ul class="mt-6 flex flex-wrap gap-2.5">
           {
             l.perks.map((p) => (
-              <li class="rounded-full border-[2.5px] border-ink bg-paper px-3.5 py-1.5 font-mono text-sm">{p}</li>
+              <li class="rounded-full bg-paper px-3 py-1.5 font-mono text-xs">{p}</li>
             ))
           }
         </ul>
@@ -29,13 +29,13 @@ const l = getContent().lead;
       <div class="relative lg:col-span-5" aria-hidden="true">
         <div class="sos-paper mx-auto max-w-[22rem]">
           <div class="flex items-start justify-between gap-4">
-            <p class="font-display text-[1.65rem] leading-none font-bold tracking-tight">{l.mockup.title}</p>
+            <p class="font-display text-[1.9rem] leading-[0.9] font-extrabold [font-stretch:72%]">{l.mockup.title}</p>
             <span class="sos-stamp">{l.mockup.stamp}</span>
           </div>
           <ol class="mt-6 grid gap-0">
             {
               l.mockup.rows.map(([time, text], i) => (
-                <li class="flex items-baseline gap-3 border-t-2 border-dashed border-ink/25 py-2.5 text-[0.9375rem]">
+                <li class="flex items-baseline gap-3 border-t border-[var(--color-line)] py-2.5 text-[0.9375rem]">
                   <span class="w-14 shrink-0 font-mono text-xs font-bold">{time}</span>
                   <span class:list={[i === 4 && 'marker']}>{text}</span>
                 </li>
@@ -50,21 +50,17 @@ const l = getContent().lead;
 
 <style>
   .sos-paper {
-    background: var(--color-paper);
-    border: 3px solid var(--color-ink);
+    background: #fffdf8;
     border-radius: 6px;
     padding: 1.6rem 1.4rem 1.2rem;
-    box-shadow: var(--shadow-hard-lg);
-    rotate: 3deg;
+    box-shadow: var(--shadow-lift);
   }
   .sos-stamp {
     font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.35rem 0.6rem;
-    border: 3px solid var(--color-ink);
-    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
     background: var(--color-coral);
-    rotate: -12deg;
   }
 </style>

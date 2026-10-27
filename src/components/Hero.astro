@@ -13,58 +13,58 @@ const [line1, line2] = h.title.map((l) => nbsp(l));
 const line1Html = line1.replace(/\b5\b/, '<span class="hero-five" aria-hidden="true">5</span><span class="sr-only">5</span>');
 ---
 
-<section id="top" class="grain relative overflow-clip pt-24 pb-14 sm:pt-28 lg:min-h-[100svh] lg:pt-32 lg:pb-20">
-  <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
-    <p class="kicker hero-in mb-5 sm:mb-7"><span set:html={rich(h.eyebrow)} /></p>
+<section id="top" class="relative overflow-clip pt-24 pb-16 sm:pt-28 lg:pt-28 lg:pb-24">
+  <div class="mx-auto grid max-w-[90rem] gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
+    <div class="lg:col-span-7">
+      <p class="kicker hero-in mb-5 sm:mb-7"><span set:html={rich(h.eyebrow)} /></p>
 
-    <h1 class="relative">
-      <span class="display-xl block hero-in" style="--i:1" set:html={line1Html} />
-      <span class="hero-line2 mt-2 block sm:mt-3 hero-in" style="--i:2">{line2}</span>
-    </h1>
+      <h1>
+        <span class="hero-l1 block hero-in" style="--i:1" set:html={line1Html} />
+        <span class="hero-line2 mt-2 block sm:mt-3 hero-in" style="--i:2">{line2}</span>
+      </h1>
 
-    <div class="mt-8 grid gap-12 sm:mt-10 lg:mt-14 lg:grid-cols-12 lg:items-start lg:gap-10">
-      <div class="lg:col-span-6 xl:col-span-5">
-        <p class="max-w-[34rem] text-lg leading-relaxed sm:text-xl hero-in" style="--i:3" set:html={rich(h.subline)} />
+      <p class="mt-8 max-w-[34rem] text-lg leading-relaxed sm:mt-10 sm:text-xl hero-in" style="--i:3" set:html={rich(h.subline)} />
 
-        <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center hero-in" style="--i:4">
-          <a href="#cena" class="btn btn-lg btn-coral" data-magnetic="0.3" data-track="cta_hero">
-            {h.primaryCta}
-            <span class="font-mono text-[0.85em] font-normal">· {price}</span>
-          </a>
-          <a href="#sos-karta" class="btn btn-lg" data-track="lead_hero">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-            {h.secondaryCta}
-          </a>
-        </div>
-
-        <p class="mt-6 flex max-w-[30rem] items-start gap-3 text-[0.9375rem] leading-snug text-ink/80 hero-in" style="--i:5">
-          <svg class="mt-0.5 shrink-0" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--color-mint)" stroke="var(--color-ink)" stroke-width="2"></circle>
-            <path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="var(--color-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center hero-in" style="--i:4">
+        <a href="#cena" class="btn btn-lg btn-coral" data-magnetic="0.3" data-track="cta_hero">
+          {h.primaryCta}
+          <span class="font-mono text-[0.85em] font-normal">· {price}</span>
+        </a>
+        <a href="#sos-karta" class="btn btn-lg" data-track="lead_hero">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
-          <span set:html={rich(h.trust)} />
-        </p>
+          {h.secondaryCta}
+        </a>
       </div>
 
-      <div class="relative lg:col-span-6 lg:col-start-7 lg:-mt-40 xl:col-span-5 xl:col-start-8 xl:-mt-56">
-        <SnoozeAlarm />
-      </div>
+      <p class="mt-6 max-w-[30rem] text-[0.9375rem] leading-snug text-ink/70 hero-in" style="--i:5" set:html={rich(h.trust)} />
+    </div>
+
+    <div class="relative lg:col-span-5 lg:pt-2">
+      <SnoozeAlarm />
     </div>
   </div>
 </section>
 
 <style is:global>
+  .hero-l1 {
+    font-size: clamp(4rem, 17vw, 11.5rem);
+    line-height: 0.9;
+  }
+  @media (min-width: 1024px) {
+    .hero-l1 {
+      font-size: min(9.4vw, 9.5rem);
+    }
+  }
   .hero-line2 {
-    font-size: clamp(2rem, 7.4vw, 5.6rem);
-    line-height: 0.98;
-    letter-spacing: -0.035em;
-    max-width: 14ch;
+    font-size: clamp(2.6rem, 10vw, 7rem);
+    line-height: 0.9;
+    max-width: 12ch;
   }
   @media (min-width: 1024px) {
     .hero-line2 {
-      max-width: 9.5ch;
+      font-size: min(5.6vw, 5.75rem);
     }
   }
 </style>

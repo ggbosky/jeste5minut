@@ -100,4 +100,4 @@ docs/DESIGN.md         směr designu, varianty hera, self-review
 
 ## Výkon a přístupnost
 
-Lighthouse (lokálně, produkční build): mobil **97 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Fonty jsou self-hosted (jen latin + latin-ext woff2, Space Grotesk 700 přednačtený), CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formuláře, kvíz i FAQ jdou ovládat klávesnicí.
+Lighthouse (lokálně, produkční build): mobil **98 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Fonty jsou self-hosted (Archivo + JetBrains Mono, jen latin + latin-ext woff2; nadpisový řez je statický výřez ~10 kB z `scripts/make-fonts.py`), CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formuláře, kvíz i FAQ jdou ovládat klávesnicí.

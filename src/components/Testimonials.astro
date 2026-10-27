@@ -4,7 +4,6 @@ import { rich } from '../lib/rich';
 
 // TODO: real testimonials – texty jsou v src/content/cs.ts (testimonials.items)
 const r = getContent().testimonials;
-const tilts = [-1.5, 1, -0.5];
 ---
 
 <section id="recenze" class="relative py-20 sm:py-28 lg:py-32" aria-labelledby="reviews-title">
@@ -21,20 +20,14 @@ const tilts = [-1.5, 1, -0.5];
       {
         r.items.map((item, n) => (
           <li data-reveal style={`--i:${n}`}>
-            <figure class:list={['card relative flex h-full flex-col p-6 sm:p-7', item.placeholder && 'is-placeholder']} style={`rotate:${tilts[n % 3]}deg`}>
+            <figure class:list={['card relative flex h-full flex-col p-6 sm:p-7', item.placeholder && 'is-placeholder']}>
               {item.placeholder && (
-                <span class="absolute -top-3.5 right-5 rounded-full border-[2.5px] border-ink bg-marker px-3 py-0.5 font-mono text-xs uppercase">
+                <span class="absolute top-6 right-6 rounded-full bg-paper-deep px-2.5 py-1 font-mono text-[0.6875rem] tracking-wide uppercase">
                   {r.placeholderBadge}
                 </span>
               )}
-              <svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true">
-                <path d="M0 30V17C0 7 5 1.5 15 0l2 5c-5 1.5-7.5 4.5-7.5 9H17v16H0Zm23 0V17C23 7 28 1.5 38 0l2 5c-5 1.5-7.5 4.5-7.5 9H40v16H23Z" fill="var(--color-coral)" />
-              </svg>
-              <blockquote class="mt-4 flex-1 text-lg leading-relaxed" set:html={rich(item.quote)} />
-              <figcaption class="mt-6 flex items-center gap-3 border-t-[2.5px] border-dashed border-ink/30 pt-4">
-                <span class="grid size-10 place-items-center rounded-full border-[2.5px] border-ink bg-paper-deep font-display font-bold" aria-hidden="true">
-                  ?
-                </span>
+              <blockquote class="mt-8 flex-1 text-lg leading-relaxed" set:html={rich(item.quote)} />
+              <figcaption class="mt-6 border-t border-[var(--color-line)] pt-4">
                 <span>
                   <span class="block font-semibold">{item.author}</span>
                   <span class="block text-sm text-ink/70">{item.role}</span>

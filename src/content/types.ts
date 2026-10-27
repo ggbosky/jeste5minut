@@ -50,7 +50,10 @@ export type SiteContent = {
       /** Texty tlačítka po každém kliknutí. Poslední = scroll na nabídku. */
       reactions: string[];
       counter: string;
-      hint: string;
+      appTitle: string;
+      notifications: { app: string; text: string; ago: string }[];
+      battery: string;
+      lockLabel: string;
     };
     book: { title: string; subtitle: string; pages: string };
   };
