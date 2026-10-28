@@ -41,7 +41,6 @@ export const cs: SiteContent = {
       { value: '8', label: 'kapitol' },
       { value: 'PDF', label: 'pro mobil i počítač' },
     ],
-    book: { title: 'Ještě 5 minut', subtitle: 'Jak přestat odkládat učení' },
   },
 
   story: {
@@ -54,9 +53,6 @@ export const cs: SiteContent = {
       { time: '23:55', text: 'Ještě 5 minut.' },
     ],
   },
-
-  statement:
-    'Nepotřebuješ víc motivace. Potřebuješ začít. Tenhle e-book ti ukáže, jak těch pět minut použít jinak: ne na odklad, ale na začátek.',
 
   learn: {
     title: 'Co se naučíš',

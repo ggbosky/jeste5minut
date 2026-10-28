@@ -85,3 +85,8 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 - **Scroll příběh** (tmavá připnutá obrazovka): při scrollu běží hodiny 20:00 → 23:55 a mění se věty typického večera před zkouškou, končí oranžovým „Ještě 5 minut.“
 - **Statement:** věta, která se při scrollu rozsvěcí slovo po slově.
 - Sekce najíždějí postupně (stagger). Bez JS nebo s `prefers-reduced-motion` se vše zobrazí staticky ve finálním stavu.
+
+## Revize 6 – nic nestojí
+
+- Scroll příběh už se nepřipíná: časy a věty se scrollují normálně s celou stránkou a každý řádek najede, až na něj dojedeš.
+- Odstraněna obálka e-booku (fakta jsou jeden řádek pod cenou) a odstavec, který se rozsvěcel slovo po slově.

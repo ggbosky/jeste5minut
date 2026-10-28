@@ -40,14 +40,11 @@ export type SiteContent = {
     regularLabel: string;
     free: string;
     facts: { value: string; label: string }[];
-    book: { title: string; subtitle: string };
   };
   story: {
-    /** Při scrollu běží hodiny a mění se věty. Poslední krok zůstane. */
     steps: { time: string; text: string }[];
     label: string;
   };
-  statement: string;
   learn: { title: string; items: string[] };
   contents: { title: string; intro: string; chapters: { title: string; text: string }[] };
   pricing: {

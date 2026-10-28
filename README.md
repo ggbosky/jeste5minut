@@ -1,6 +1,6 @@
 # Ještě 5 minut – web
 
-One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace v hero, scroll příběh, formulář, lišta cookies). Systémové písmo, žádné fonty ke stažení.
+One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace nadpisu, najíždění sekcí, formulář, lišta cookies). Systémové písmo, žádné fonty ke stažení.
 
 ## Spuštění
 
