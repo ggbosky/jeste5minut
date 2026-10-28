@@ -125,13 +125,18 @@
   font-size: 1.125rem;
 }
 
-/* Jemný reveal při scrollu – jen posun, obsah je vidět i bez JS */
+/* Reveal při scrollu (jen s JS a bez omezeného pohybu; bez JS je vše vidět) */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
-    transform: translateY(16px);
-    transition: transform 0.8s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.9s var(--ease-out-expo);
+    transition-delay: calc(var(--i, 0) * 70ms);
   }
   .js [data-reveal].is-in {
+    opacity: 1;
     transform: none;
   }
 }

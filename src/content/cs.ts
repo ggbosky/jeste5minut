@@ -29,9 +29,10 @@ export const cs: SiteContent = {
   },
 
   hero: {
-    title: 'Ještě 5 minut',
-    subtitle: 'Jak přestat odkládat učení.',
-    text: 'E-book pro vysokoškoláky, kteří se chtějí učit průběžně a ne až noc před zkouškou.',
+    lead: 'Začnu',
+    excuses: ['zítra.', 'v pondělí.', 'po obědě.', 'večer.'],
+    now: 'teď.',
+    text: '**Ještě 5 minut** je e-book pro vysokoškoláky, kteří chtějí přestat odkládat učení. Osm krátkých kapitol, každá na pět minut.',
     buy: 'Koupit',
     regularLabel: 'běžně',
     free: 'Nebo si stáhni SOS kartu zdarma',
@@ -42,6 +43,20 @@ export const cs: SiteContent = {
     ],
     book: { title: 'Ještě 5 minut', subtitle: 'Jak přestat odkládat učení' },
   },
+
+  story: {
+    label: 'Typický večer před zkouškou',
+    steps: [
+      { time: '20:00', text: 'Otevřeš skripta.' },
+      { time: '20:03', text: 'Jen na chvilku mrkneš na mobil.' },
+      { time: '21:40', text: 'Ještě jedno video.' },
+      { time: '23:10', text: 'Uklidíš si stůl. Pak celý pokoj.' },
+      { time: '23:55', text: 'Ještě 5 minut.' },
+    ],
+  },
+
+  statement:
+    'Nepotřebuješ víc motivace. Potřebuješ začít. Tenhle e-book ti ukáže, jak těch pět minut použít jinak: ne na odklad, ale na začátek.',
 
   learn: {
     title: 'Co se naučíš',

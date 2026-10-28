@@ -1,6 +1,6 @@
 # Ještě 5 minut – web
 
-One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, pár řádků vanilla JS (formulář, FAQ, lišta cookies). Systémové písmo, žádné fonty ke stažení.
+One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace v hero, scroll příběh, formulář, lišta cookies). Systémové písmo, žádné fonty ke stažení.
 
 ## Spuštění
 
@@ -100,4 +100,4 @@ docs/DESIGN.md         historie designových rozhodnutí
 
 ## Výkon a přístupnost
 
-Lighthouse (lokálně, produkční build): mobil **100 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Písmo je systémové (SF na Applu, Segoe UI na Windows, Roboto na Androidu), takže se nestahují žádné fonty. CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formulář i FAQ jdou ovládat klávesnicí.
+Lighthouse (lokálně, produkční build): mobil **100 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Písmo je systémové (SF na Applu, Segoe UI na Windows, Roboto na Androidu), takže se nestahují žádné fonty. CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion` (zobrazí se rovnou finální stav) a bez JS je veškerý obsah vidět; formulář i FAQ jdou ovládat klávesnicí.

@@ -101,6 +101,11 @@ const schema = productSchema
     <script>
       // Jemný reveal při scrollu
       const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      // sourozenci najíždějí postupně
+      els.forEach((el) => {
+        const sibs = [...(el.parentElement?.children ?? [])].filter((c) => c.hasAttribute('data-reveal'));
+        el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 8)));
+      });
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(
           (entries) => {

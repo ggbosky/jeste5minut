@@ -76,3 +76,12 @@ Zpětná vazba: texty, fonty a množství prvků pořád působí jako AI. Zvole
 - Sekce: hero s obálkou a cenou → Co se naučíš → Obsah → Cena → SOS karta zdarma → Časté otázky → patička.
 - Texty přepsané věcně, bez vtipných nadpisů a slovních hříček.
 - Odstraněno: budík, odpočet, sekce „Nejsi líný“, Jak to funguje, ukázkové recenze, samostatná záruka (je v FAQ), závěrečná výzva, ukázka SOS karty, pole „jméno“ ve formuláři.
+
+## Revize 5 – animace a hook
+
+Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lepší hero.
+
+- **Hero:** obří nadpis „Začnu zítra. / v pondělí. / po obědě. / večer.“ – každá výmluva se přeškrtne a nakonec zůstane oranžové „teď.“ Obálka e-booku se při scrollu narovná a přiblíží, čísla 70 a 8 se napočítají.
+- **Scroll příběh** (tmavá připnutá obrazovka): při scrollu běží hodiny 20:00 → 23:55 a mění se věty typického večera před zkouškou, končí oranžovým „Ještě 5 minut.“
+- **Statement:** věta, která se při scrollu rozsvěcí slovo po slově.
+- Sekce najíždějí postupně (stagger). Bez JS nebo s `prefers-reduced-motion` se vše zobrazí staticky ve finálním stavu.

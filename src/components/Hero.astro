@@ -3,19 +3,27 @@ import Book from './Book.astro';
 import { pricing } from '../../site.config';
 import { getContent } from '../content';
 import { czk, currentPrice } from '../lib/format';
+import { rich } from '../lib/rich';
 
 const h = getContent().hero;
 const now = currentPrice(pricing.basic);
 ---
 
-<section id="top" class="pt-14 pb-20 text-center sm:pt-20 sm:pb-28">
+<section id="top" class="overflow-clip pt-12 pb-20 text-center sm:pt-20 sm:pb-28">
   <div class="container-page">
-    <h1 class="text-[3rem] sm:text-7xl">{h.title}</h1>
-    <p class="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{h.subtitle}</p>
-    <p class="mx-auto mt-5 max-w-[32rem] text-lg leading-relaxed text-muted">{h.text}</p>
+    <!-- Výmluvy se postupně přeškrtnou, zůstane „teď.“ (bez JS / s omezeným pohybem rovnou „teď.“) -->
+    <h1 class="hero-title" aria-label={`${h.lead} ${h.now}`}>
+      <span class="block" aria-hidden="true">{h.lead}</span>
+      <span class="swap" aria-hidden="true" data-swap>
+        {h.excuses.map((w) => <span class="w">{w}</span>)}
+        <span class="w w-now">{h.now}</span>
+      </span>
+    </h1>
 
-    <div class="mt-8 flex flex-col items-center gap-4">
-      <div class="flex items-center gap-4">
+    <p class="hero-in mx-auto mt-8 max-w-[34rem] text-lg leading-relaxed text-muted sm:text-xl" style="--d:200ms" set:html={rich(h.text)} />
+
+    <div class="hero-in mt-8 flex flex-col items-center gap-4" style="--d:300ms">
+      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
         <span class="text-2xl font-semibold tracking-tight">{czk(now)}</span>
         {
           pricing.basic.launch && (
@@ -24,19 +32,23 @@ const now = currentPrice(pricing.basic);
             </span>
           )
         }
-        <a href="#cena" class="btn" data-track="cta_hero">{h.buy}</a>
+        <a href="#cena" class="btn btn-lg" data-track="cta_hero">{h.buy}</a>
       </div>
       <a href="#sos-karta" class="link text-[0.9375rem] text-muted">{h.free}</a>
     </div>
 
-    <Book class="mt-16 [--w:14rem] sm:mt-20 sm:[--w:18rem]" />
+    <div class="hero-book mt-16 sm:mt-20" data-hero-book>
+      <Book class="[--w:15rem] sm:[--w:19rem]" />
+    </div>
 
     <dl class="mx-auto mt-16 grid max-w-[36rem] grid-cols-3 gap-6 border-t border-line pt-8 sm:mt-20">
       {
         h.facts.map((f) => (
-          <div>
+          <div data-reveal>
             <dt class="sr-only">{f.label}</dt>
-            <dd class="text-3xl font-semibold tracking-tight sm:text-4xl">{f.value}</dd>
+            <dd class="text-3xl font-semibold tracking-tight tabular-nums sm:text-4xl" data-count={/^\d+$/.test(f.value) ? f.value : undefined}>
+              {f.value}
+            </dd>
             <dd class="mt-1 text-sm text-muted">{f.label}</dd>
           </div>
         ))
@@ -44,3 +56,181 @@ const now = currentPrice(pricing.basic);
     </dl>
   </div>
 </section>
+
+<style>
+  .hero-title {
+    font-size: clamp(3.75rem, 16vw, 9.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .swap {
+    display: inline-grid;
+    justify-items: center;
+  }
+  .w {
+    grid-area: 1 / 1;
+    position: relative;
+    white-space: nowrap;
+    opacity: 0;
+    transition:
+      opacity 0.45s ease,
+      transform 0.6s var(--ease-out-expo),
+      color 0.3s;
+  }
+  /* škrtnutí */
+  .w::after {
+    content: '';
+    position: absolute;
+    left: -0.04em;
+    right: -0.04em;
+    top: 54%;
+    height: 0.07em;
+    border-radius: 0.04em;
+    background: var(--color-coral);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .w.is-struck {
+    color: color-mix(in srgb, var(--color-ink) 50%, white);
+  }
+  .w.is-struck::after {
+    transform: scaleX(1);
+  }
+  .w.is-active {
+    opacity: 1;
+  }
+  .w.is-leaving {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+  .w.is-entering {
+    transform: translateY(0.35em);
+  }
+  .w-now {
+    color: var(--color-coral);
+  }
+  .w-now::after {
+    display: none;
+  }
+
+  /* s JS je od prvního vykreslení vidět první výmluva (žádné prázdné místo, než se skript načte) */
+  :global(html.js) .w:first-child:not(.is-leaving) {
+    opacity: 1;
+  }
+  /* bez JS nebo s omezeným pohybem: rovnou finální „teď.“ */
+  :global(html:not(.js)) .w-now {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .w {
+      opacity: 0 !important;
+    }
+    .w-now {
+      opacity: 1 !important;
+    }
+  }
+
+  /* úvodní najetí textu pod nadpisem (jen posun, nic se neskrývá → nezdržuje LCP) */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-in {
+      animation: hero-in 0.9s var(--ease-out-expo) both;
+      animation-delay: var(--d, 0ms);
+    }
+    .hero-book {
+      animation: book-in 1.2s var(--ease-out-expo) 0.25s both;
+    }
+  }
+  @keyframes hero-in {
+    from {
+      transform: translateY(18px);
+    }
+  }
+  @keyframes book-in {
+    from {
+      opacity: 0;
+      transform: translateY(60px) scale(0.94);
+    }
+  }
+
+  /* obálka se při scrollu narovná a přiblíží (--p 0 → 1 nastavuje skript) */
+  .hero-book :global(.cover) {
+    transform: rotateY(calc(-24deg + 24deg * var(--p, 0))) rotateX(calc(8deg - 8deg * var(--p, 0)))
+      scale(calc(0.94 + 0.1 * var(--p, 0)));
+    transition: transform 0.1s linear;
+  }
+</style>
+
+<script>
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1) Výmluvy se postupně přeškrtnou
+  const swap = document.querySelector<HTMLElement>('[data-swap]');
+  if (swap && !calm) {
+    const words = [...swap.querySelectorAll<HTMLElement>('.w')];
+    let i = 0;
+    words[0].classList.add('is-active');
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    (async () => {
+      await wait(900);
+      while (i < words.length - 1) {
+        const cur = words[i];
+        const next = words[i + 1];
+        cur.classList.add('is-struck');
+        await wait(550);
+        next.classList.add('is-entering');
+        void next.offsetWidth;
+        cur.classList.add('is-leaving');
+        cur.classList.remove('is-active');
+        next.classList.add('is-active');
+        next.classList.remove('is-entering');
+        i++;
+        await wait(i === words.length - 1 ? 0 : 1000);
+      }
+    })();
+  }
+
+  // 2) Obálka reaguje na scroll
+  const book = document.querySelector<HTMLElement>('[data-hero-book]');
+  if (book && !calm) {
+    let ticking = false;
+    const update = () => {
+      const r = book.getBoundingClientRect();
+      // 0 = obálka dole ve viewportu, 1 = ve čtvrtině výšky
+      const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * 0.75)));
+      book.style.setProperty('--p', p.toFixed(3));
+      ticking = false;
+    };
+    addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+    update();
+  }
+
+  // 3) Čísla se napočítají, když se objeví
+  const nums = document.querySelectorAll<HTMLElement>('[data-count]');
+  if (!calm && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const to = Number(el.dataset.count);
+        const start = performance.now();
+        const step = (t: number) => {
+          const k = Math.min(1, (t - start) / 900);
+          el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3))));
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    });
+    nums.forEach((n) => io.observe(n));
+  }
+</script>

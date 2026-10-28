@@ -1,0 +1,183 @@
+---
+/**
+ * Scroll příběh: při scrollování běží hodiny od 20:00 do 23:55 a mění se věty.
+ * Bez JS nebo s omezeným pohybem se kroky zobrazí pod sebou jako obyčejný seznam.
+ */
+import { getContent } from '../content';
+
+const s = getContent().story;
+const toMin = (t: string) => {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+};
+---
+
+<section class="story bg-ink text-white" style={`--steps:${s.steps.length}`} aria-label={s.label} data-story data-times={JSON.stringify(s.steps.map((x) => toMin(x.time)))}>
+  <div class="story-pin">
+    <div class="container-page relative flex h-full flex-col items-center justify-center text-center">
+      <p class="story-clock tabular-nums" aria-hidden="true" data-clock>{s.steps[0].time}</p>
+      <ol class="story-lines">
+        {
+          s.steps.map((step, i) => (
+            <li class:list={['story-line', i === 0 && 'is-active']} data-line>
+              <span class="story-time tabular-nums">{step.time}</span>
+              <span class="story-text">{step.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="story-progress" aria-hidden="true"><span data-progress></span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---------- základ (bez JS): obyčejný seznam ---------- */
+  .story {
+    padding-block: 6rem;
+  }
+  .story-clock,
+  .story-progress {
+    display: none;
+  }
+  .story-lines {
+    display: grid;
+    gap: 2rem;
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+  .story-line {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .story-time {
+    font-size: 1rem;
+    color: rgb(255 255 255 / 0.55);
+  }
+  .story-text {
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .story-line:last-child .story-text {
+    color: var(--color-coral);
+  }
+
+  /* ---------- s JS: připnutá obrazovka, hodiny běží se scrollem ---------- */
+  .story.is-live {
+    padding-block: 0;
+    height: calc(var(--steps) * 85svh + 100svh);
+  }
+  .story.is-live .story-pin {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .story.is-live .story-clock {
+    display: block;
+    font-size: clamp(6rem, 30vw, 17rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: rgb(255 255 255 / 0.95);
+    transition: color 0.4s;
+  }
+  .story.is-live.is-end .story-clock {
+    color: var(--color-coral);
+  }
+  .story.is-live .story-lines {
+    display: grid;
+    margin-top: 1.5rem;
+    min-height: 4.5em;
+  }
+  .story.is-live .story-line {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(0.6em);
+    filter: blur(6px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.6s var(--ease-out-expo),
+      filter 0.5s ease;
+  }
+  .story.is-live .story-line.is-active {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .story.is-live .story-time {
+    display: none;
+  }
+  .story.is-live .story-text {
+    font-size: clamp(1.6rem, 5.5vw, 3.25rem);
+  }
+  .story.is-live .story-progress {
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: max(2.5rem, env(safe-area-inset-bottom, 0px));
+    translate: -50% 0;
+    width: min(16rem, 60vw);
+    height: 2px;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.15);
+    overflow: hidden;
+  }
+  .story-progress span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--color-coral);
+    transform-origin: left;
+    transform: scaleX(var(--p, 0));
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-story]');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (root && !calm) {
+    root.classList.add('is-live');
+    const times: number[] = JSON.parse(root.dataset.times || '[]');
+    const lines = [...root.querySelectorAll<HTMLElement>('[data-line]')];
+    const clock = root.querySelector<HTMLElement>('[data-clock]')!;
+    const bar = root.querySelector<HTMLElement>('[data-progress]')!;
+    const n = times.length;
+    const fmt = (m: number) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(Math.floor(m % 60)).padStart(2, '0')}`;
+    let current = -1;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const r = root.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      const p = Math.min(1, Math.max(0, -r.top / total));
+      // poslední krok drží o něco déle → rozdělíme na n-1 úseků a poslední ~15 % jen stojí
+      const f = Math.min(1, p / 0.85) * (n - 1);
+      const i = Math.min(n - 1, Math.floor(f + 0.001));
+      const frac = f - i;
+      const minutes = i >= n - 1 ? times[n - 1] : times[i] + (times[i + 1] - times[i]) * Math.max(0, (frac - 0.55) / 0.45);
+      clock.textContent = fmt(minutes);
+      bar.style.setProperty('--p', p.toFixed(3));
+      if (i !== current) {
+        lines.forEach((l, k) => l.classList.toggle('is-active', k === i));
+        root.classList.toggle('is-end', i === n - 1);
+        current = i;
+      }
+    };
+    addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+    addEventListener('resize', update);
+    update();
+  }
+</script>
