@@ -26,6 +26,7 @@ const plans = [
               data-reveal
               aria-labelledby={`plan-${key}`}
             >
+              {featured && <p class="mb-2 text-sm font-semibold text-coral-text">{p.popular}</p>}
               <h3 id={`plan-${key}`} class="text-xl font-semibold tracking-tight">
                 {plan.name}
               </h3>
@@ -52,8 +53,12 @@ const plans = [
                 ))}
               </ul>
 
-              <a href={cfg.checkoutUrl} class:list={['btn mt-auto w-full', !featured && 'btn-dark']} data-track={`checkout_${key}`} rel="nofollow">
+              <a href={cfg.checkoutUrl} class:list={['btn btn-lg btn-arrow mt-auto w-full', featured ? 'btn-glow' : 'btn-dark']} data-track={`checkout_${key}`} rel="nofollow">
                 {plan.cta}
+                <span class="opacity-70">· {czk(now)}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </a>
             </article>
           );

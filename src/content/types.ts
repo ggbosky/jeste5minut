@@ -42,28 +42,17 @@ export type SiteContent = {
     trust: string[];
     regularLabel: string;
     free: string;
-    facts: { value: string; label: string }[];
-    /** Ukázka stránek e-booku vedle nadpisu */
-    preview: {
-      label: string;
-      chapter: string;
-      title: string;
-      paragraphs: string[];
-      taskLabel: string;
-      task: string;
-      tocTitle: string;
-    };
+    /** malý text pod hlavním tlačítkem */
+    ctaNote: string;
+    videoLabel: string;
   };
-  story: {
-    steps: { time: string; text: string }[];
-    label: string;
-  };
-  learn: { title: string; items: string[] };
+  learn: { title: string; intro: string; items: { before: string; after: string }[] };
   contents: { title: string; intro: string; chapters: { title: string; text: string }[] };
   pricing: {
     title: string;
     regularLabel: string;
     eurLabel: string;
+    popular: string;
     plans: Record<'basic' | 'bundle', { name: string; features: string[]; cta: string }>;
   };
   lead: {

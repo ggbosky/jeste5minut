@@ -35,49 +35,24 @@ export const cs: SiteContent = {
     subtitle: 'Přestaň se učit noc před zkouškou.',
     text: '**Ještě 5 minut** je e-book pro vysokoškoláky. Osm kapitol po pěti minutách, které tě dostanou od odkládání k učení.',
     points: ['Začneš, i když se ti nechce', 'Mobil tě přestane rozhazovat', 'Zkouškové i bakalářka po malých krocích'],
-    trust: ['PDF hned po zaplacení', '14 dní na vrácení peněz'],
+    trust: ['14 dní na vrácení peněz', 'Jednorázově, žádné předplatné'],
     buy: 'Začnu teď',
     regularLabel: 'běžně',
-    free: 'SOS karta zdarma',
-    facts: [
-      { value: '70', label: 'stran' },
-      { value: '8', label: 'kapitol' },
-      { value: 'PDF', label: 'pro mobil i počítač' },
-    ],
-    preview: {
-      label: 'Ukázka z e-booku',
-      chapter: 'Kapitola 2',
-      title: 'Pravidlo pěti minut',
-      paragraphs: [
-        'Mozek nemá rád velké úkoly. „Naučit se statistiku“ zní jako hora, a tak ji obejde. Pět minut ale zní nevinně.',
-        'Proto si neslibuj, že se budeš učit dvě hodiny. Slib si pět minut. Když pak budeš chtít skončit, skonči. Většinou nebudeš chtít.',
-      ],
-      taskLabel: 'Úkol na 5 minut',
-      task: 'Nastav si časovač na 5 minut a otevři skripta na první stránce. Nic víc.',
-      tocTitle: 'Obsah',
-    },
-  },
-
-  story: {
-    label: 'Typický večer před zkouškou',
-    steps: [
-      { time: '20:00', text: 'Otevřeš skripta.' },
-      { time: '20:03', text: 'Jen na chvilku mrkneš na mobil.' },
-      { time: '21:40', text: 'Ještě jedno video.' },
-      { time: '23:10', text: 'Uklidíš si stůl. Pak celý pokoj.' },
-      { time: '23:55', text: 'Ještě 5 minut.' },
-    ],
+    free: 'Nejdřív zkusit zdarma',
+    ctaNote: 'PDF ti přijde do minuty',
+    videoLabel: 'Video: na lísteček v diáři se píše „Done!“',
   },
 
   learn: {
-    title: 'Co se naučíš',
+    title: 'Co se změní',
+    intro: 'Tohle si z e-booku odneseš.',
     items: [
-      'Začít s učením, i když se ti nechce.',
-      'Učit se, aniž bys každých pár minut sáhl po mobilu.',
-      'Naplánovat si zkouškové tak, abys nezačínal noc předem.',
-      'Rozdělit bakalářskou práci na malé kroky a dopsat ji.',
-      'Nezaseknout se na tom, aby všechno bylo dokonalé.',
-      'Navázat na plán, když jeden den nevyjde.',
+      { before: 'Otevřu skripta a nic.', after: 'Začneš, i když se ti nechce.' },
+      { before: 'Za tři minuty jsem na mobilu.', after: 'Učíš se, aniž bys sahal po telefonu.' },
+      { before: 'Učím se až noc před zkouškou.', after: 'Zkouškové máš naplánované dopředu.' },
+      { before: 'Bakalářka je v nedohlednu.', after: 'Píšeš ji po malých krocích.' },
+      { before: 'Musí to být dokonalé.', after: 'Hotové je lepší než dokonalé.' },
+      { before: 'Jeden špatný den a vzdám to.', after: 'Navážeš i po dni, kdy se nic nepovedlo.' },
     ],
   },
 
@@ -100,6 +75,7 @@ export const cs: SiteContent = {
     title: 'Cena',
     regularLabel: 'běžně',
     eurLabel: 'Ze Slovenska',
+    popular: 'Nejčastější volba',
     plans: {
       basic: {
         name: 'E-book',

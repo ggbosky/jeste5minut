@@ -64,6 +64,16 @@ Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „
 
 U obou nastav Node 22 (respektují `.nvmrc`) a případně proměnné prostředí výše. Cache hlavičky pro `/_astro/*` jsou v `vercel.json` a `public/_headers`.
 
+## Video v hero
+
+Video v pozadí je v `public/video/` (`hero.webm`, `hero.mp4` a první snímek `hero-poster.webp`). Hraje bez zvuku ve smyčce. Kdo má v zařízení vypnuté animace, uvidí jen první snímek. Výměna videa (potřebuješ ffmpeg):
+
+```bash
+ffmpeg -i nove.mp4 -an -vf "scale=1280:-2" -c:v libx264 -crf 27 -preset slow -movflags +faststart public/video/hero.mp4
+ffmpeg -i nove.mp4 -an -vf "scale=1280:-2" -c:v libvpx-vp9 -b:v 0 -crf 40 public/video/hero.webm
+ffmpeg -ss 0.2 -i nove.mp4 -frames:v 1 -vf "scale=1280:-2" -quality 70 public/video/hero-poster.webp
+```
+
 ## OG obrázek a ikony
 
 `public/og.png` (1200×630), favicony a ikony do manifestu jsou už vygenerované. Po změně názvu nebo hlavního claimu je přegeneruješ:

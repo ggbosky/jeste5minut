@@ -23,6 +23,10 @@ html = html.replace('</body>', () => `<script type="module">${code}</script></bo
 // odkazy na soubory, které v náhledu nejsou
 html = html.replace(/<link rel="(icon|apple-touch-icon|manifest|sitemap)"[^>]*>/g, '');
 
+// video a poster hera vložit přímo (náhled nemůže načítat soubory zvenku)
+const mime = { webm: 'video/webm', mp4: 'video/mp4', webp: 'image/webp' };
+html = html.replace(/\/video\/[\w-]+\.(webm|mp4|webp)/g, (path, ext) => `data:${mime[ext]};base64,${readFileSync(`${dir}${path}`).toString('base64')}`);
+
 // v galerii artifactů stačí jméno webu
 html = html.replace(/<title>[^<]*<\/title>/, '<title>Ještě 5 minut</title>');
 

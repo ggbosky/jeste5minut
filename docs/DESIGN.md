@@ -98,3 +98,11 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 - Logo: ciferník s vyznačeným výsekem 5 minut + název.
 - CTA: „Začnu teď“ (navazuje na nadpis), „Chci e-book“, „Chci e-book i bonusy“, „Pošlete mi SOS kartu“.
 - Lišta cookies se ukáže až po prvním scrollu a je kompaktní, aby nezakrývala hlavní tlačítko.
+
+## Revize 8 – video v hero, lepší CTA
+
+- Hero má v pozadí video ve smyčce (diář a lísteček „Done!“) s tmavým překryvem. Ukázka stránek e-booku odstraněna.
+- Hlavní CTA: „Začnu teď“ + „PDF ti přijde do minuty“ + cena v tmavé pilulce + šipka; jemný lesk každých pár sekund, oranžová záře. Vedle „Nejdřív zkusit zdarma“ (malý krok, SOS karta). Pod nimi sleva −33 % proti běžné ceně, záruka 14 dní (štít) a „jednorázově, žádné předplatné“.
+- Sekce s časy večera odstraněna.
+- „Co se naučíš“ → „Co se změní“: karty před → po, bolest se při najetí oranžově přeškrtne, pod ní výsledek.
+- Ceník: tlačítka s cenou a šipkou, u balíčku „Nejčastější volba“.
