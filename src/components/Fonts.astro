@@ -36,8 +36,14 @@ const css = faces
     ),
   )
   .join('');
+
+// Záložní písma se stejnou šířkou textu jako Archivo → text se při načtení fontu nezalomí jinak (CLS)
+const fallbacks =
+  `@font-face{font-family:'Archivo Display Fallback';font-weight:800;src:local('Arial Bold'),local('Arial-BoldMT'),local('Liberation Sans Bold');size-adjust:78.2%}` +
+  `@font-face{font-family:'Archivo Fallback';font-weight:400;src:local('Arial'),local('ArialMT'),local('Liberation Sans');size-adjust:97.8%}` +
+  `@font-face{font-family:'Archivo Fallback';font-weight:600 700;src:local('Arial Bold'),local('Arial-BoldMT'),local('Liberation Sans Bold');size-adjust:94.7%}`;
 ---
 
 <link rel="preload" href={arDisplay} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={arText} as="font" type="font/woff2" crossorigin />
-<style is:inline set:html={css} />
+<style is:inline set:html={css + fallbacks} />

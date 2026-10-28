@@ -11,8 +11,6 @@
 
 export type Link = { label: string; href: string };
 
-export type QuizTypeId = 'perfekcionista' | 'mobil' | 'zahlceny' | 'posledni';
-
 export type LegalPage = {
   title: string;
   description: string;
@@ -35,7 +33,6 @@ export type SiteContent = {
     ariaLabel: string;
   };
   hero: {
-    eyebrow: string;
     title: [string, string];
     subline: string;
     primaryCta: string;
@@ -51,40 +48,17 @@ export type SiteContent = {
       reactions: string[];
       counter: string;
       appTitle: string;
-      notifications: { app: string; text: string; ago: string }[];
-      battery: string;
-      lockLabel: string;
     };
     book: { title: string; subtitle: string; pages: string };
   };
-  marquee: string[];
-  marqueeLabel: string;
   reframe: {
-    kicker: string;
     title: [string, string];
     body: string;
     points: { title: string; text: string }[];
   };
-  quiz: {
-    kicker: string;
-    title: string;
-    intro: string;
-    start: string;
-    progress: string;
-    back: string;
-    restart: string;
-    resultKicker: string;
-    resultCta: string;
-    tipLabel: string;
-    types: Record<QuizTypeId, { name: string; text: string; tip: string }>;
-    questions: { q: string; answers: { text: string; type: QuizTypeId }[] }[];
-  };
   lead: {
-    kicker: string;
     title: string;
     text: string;
-    quizTitle: string;
-    quizText: string;
     nameLabel: string;
     namePlaceholder: string;
     emailLabel: string;
@@ -101,40 +75,36 @@ export type SiteContent = {
     mockup: { title: string; rows: [string, string][]; stamp: string };
   };
   inside: {
-    kicker: string;
     title: string;
     intro: string;
-    chapters: { time: string; title: string; text: string }[];
-    bonusesKicker: string;
+    chapterLabel: string;
+    readTime: string;
+    chapters: { title: string; text: string }[];
     bonusesTitle: string;
     bonuses: { kind: 'planner' | 'notion' | 'sos' | 'worksheets'; title: string; text: string }[];
   };
   how: {
-    kicker: string;
     title: string;
     steps: { title: string; text: string }[];
   };
   testimonials: {
-    kicker: string;
     title: string;
     note: string;
     placeholderBadge: string;
     items: { quote: string; author: string; role: string; placeholder: boolean }[];
   };
   pricing: {
-    kicker: string;
     title: string;
     intro: string;
     launchBadge: string;
     popular: string;
     regularLabel: string;
     eurLabel: string;
-    paymentNote: string;
     plans: Record<'basic' | 'bundle', { name: string; text: string; features: string[]; cta: string }>;
   };
-  guarantee: { kicker: string; title: string; text: string };
-  faq: { kicker: string; title: string; items: { q: string; a: string }[] };
-  finalCta: { title: [string, string]; text: string; cta: string; timerLabel: string; timerDone: string };
+  guarantee: { title: string; text: string };
+  faq: { title: string; items: { q: string; a: string }[] };
+  finalCta: { title: [string, string]; text: string; cta: string };
   footer: {
     tagline: string;
     legalTitle: string;

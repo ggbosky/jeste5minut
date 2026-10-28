@@ -16,8 +16,8 @@
   --color-card: #fffdf8;
 
   /* Archivo: úzký tučný řez na nadpisy, normální šířka na text */
-  --font-display: 'Archivo Display', 'Arial Narrow', 'Roboto Condensed', system-ui, sans-serif;
-  --font-sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Archivo Display', 'Archivo Display Fallback', 'Roboto Condensed', system-ui, sans-serif;
+  --font-sans: 'Archivo', 'Archivo Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
   --shadow-soft: 0 1px 2px rgb(20 33 61 / 0.06), 0 8px 24px -12px rgb(20 33 61 / 0.18);
@@ -26,14 +26,8 @@
   --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.2);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-marquee: marquee 38s linear infinite;
   --animate-blink: blink 1s steps(1) infinite;
 
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
   @keyframes blink {
     50% {
       opacity: 0;
@@ -87,12 +81,12 @@
 }
 
 /* Sekce pod ohybem se vykreslí až když jsou blízko → rychlejší první vykreslení */
-.cv-host > section:not(.marquee) {
+.cv-host > section {
   content-visibility: auto;
   contain-intrinsic-size: auto 1500px;
 }
 @media (min-width: 1024px) {
-  .cv-host > section:not(.marquee) {
+  .cv-host > section {
     contain-intrinsic-size: auto 1000px;
   }
 }
@@ -139,13 +133,9 @@
   -webkit-box-decoration-break: clone;
 }
 .bg-ink .marker {
-  background-image: linear-gradient(
-    90deg,
-    transparent 0.3em,
-    var(--color-coral) 0.3em,
-    var(--color-coral) calc(100% - 0.2em),
-    transparent calc(100% - 0.2em)
-  );
+  background: none;
+  color: var(--color-coral);
+  padding-inline: 0;
 }
 .link {
   text-decoration: underline;
@@ -154,16 +144,6 @@
 }
 .link:hover {
   text-decoration-color: var(--color-coral);
-}
-
-.kicker {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.7;
 }
 
 /* „5“ v nadpisu hera a 404 */
@@ -281,14 +261,6 @@
 .on-dark .btn-coral:hover {
   background: #ee4a27;
   border-color: #ee4a27;
-}
-
-/* Tikající dělítko sekcí (motiv časovače) */
-.ticks {
-  height: 14px;
-  background:
-    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 10px) bottom / 100% 6px no-repeat,
-    repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 60px) bottom / 100% 14px no-repeat;
 }
 
 /* ------------------------------------------------------------------

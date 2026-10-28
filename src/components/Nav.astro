@@ -16,7 +16,7 @@ const price = czk(currentPrice(pricing.basic));
     <a href="#top" class="text-[1.65rem] sm:text-[1.9rem]" aria-label={t.nav.logoLabel}>
       <Logo />
     </a>
-    <ul class="hidden items-center gap-8 font-medium md:flex">
+    <ul class="hidden items-center gap-8 md:flex">
       {
         t.nav.links.map((l) => (
           <li>
@@ -46,10 +46,9 @@ const price = czk(currentPrice(pricing.basic));
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.15rem;
-    height: 0.4em;
-    background: var(--color-marker);
-    z-index: -1;
+    bottom: 0.2rem;
+    height: 1px;
+    background: currentColor;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.35s var(--ease-out-expo);

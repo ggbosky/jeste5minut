@@ -14,10 +14,8 @@ const line1Html = line1.replace(/\b5\b/, '<span class="hero-five" aria-hidden="t
 ---
 
 <section id="top" class="relative overflow-clip pt-24 pb-16 sm:pt-28 lg:pt-28 lg:pb-24">
-  <div class="mx-auto grid max-w-[90rem] gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-10">
+  <div class="mx-auto grid max-w-[90rem] gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-10">
     <div class="lg:col-span-7">
-      <p class="kicker hero-in mb-5 sm:mb-7"><span set:html={rich(h.eyebrow)} /></p>
-
       <h1>
         <span class="hero-l1 block hero-in" style="--i:1" set:html={line1Html} />
         <span class="hero-line2 mt-2 block sm:mt-3 hero-in" style="--i:2">{line2}</span>

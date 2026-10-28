@@ -4,7 +4,7 @@ export type SubscribePayload = {
   email: string;
   name?: string;
   consent: boolean;
-  /** odkud formulář přišel: 'hero' | 'quiz' | … */
+  /** odkud formulář přišel: 'sos-karta' | … */
   source: string;
   /** volitelný štítek, např. výsledek kvízu */
   tag?: string;

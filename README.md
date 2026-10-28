@@ -18,7 +18,7 @@ npm run check     # kontrola typů (třeba po úpravě textů)
 
 | Co | Kde |
 | --- | --- |
-| **Všechny texty** (nadpisy, FAQ, kvíz, recenze, právní stránky…) | `src/content/cs.ts` |
+| **Všechny texty** (nadpisy, FAQ, recenze, právní stránky…) | `src/content/cs.ts` |
 | **Ceny** (Kč, €, launch cena) | `site.config.ts` → `pricing` |
 | **Odkazy na checkout** (SimpleShop) | `site.config.ts` → `pricing.basic.checkoutUrl`, `pricing.bundle.checkoutUrl` |
 | **E-mailový formulář** (endpoint, formát, názvy polí) | `site.config.ts` → `email` |
@@ -44,7 +44,7 @@ Hodnoty můžeš místo úpravy souboru nastavit i jako proměnné prostředí n
 
 ## E-mailový formulář (SOS karta)
 
-Veškeré odesílání je v jedné funkci: `src/lib/subscribe.ts`. Posílá `POST` na `email.endpoint` s poli `email`, `name` (nepovinné), `gdpr_consent`, `source` (`sos-karta` / `kviz`) a `tag` (výsledek kvízu, např. `kviz-mobil`). Názvy polí změníš v `site.config.ts → email.fields`, formát (JSON / form-urlencoded) v `email.format`.
+Veškeré odesílání je v jedné funkci: `src/lib/subscribe.ts`. Posílá `POST` na `email.endpoint` s poli `email`, `name` (nepovinné), `gdpr_consent` a `source` (`sos-karta`). Názvy polí změníš v `site.config.ts → email.fields`, formát (JSON / form-urlencoded) v `email.format`.
 
 **Nikdy nedávej do konfigurace API klíč** – kód běží v prohlížeči. Možnosti:
 
@@ -55,7 +55,7 @@ Dokud endpoint není nastavený, formulář ve `npm run dev` jen předstírá ú
 
 ## Analytika a cookies
 
-Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, výsledek kvízu, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
+Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, dokončený budík, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
 
 ## Deploy
 
@@ -100,4 +100,4 @@ docs/DESIGN.md         směr designu, varianty hera, self-review
 
 ## Výkon a přístupnost
 
-Lighthouse (lokálně, produkční build): mobil **98 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Fonty jsou self-hosted (Archivo + JetBrains Mono, jen latin + latin-ext woff2; nadpisový řez je statický výřez ~10 kB z `scripts/make-fonts.py`), CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formuláře, kvíz i FAQ jdou ovládat klávesnicí.
+Lighthouse (lokálně, produkční build): mobil **99 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Fonty jsou self-hosted (Archivo + JetBrains Mono, jen latin + latin-ext woff2; nadpisový řez je statický výřez ~10 kB z `scripts/make-fonts.py`), CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formulář i FAQ jdou ovládat klávesnicí.

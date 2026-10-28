@@ -60,3 +60,10 @@ Zpětná vazba: moc cartoon, divný font, čtverec budíku, celé to působí mo
 - **Budík:** kreslená karta se žlutým stínem → realistický zamčený displej telefonu (23:55, notifikace od mamky, ze studijního systému a „čas u obrazovky“, budík s tlačítkem Odložit). Telefon při odložení zabzučí.
 - **Pryč:** tvrdé posunuté stíny, 3px rámečky, natočené karty a štítky, ručně psaná poznámka, kreslené ikonky kvízu, tečky u nadpisů, rotující pečeť, grain.
 - **Nově:** tenké linky, jemné stíny jen tam, kde jde o fyzický předmět (telefon, kniha, SOS karta), ploché bloky, rovný zvýrazňovač.
+
+## Revize 3 – zjednodušení
+
+- Budík bez makety telefonu: plochý panel s velkým časem 23:55 a tlačítkem Odložit.
+- Odstraněno: pás s citáty, kvíz, malé popisky nad nadpisy, dělítka se stupnicí, platební poznámka pod ceníkem, obří odpočet v závěrečné sekci.
+- Kapitoly číslované („Kapitola 1 · 5 min čtení“) místo časových značek, které působily jako audiokniha.
+- Zvýrazňovač na tmavém pozadí nahrazen oranžovou barvou textu; menu má jen tenké podtržení.

@@ -2,9 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import Marquee from '../components/Marquee.astro';
 import Reframe from '../components/Reframe.astro';
-import Quiz from '../components/Quiz.astro';
 import LeadSection from '../components/LeadSection.astro';
 import Inside from '../components/Inside.astro';
 import HowItWorks from '../components/HowItWorks.astro';
@@ -15,7 +13,6 @@ import Faq from '../components/Faq.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
 import MiniTimer from '../components/MiniTimer.astro';
-import TimerDivider from '../components/TimerDivider.astro';
 ---
 
 <Base productSchema>
@@ -23,12 +20,8 @@ import TimerDivider from '../components/TimerDivider.astro';
   <main id="main">
     <Hero />
     <div class="cv-host">
-    <Marquee />
-    <div class="-mt-8 bg-ink pt-8"><Reframe /></div>
-    <Quiz />
-    <TimerDivider label="1:00" />
+    <Reframe />
     <LeadSection />
-    <TimerDivider label="2:30" />
     <Inside />
     <HowItWorks />
     <Testimonials />

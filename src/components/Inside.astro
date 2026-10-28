@@ -29,7 +29,6 @@ const art: Record<string, string> = {
   <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
     <div class="grid items-center gap-12 lg:grid-cols-12">
       <div class="lg:col-span-7">
-        <p class="kicker mb-5" data-reveal>{i.kicker}</p>
         <h2 id="inside-title" class="display-lg max-w-[16ch]" data-reveal style="--i:1" set:html={rich(i.title)} />
         <p class="mt-6 max-w-[36rem] text-lg leading-relaxed sm:text-xl" data-reveal style="--i:2" set:html={rich(i.intro)} />
       </div>
@@ -38,19 +37,17 @@ const art: Record<string, string> = {
       </div>
     </div>
 
-    <!-- Kapitoly jako stupnice stopek 0:00 → 5:00 -->
-    <ol class="timeline mt-20 grid sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
+    <!-- Kapitoly -->
+    <ol class="mt-20 grid gap-x-8 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
       {
         i.chapters.map((c, n) => (
-          <li class:list={['timeline-item', n === i.chapters.length - 1 && 'is-last']} data-reveal style={`--i:${n % 4}`}>
-            <div class="timeline-rail" aria-hidden="true" />
-            <time class="timeline-time font-mono" datetime={`PT${c.time.replace(':', 'M')}S`}>
-              {c.time}
-            </time>
-            <div class="timeline-body">
-              <h3 class="text-[1.75rem] leading-[0.95] sm:text-[2rem]" set:html={rich(c.title)} />
-              <p class="mt-2.5 leading-relaxed text-ink/80" set:html={rich(c.text)} />
-            </div>
+          <li class="chapter border-t border-[var(--color-line)] pt-4 pb-10" data-reveal style={`--i:${n % 4}`}>
+            <p class="flex items-baseline justify-between font-mono text-xs tracking-wide text-ink/75 uppercase">
+              <span>{i.chapterLabel} {n + 1}</span>
+              <span>{i.readTime}</span>
+            </p>
+            <h3 class="mt-4 text-[1.75rem] leading-[0.95] sm:text-[2rem]" set:html={rich(c.title)} />
+            <p class="mt-2.5 leading-relaxed text-ink/80" set:html={rich(c.text)} />
           </li>
         ))
       }
@@ -58,7 +55,6 @@ const art: Record<string, string> = {
 
     <!-- Bonusy -->
     <div class="mt-24 lg:mt-32">
-      <p class="kicker mb-5" data-reveal>{i.bonusesKicker}</p>
       <h3 class="display-md" data-reveal style="--i:1" set:html={rich(i.bonusesTitle)} />
       <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
         {
@@ -80,102 +76,6 @@ const art: Record<string, string> = {
 </section>
 
 <style>
-  /* ---------- mobil: svislá stupnice ---------- */
-  .timeline-item {
-    position: relative;
-    display: grid;
-    grid-template-columns: 4.25rem 1fr;
-    align-content: start;
-    gap: 0 1rem;
-    padding-bottom: 2.25rem;
-  }
-  .timeline-rail {
-    position: absolute;
-    left: 3.6rem;
-    top: 0.4rem;
-    bottom: 0;
-    width: 16px;
-    background:
-      linear-gradient(var(--color-ink), var(--color-ink)) left / 1px 100% no-repeat,
-      repeating-linear-gradient(180deg, var(--color-ink) 0 1px, transparent 1px 10px) left / 8px 100% no-repeat;
-  }
-  .timeline-item.is-last .timeline-rail {
-    display: none;
-  }
-  .timeline-time {
-    font-size: 1.05rem;
-    font-weight: 700;
-    padding-top: 0.15rem;
-  }
-  .timeline-body {
-    position: relative;
-    padding-left: 0.75rem;
-  }
-  .timeline-body::before {
-    content: '';
-    position: absolute;
-    left: -2rem;
-    top: 0.45rem;
-    width: 14px;
-    height: 14px;
-    border-radius: 999px;
-    background: var(--color-paper);
-    border: 1.5px solid var(--color-ink);
-  }
-  .timeline-item.is-last .timeline-body::before {
-    background: var(--color-coral);
-    width: 18px;
-    height: 18px;
-    left: -2.12rem;
-  }
-  .timeline-item.is-last .timeline-time {
-    color: var(--color-ink);
-    background: var(--color-marker);
-    align-self: start;
-    justify-self: start;
-    padding: 0.1rem 0.4rem;
-    border-radius: 6px;
-  }
-
-  /* ---------- tablet/desktop: vodorovné pravítko ---------- */
-  @media (min-width: 640px) {
-    .timeline-item {
-      grid-template-columns: 1fr;
-      padding: 0 1.5rem 3rem 0;
-    }
-    .timeline-rail {
-      position: static;
-      width: auto;
-      height: 26px;
-      order: 1;
-      margin-bottom: 0.9rem;
-      background:
-        linear-gradient(var(--color-ink), var(--color-ink)) bottom / 100% 1px no-repeat,
-        repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 12px) bottom / 100% 8px no-repeat,
-        linear-gradient(var(--color-ink), var(--color-ink)) left bottom / 1px 100% no-repeat;
-      margin-right: -1.5rem;
-    }
-    .timeline-item.is-last .timeline-rail {
-      display: block;
-      margin-right: 0;
-      background:
-        linear-gradient(var(--color-coral), var(--color-coral)) right bottom / 3px 100% no-repeat,
-        linear-gradient(var(--color-ink), var(--color-ink)) bottom / 100% 1px no-repeat,
-        repeating-linear-gradient(90deg, var(--color-ink) 0 1px, transparent 1px 12px) bottom / 100% 8px no-repeat,
-        linear-gradient(var(--color-ink), var(--color-ink)) left bottom / 1px 100% no-repeat;
-    }
-    .timeline-time {
-      order: 0;
-      margin-bottom: 0.4rem;
-    }
-    .timeline-body {
-      order: 2;
-      padding-left: 0;
-    }
-    .timeline-body::before {
-      display: none;
-    }
-  }
   .bonus-card {
     transition:
       translate 0.3s var(--ease-out-expo),

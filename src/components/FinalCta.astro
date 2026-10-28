@@ -8,75 +8,19 @@ const f = getContent().finalCta;
 const price = czk(currentPrice(pricing.basic));
 ---
 
-<section id="start" class="relative overflow-clip bg-coral py-20 text-ink sm:py-28 lg:py-36" aria-labelledby="final-title">
-  <div class="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-10">
-    <div class="final-timer font-mono" data-final-timer aria-hidden="true">
-      <span class="final-label">{f.timerLabel}</span>
-      <span class="final-digits" data-final-digits data-done={f.timerDone}>5:00</span>
-    </div>
-
-    <h2 id="final-title" class="mt-6 sm:mt-10">
-      <span class="display-lg block" data-reveal set:html={rich(f.title[0])} />
-      <span class="display-xl mt-2 block" data-reveal style="--i:1" set:html={rich(f.title[1])} />
+<section id="start" class="relative bg-coral py-20 text-ink sm:py-28 lg:py-32" aria-labelledby="final-title">
+  <div class="mx-auto grid max-w-[90rem] gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-end lg:px-10">
+    <h2 id="final-title" class="lg:col-span-8">
+      <span class="display-md block" data-reveal set:html={rich(f.title[0])} />
+      <span class="display-xl block" data-reveal style="--i:1" set:html={rich(f.title[1])} />
     </h2>
 
-    <div class="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-10" data-reveal style="--i:2">
-      <a href="#cena" class="btn btn-lg btn-ink !min-h-[4.75rem] !px-10 !text-[1.45rem]" data-magnetic="0.35" data-track="cta_final">
+    <div class="flex flex-col items-start gap-5 lg:col-span-4 lg:pb-4" data-reveal style="--i:2">
+      <p class="max-w-[22rem] text-lg leading-snug font-medium" set:html={rich(f.text)} />
+      <a href="#cena" class="btn btn-lg btn-ink" data-magnetic="0.3" data-track="cta_final">
         {f.cta}
-        <span class="font-mono text-[0.8em] font-normal">· {price}</span>
+        <span class="font-mono text-[0.85em] font-normal">· {price}</span>
       </a>
-      <p class="max-w-[22rem] text-xl leading-snug font-semibold" set:html={rich(f.text)} />
     </div>
   </div>
 </section>
-
-<style>
-  #start .marker {
-    background-image: linear-gradient(
-      90deg,
-      transparent 0.3em,
-      var(--color-marker) 0.3em,
-      var(--color-marker) calc(100% - 0.2em),
-      transparent calc(100% - 0.2em)
-    );
-  }
-  .final-timer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .final-label {
-    font-size: 0.875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .final-digits {
-    font-family: var(--font-display);
-    font-size: clamp(7rem, 40vw, 22rem);
-    font-weight: 800;
-    font-stretch: 72%;
-    line-height: 0.8;
-    font-variant-numeric: tabular-nums;
-    -webkit-text-stroke: 1.5px var(--color-ink);
-    color: transparent;
-  }
-  .final-digits.is-done {
-    color: var(--color-ink);
-  }
-</style>
-
-<script>
-  import { fmt, onTick } from '../lib/timer';
-  const el = document.querySelector<HTMLElement>('[data-final-digits]');
-  if (el) {
-    let started = false;
-    new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting || started) return;
-      started = true;
-      onTick((ms) => {
-        el.textContent = ms > 0 ? fmt(ms) : el.dataset.done!;
-        el.classList.toggle('is-done', ms === 0);
-      });
-    }).observe(el);
-  }
-</script>

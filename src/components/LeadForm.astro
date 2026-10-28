@@ -19,7 +19,6 @@ const field = dark
 
 <div class="lead-form" data-lead-form>
   <form id={id} novalidate data-source={source} class="grid gap-4">
-    <input type="hidden" name="tag" value="" />
     <div class="grid gap-4 sm:grid-cols-2">
       <label class="grid gap-1.5">
         <span class="text-sm font-semibold">{l.nameLabel}</span>
@@ -148,7 +147,6 @@ const field = dark
           name: String(data.get('name') || ''),
           consent: consent.checked,
           source: form.dataset.source || 'web',
-          tag: String(data.get('tag') || '') || undefined,
         });
         form.classList.add('hidden');
         success.classList.remove('hidden');

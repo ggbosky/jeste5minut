@@ -9,7 +9,6 @@ const f = getContent().faq;
   <div class="mx-auto grid max-w-[90rem] gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-10">
     <div class="lg:col-span-4">
       <div class="lg:sticky lg:top-28">
-        <p class="kicker mb-5" data-reveal>{f.kicker}</p>
         <h2 id="faq-title" class="display-md" data-reveal style="--i:1" set:html={rich(f.title)} />
       </div>
     </div>
