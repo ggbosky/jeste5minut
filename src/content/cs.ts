@@ -38,6 +38,7 @@ export const cs: SiteContent = {
     trust: ['14 dní na vrácení peněz', 'Jednorázově, žádné předplatné'],
     buy: 'Začnu teď',
     regularLabel: 'běžně',
+    discountLabel: 'launch sleva',
     free: 'Nejdřív zkusit zdarma',
     ctaNote: 'PDF ti přijde do minuty',
     videoLabel: 'Video: na lísteček v diáři se píše „Done!“',

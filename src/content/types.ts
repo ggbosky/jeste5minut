@@ -41,6 +41,7 @@ export type SiteContent = {
     buy: string;
     trust: string[];
     regularLabel: string;
+    discountLabel: string;
     free: string;
     /** malý text pod hlavním tlačítkem */
     ctaNote: string;
