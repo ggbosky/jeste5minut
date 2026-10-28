@@ -1,66 +1,41 @@
 ---
-import Logo from './Logo.astro';
-import { pricing } from '../../site.config';
 import { getContent } from '../content';
-import { czk, currentPrice } from '../lib/format';
 
 const t = getContent();
-const price = czk(currentPrice(pricing.basic));
 ---
 
-<header id="nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300">
-  <nav
-    class="mx-auto flex h-16 max-w-[90rem] items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6 lg:px-10"
-    aria-label={t.nav.ariaLabel}
-  >
-    <a href="#top" class="text-[1.65rem] sm:text-[1.9rem]" aria-label={t.nav.logoLabel}>
-      <Logo />
-    </a>
-    <ul class="hidden items-center gap-8 md:flex">
-      {
-        t.nav.links.map((l) => (
-          <li>
-            <a href={l.href} class="nav-link relative py-2">
-              {l.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <a href="#cena" class="btn btn-sm btn-coral whitespace-nowrap" data-magnetic="0.25">
-      {t.nav.cta}
-      <span class="font-mono text-[0.9em]">({price})</span>
-    </a>
+<header id="nav" class="sticky top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-300">
+  <nav class="container-page flex h-14 items-center justify-between gap-6" aria-label={t.nav.ariaLabel}>
+    <a href="#top" class="font-semibold tracking-tight" aria-label={t.nav.logoLabel}>Ještě 5 minut</a>
+    <div class="flex items-center gap-6 text-[0.9375rem]">
+      <ul class="hidden items-center gap-6 sm:flex">
+        {
+          t.nav.links.map((l) => (
+            <li>
+              <a href={l.href} class="text-muted transition-colors hover:text-ink">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="#cena" class="btn btn-sm">{t.nav.cta}</a>
+    </div>
   </nav>
 </header>
 
 <style>
   #nav.is-stuck {
-    background: color-mix(in srgb, var(--color-paper) 92%, transparent);
-    backdrop-filter: saturate(1.4) blur(8px);
-    -webkit-backdrop-filter: saturate(1.4) blur(8px);
-    box-shadow: 0 1px 0 var(--color-line);
-  }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.2rem;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s var(--ease-out-expo);
-  }
-  .nav-link:hover::after {
-    transform: scaleX(1);
+    background: rgb(255 255 255 / 0.85);
+    backdrop-filter: saturate(1.6) blur(16px);
+    -webkit-backdrop-filter: saturate(1.6) blur(16px);
+    border-bottom-color: var(--color-line);
   }
 </style>
 
 <script>
   const nav = document.getElementById('nav')!;
-  const onScroll = () => nav.classList.toggle('is-stuck', scrollY > 12);
+  const onScroll = () => nav.classList.toggle('is-stuck', scrollY > 8);
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 </script>

@@ -1,48 +1,31 @@
 @import 'tailwindcss';
 
 /* ------------------------------------------------------------------
-   Design tokens
+   Design tokens – bílé pozadí, tmavý text, oranžová jen na tlačítka.
+   Písmo: systémové (SF na Applu, Segoe na Windows, Roboto na Androidu).
 ------------------------------------------------------------------ */
 @theme {
   --color-ink: #14213d;
   --color-ink-soft: #24335a;
+  --color-muted: #5b6478;
   --color-coral: #ff5a36;
-  --color-paper: #faf7f0;
-  --color-paper-deep: #f1ebdd;
+  --color-coral-dark: #ee4a27;
+  --color-paper: #ffffff;
+  --color-soft: #f5f5f3;
+  --color-line: #e6e6e3;
   --color-mint: #2ec4b6;
-  --color-marker: #ffd23f;
 
-  --color-line: color-mix(in srgb, #14213d 14%, transparent);
-  --color-card: #fffdf8;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  /* Archivo: úzký tučný řez na nadpisy, normální šířka na text */
-  --font-display: 'Archivo Display', 'Archivo Display Fallback', 'Roboto Condensed', system-ui, sans-serif;
-  --font-sans: 'Archivo', 'Archivo Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-
-  --shadow-soft: 0 1px 2px rgb(20 33 61 / 0.06), 0 8px 24px -12px rgb(20 33 61 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(20 33 61 / 0.06), 0 24px 48px -20px rgb(20 33 61 / 0.35);
-
-  --ease-snap: cubic-bezier(0.2, 0.9, 0.25, 1.2);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-
-  --animate-blink: blink 1s steps(1) infinite;
-
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
 }
 
-/* ------------------------------------------------------------------
-   Base
------------------------------------------------------------------- */
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 4.5rem;
     background: var(--color-paper);
     color: var(--color-ink);
     overflow-x: clip;
@@ -50,29 +33,21 @@
   body {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
     overflow-x: clip;
   }
   ::selection {
-    background: var(--color-marker);
-    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-coral) 25%, transparent);
   }
   :focus-visible {
     outline: 2px solid var(--color-coral);
     outline-offset: 3px;
   }
-  .bg-ink :focus-visible,
-  .bg-coral :focus-visible {
-    outline-color: var(--color-marker);
-  }
   h1,
   h2,
   h3 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-stretch: 72%;
-    letter-spacing: -0.01em;
-    line-height: 0.9;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
     text-wrap: balance;
   }
   p {
@@ -83,60 +58,21 @@
 /* Sekce pod ohybem se vykreslí až když jsou blízko → rychlejší první vykreslení */
 .cv-host > section {
   content-visibility: auto;
-  contain-intrinsic-size: auto 1500px;
-}
-@media (min-width: 1024px) {
-  .cv-host > section {
-    contain-intrinsic-size: auto 1000px;
-  }
+  contain-intrinsic-size: auto 900px;
 }
 
-.grain {
-  position: relative;
+.container-page {
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
 }
 
-/* ------------------------------------------------------------------
-   Typografické detaily
------------------------------------------------------------------- */
-.strike {
-  position: relative;
-  text-decoration: none;
-  white-space: nowrap;
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
 }
-.strike::after {
-  content: '';
-  position: absolute;
-  left: -0.06em;
-  right: -0.06em;
-  top: 52%;
-  height: 0.09em;
-  min-height: 2px;
-  background: var(--color-coral);
-  transform: scaleX(var(--strike, 1));
-  transform-origin: left center;
-  border-radius: 2px;
-  transition: transform 0.6s var(--ease-out-expo) 0.25s;
-}
-.marker {
-  background: linear-gradient(
-      90deg,
-      transparent 0.3em,
-      var(--color-marker) 0.3em,
-      var(--color-marker) calc(100% - 0.2em),
-      transparent calc(100% - 0.2em)
-    )
-    no-repeat 0 92% / var(--mark, 100%) 0.3em;
-  color: inherit;
-  padding-inline: 0.06em;
-  transition: background-size 0.9s var(--ease-out-expo) 0.35s;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-.bg-ink .marker {
-  background: none;
-  color: var(--color-coral);
-  padding-inline: 0;
-}
+
 .link {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -146,161 +82,57 @@
   text-decoration-color: var(--color-coral);
 }
 
-/* „5“ v nadpisu hera a 404 */
-.hero-five {
-  color: var(--color-coral);
-}
-
-.display-xl {
-  font-size: clamp(4rem, 17vw, 11.5rem);
-}
-.display-lg {
-  font-size: clamp(3rem, 11vw, 7.5rem);
-}
-.display-md {
-  font-size: clamp(2.5rem, 8vw, 5.25rem);
-}
-
-/* ------------------------------------------------------------------
-   Komponenty
------------------------------------------------------------------- */
-.card {
-  background: var(--color-card);
-  border: 1px solid var(--color-line);
-  border-radius: 20px;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6em;
-  min-height: 3.25rem;
-  padding: 0.8rem 1.5rem;
-  border: 1.5px solid var(--color-ink);
+  gap: 0.5em;
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 999px;
-  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 1.0625rem;
   line-height: 1.1;
-  text-align: center;
   color: var(--color-ink);
-  background: transparent;
+  background: var(--color-coral);
   transition:
-    transform 0.15s ease,
     background-color 0.2s,
-    color 0.2s,
-    border-color 0.2s,
-    translate 0.3s var(--ease-out-expo);
+    transform 0.15s;
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
   cursor: pointer;
 }
 .btn:hover {
+  background: var(--color-coral-dark);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-dark {
   background: var(--color-ink);
-  color: var(--color-paper);
+  color: #fff;
 }
-.btn:active,
-.btn.is-pressed {
-  transform: scale(0.97);
-}
-.btn-coral {
-  background: var(--color-coral);
-  border-color: var(--color-coral);
-}
-.btn-coral:hover {
-  background: #ee4a27;
-  border-color: #ee4a27;
-  color: var(--color-ink);
-}
-.btn-ink {
-  background: var(--color-ink);
-  color: var(--color-paper);
-}
-.btn-ink:hover {
+.btn-dark:hover {
   background: var(--color-ink-soft);
-  border-color: var(--color-ink-soft);
-}
-.btn-marker {
-  background: var(--color-marker);
-  border-color: var(--color-marker);
 }
 .btn-sm {
-  min-height: 2.5rem;
-  padding: 0.45rem 1rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 1rem;
   font-size: 0.9375rem;
 }
 .btn-lg {
-  min-height: 3.75rem;
-  padding: 0.9rem 1.6rem;
+  min-height: 3.5rem;
+  padding: 0.9rem 2rem;
   font-size: 1.125rem;
 }
-@media (min-width: 640px) {
-  .btn-lg {
-    padding-inline: 2rem;
-  }
-}
-.btn > span {
-  white-space: nowrap;
-}
-.on-dark .btn,
-.btn.on-dark {
-  border-color: color-mix(in srgb, var(--color-paper) 60%, transparent);
-  color: var(--color-paper);
-}
-.on-dark .btn:hover {
-  background: var(--color-paper);
-  border-color: var(--color-paper);
-  color: var(--color-ink);
-}
-.on-dark .btn-coral,
-.btn-coral.on-dark {
-  border-color: var(--color-coral);
-  color: var(--color-ink);
-}
-.on-dark .btn-coral:hover {
-  background: #ee4a27;
-  border-color: #ee4a27;
-}
 
-/* ------------------------------------------------------------------
-   Scroll reveal (jen když běží JS a uživatel nechce omezit pohyb)
------------------------------------------------------------------- */
+/* Jemný reveal při scrollu – jen posun, obsah je vidět i bez JS */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
-    transform: translateY(24px);
-    transition: transform 0.9s var(--ease-out-expo);
-    transition-delay: calc(var(--i, 0) * 80ms);
+    transform: translateY(16px);
+    transition: transform 0.8s var(--ease-out-expo);
   }
   .js [data-reveal].is-in {
     transform: none;
-  }
-  .js [data-reveal] .marker,
-  .js [data-reveal].marker {
-    --mark: 0%;
-  }
-  .js [data-reveal].is-in .marker,
-  .js [data-reveal].is-in.marker {
-    --mark: 100%;
-  }
-  .js [data-reveal] .strike {
-    --strike: 0;
-  }
-  .js [data-reveal].is-in .strike {
-    --strike: 1;
-  }
-}
-
-/* Hero: animace jen v CSS a jen posunem (bez skrývání) → nezdržuje LCP ani bez JS */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-in {
-    animation: hero-in 0.9s var(--ease-out-expo) both;
-    animation-delay: calc(var(--i, 0) * 70ms);
-  }
-}
-@keyframes hero-in {
-  from {
-    transform: translateY(28px);
   }
 }
 
@@ -312,9 +144,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  html {
-    scroll-behavior: auto;
   }
 }
 

@@ -16,13 +16,13 @@ const enabled = analytics.provider !== null;
       hidden
       class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-[30rem]"
     >
-      <div class="card flex flex-col gap-4 p-5">
-        <p class="text-[0.9375rem] leading-snug">{t.cookies.text}</p>
+      <div class="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-5 shadow-[0_10px_40px_-12px_rgb(20_33_61/0.25)]">
+        <p class="text-[0.9375rem] leading-snug text-muted">{t.cookies.text}</p>
         <div class="flex shrink-0 gap-3">
-          <button type="button" class="btn btn-sm btn-ink" data-consent="denied">
+          <button type="button" class="btn btn-sm btn-dark" data-consent="denied">
             {t.cookies.decline}
           </button>
-          <button type="button" class="btn btn-sm" data-consent="granted">
+          <button type="button" class="btn btn-sm !bg-soft hover:!bg-line" data-consent="granted">
             {t.cookies.accept}
           </button>
         </div>
@@ -36,15 +36,8 @@ const enabled = analytics.provider !== null;
 
   const box = document.getElementById('cookie-consent');
   if (box && analyticsEnabled()) {
-    const show = () => {
-      box.hidden = false;
-      // Mobilní CTA lišta se posune nad lištu cookies
-      document.documentElement.classList.add('has-consent-bar');
-    };
-    const hide = () => {
-      box.hidden = true;
-      document.documentElement.classList.remove('has-consent-bar');
-    };
+    const show = () => (box.hidden = false);
+    const hide = () => (box.hidden = true);
 
     const current = getConsent();
     if (current === 'granted') loadAnalytics();

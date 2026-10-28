@@ -3,257 +3,156 @@ import type { SiteContent } from './types';
 /**
  * VŠECHNY TEXTY WEBU (čeština).
  * Ceny a odkazy nejsou tady, ale v site.config.ts.
- * Mini-syntaxe: ~~přeškrtnuté~~, ==zvýrazňovač==, **tučně**, [odkaz](/url).
+ * Mini-syntaxe: **tučně**, [odkaz](/url).
  * Jednopísmenné předložky (v, k, s, z, a, i, o, u) se nezlomí na konec řádku automaticky.
  */
 export const cs: SiteContent = {
   meta: {
-    title: 'Ještě 5 minut – e-book o prokrastinaci pro studenty',
+    title: 'Ještě 5 minut – e-book o tom, jak přestat odkládat učení',
     description:
-      'E-book, který tě dostane od „ještě chvilku“ k první větě. Zkouškové, bakalářka i mobil v ruce. Kapitoly na 5 minut, plánovač, Notion šablona a SOS karta zkouškového.',
-    ogAlt: 'Ještě 5 minut. A pak už fakt začneš. – e-book o prokrastinaci pro studenty',
+      'E-book pro vysokoškoláky o tom, jak přestat odkládat učení a bakalářku. 70 stran, 8 kapitol, PDF pro mobil i počítač.',
+    ogAlt: 'Ještě 5 minut – e-book o tom, jak přestat odkládat učení',
     productDescription:
-      'E-book (PDF, cca 70 stran) o tom, jak přestat odkládat učení a bakalářku. Bonusy: týdenní plánovač, Notion šablona, SOS karta zkouškového a pracovní listy.',
+      'E-book (PDF, 70 stran) o tom, jak přestat odkládat učení a bakalářskou práci. Balíček navíc obsahuje týdenní plánovač, šablonu do Notionu, SOS kartu na zkouškové a pracovní listy.',
   },
 
   nav: {
     links: [
-      { label: 'Co v tom je', href: '#obsah' },
-      { label: 'Recenze', href: '#recenze' },
-      { label: 'FAQ', href: '#faq' },
+      { label: 'Obsah', href: '#obsah' },
+      { label: 'Cena', href: '#cena' },
+      { label: 'Otázky', href: '#faq' },
     ],
-    cta: 'Chci to',
+    cta: 'Koupit',
     skip: 'Přeskočit na obsah',
     logoLabel: 'Ještě 5 minut – úvod',
     ariaLabel: 'Hlavní navigace',
   },
 
   hero: {
-    title: ['Ještě 5 minut.', 'A pak už fakt začneš.'],
-    subline:
-      'Zkouškové za dveřmi, bakalářka v nedohlednu a mobil v ruce. Tenhle e-book tě dostane od „ještě chvilku“ k první větě. Za 5 minut, ne za semestr.',
-    primaryCta: 'Chci e-book',
-    secondaryCta: 'SOS karta zdarma',
-    trust: 'Pro studenty, co se učí noc před zkouškou. Bez kázání, bez motivačních citátů.',
-    alarm: {
-      time: '23:55',
-      day: 'úterý 14. ledna',
-      label: 'Zkouška z makra · 8:00',
-      snooze: 'Odložit (5 min)',
-      stop: 'Vstávám',
-      reactions: ['Fakt? Zase?', 'Ještě jednou a dost…', 'Ok, tak začneme.'],
-      counter: 'Odloženo',
-      appTitle: 'Budík',
-    },
-    book: { title: 'Ještě 5 minut', subtitle: 'Jak přestat odkládat a fakt začít', pages: 'PDF · 70 stran' },
-  },
-
-  reframe: {
-    title: ['Nejsi ~~líný~~.', 'Tvůj mozek jen miluje ==okamžitou odměnu==.'],
-    body:
-      'TikTok ti dá odměnu hned. Kapitola ze statistiky? Možná za tři týdny u zkoušky. Není divu, že mozek volí telefon. Nepotřebuješ víc vůle. Stačí ho trochu přechytračit.',
-    points: [
-      {
-        title: 'Odkládání není lenost',
-        text: 'Je to útěk před nepříjemným pocitem. Nuda, strach, že to pokazíš, chaos v hlavě.',
-      },
-      {
-        title: 'Motivace přijde až po startu',
-        text: 'Ne před ním. Proto stačí 5 minut. Zbytek se rozjede sám.',
-      },
-      {
-        title: 'Systém porazí vůli',
-        text: 'Vůle dojde ve tři odpoledne. Systém funguje i v půlce zkouškového.',
-      },
+    title: 'Ještě 5 minut',
+    subtitle: 'Jak přestat odkládat učení.',
+    text: 'E-book pro vysokoškoláky, kteří se chtějí učit průběžně a ne až noc před zkouškou.',
+    buy: 'Koupit',
+    regularLabel: 'běžně',
+    free: 'Nebo si stáhni SOS kartu zdarma',
+    facts: [
+      { value: '70', label: 'stran' },
+      { value: '8', label: 'kapitol' },
+      { value: 'PDF', label: 'pro mobil i počítač' },
     ],
+    book: { title: 'Ještě 5 minut', subtitle: 'Jak přestat odkládat učení' },
   },
 
-  lead: {
-    title: 'SOS karta zkouškového',
-    text: 'Jedna stránka, která tě vytáhne z paniky noc před zkouškou. Co dělat v jakém pořadí, když zbývá 12 hodin. Pošleme ti ji do mailu.',
-    nameLabel: 'Jméno (nepovinné)',
-    namePlaceholder: 'Jak ti máme říkat?',
-    emailLabel: 'E-mail',
-    emailPlaceholder: 'tvuj@email.cz',
-    consent:
-      'Souhlasím se zasíláním SOS karty a občasných tipů na e-mail. Odhlásit se můžu jedním klikem. Víc v [zásadách ochrany osobních údajů](/gdpr).',
-    submit: 'Pošlete mi ji',
-    sending: 'Posílám…',
-    successTitle: 'Hotovo. Mrkni do mailu.',
-    successText: 'SOS karta je na cestě. Kdyby nedorazila do pár minut, zkontroluj složku Promo nebo Spam.',
-    error: 'Něco se pokazilo a nebylo to tebou. Zkus to prosím za chvíli znovu.',
-    invalidEmail: 'Tenhle e-mail nevypadá úplně dobře. Zkontroluješ ho?',
-    consentRequired: 'Bez souhlasu ti nemůžeme nic poslat. Zaškrtni ho prosím.',
-    perks: ['Zdarma', '1 stránka A4', 'Plán na posledních 12 hodin', 'Funguje i ve 2 ráno'],
-    mockup: {
-      title: 'SOS karta zkouškového',
-      stamp: 'SOS',
-      rows: [
-        ['T−12 h', 'Telefon do jiné místnosti'],
-        ['T−11 h', 'Vyber 3 největší témata'],
-        ['T−10 h', 'Bloky 25 min + 5 min pauza'],
-        ['T−4 h', 'Shrnutí na 1 stránku'],
-        ['T−3 h', 'Spát. Fakt.'],
-        ['T−0', 'Snídaně a jdeš na to'],
-      ],
-    },
-  },
-
-  inside: {
-    title: '8 kapitol. Každá na 5 minut.',
-    intro:
-      'Žádná vata, žádné „věř si a dokážeš to“. Jedna kapitola = jedna technika, kterou hned vyzkoušíš. Celé to přečteš za dvě odpoledne.',
-    chapterLabel: 'Kapitola',
-    readTime: '5 min čtení',
-    chapters: [
-      { title: 'Proč odkládáš', text: 'A proč to vůbec není lenost. Co se ti děje v hlavě, když otevřeš skripta.' },
-      { title: 'Pravidlo 5 minut', text: 'Jak začít, když se ti fakt nechce. Nejmenší možný krok, který rozjede celý den.' },
-      { title: 'Mobil vs. ty', text: 'Jak vyhrát nad TikTokem bez digitálního detoxu v klášteře.' },
-      { title: 'Zkouškové bez paniky', text: 'Plán na 14 dní před zkouškou. A plán B, když ti zbývají tři.' },
-      { title: 'Bakalářka po kouscích', text: 'Od prázdné stránky k první kapitole. Malé kroky místo jednoho obřího strašáka.' },
-      { title: 'Hotové > dokonalé', text: 'Jak umlčet perfekcionistu, který ti ve 14 verzích maže úvod.' },
-      { title: 'Když to nevyjde', text: 'Restart bez výčitek. Jeden propadák neznamená, že jsi propadák.' },
-      { title: 'Teď', text: 'Tvůj osobní plán na příští týden. Hotový za 5 minut.' },
-    ],
-    bonusesTitle: 'A k tomu nářadí',
-    bonuses: [
-      { kind: 'planner', title: 'Týdenní plánovač', text: 'PDF k tisku i do tabletu. Týden na jedné stránce, bez 40 kolonek.' },
-      { kind: 'notion', title: 'Notion šablona', text: 'Zkouškové, bakalářka a deadliny na jednom místě. Duplikuješ jedním klikem.' },
-      { kind: 'sos', title: 'SOS karta zkouškového', text: 'Co dělat, když je noc před zkouškou a ty máš přečtenou polovinu.' },
-      { kind: 'worksheets', title: 'Pracovní listy', text: 'Ke každé kapitole jeden list. Vyplníš za 5 minut, výsledek vidíš hned.' },
-    ],
-  },
-
-  how: {
-    title: 'Tři kroky. Žádný z nich není „zítra“.',
-    steps: [
-      { title: 'Stáhni', text: 'Zaplatíš a do minuty máš PDF v mailu. Žádná registrace, žádná appka.' },
-      { title: 'Přečti kapitolu za 5 minut', text: 'Jedna kapitola, jedna technika. Krátce, konkrétně, bez keců.' },
-      { title: 'Začni', text: 'Na konci každé kapitoly je úkol na 5 minut. Pustíš časovač a jedeš.' },
-    ],
-  },
-
-  // TODO: real testimonials – až budou skutečné recenze od čtenářů, nahraď texty
-  // a nastav placeholder: false (zmizí štítek „ukázka“). Nevymýšlej jména.
-  testimonials: {
-    title: 'Co říkají betačtenáři',
-    note: 'E-book právě vychází. Sem dáme první skutečné recenze. Zatím tu jsou ukázky.',
-    placeholderBadge: 'Ukázka',
+  learn: {
+    title: 'Co se naučíš',
     items: [
-      {
-        quote: 'Tady bude recenze od prvního čtenáře. Třeba o tom, jak konečně napsal úvod bakalářky.',
-        author: 'Betačtenář/ka',
-        role: 'Obor, ročník',
-        placeholder: true,
-      },
-      {
-        quote: 'Tady bude recenze o zkouškovém, které nebylo jedna velká noc před zkouškou.',
-        author: 'Betačtenář/ka',
-        role: 'Obor, ročník',
-        placeholder: true,
-      },
-      {
-        quote: 'Tady bude recenze o tom, kolik času šetří telefon v jiné místnosti.',
-        author: 'Betačtenář/ka',
-        role: 'Obor, ročník',
-        placeholder: true,
-      },
+      'Začít s učením, i když se ti nechce.',
+      'Učit se, aniž bys každých pár minut sáhl po mobilu.',
+      'Naplánovat si zkouškové tak, abys nezačínal noc předem.',
+      'Rozdělit bakalářskou práci na malé kroky a dopsat ji.',
+      'Nezaseknout se na tom, aby všechno bylo dokonalé.',
+      'Navázat na plán, když jeden den nevyjde.',
+    ],
+  },
+
+  contents: {
+    title: 'Obsah',
+    intro: 'Každá kapitola se dá přečíst zhruba za pět minut a končí jedním konkrétním úkolem.',
+    chapters: [
+      { title: 'Proč odkládáme', text: 'Co se děje v hlavě, když učení odsouváme, a proč to není lenost.' },
+      { title: 'Pravidlo pěti minut', text: 'Jak začít nejmenším možným krokem.' },
+      { title: 'Mobil', text: 'Jak omezit rozptylování bez úplného digitálního detoxu.' },
+      { title: 'Zkouškové', text: 'Plán na čtrnáct dní před zkouškou a co dělat, když zbývají tři.' },
+      { title: 'Bakalářská práce', text: 'Od prázdné stránky k první hotové kapitole.' },
+      { title: 'Perfekcionismus', text: 'Proč je hotová práce lepší než dokonalá.' },
+      { title: 'Když to nevyjde', text: 'Jak navázat po dni, kdy se nic neudělalo.' },
+      { title: 'Tvůj plán', text: 'Sestavíš si plán na příští týden.' },
     ],
   },
 
   pricing: {
-    title: 'Míň než jedna pizza s kamarády.',
-    intro: 'Jednorázově. Žádné předplatné, žádné háčky. Stáhneš a máš navždy.',
-    launchBadge: 'Launch cena',
-    popular: 'Nejoblíbenější',
-    regularLabel: 'Běžná cena',
+    title: 'Cena',
+    regularLabel: 'běžně',
     eurLabel: 'Ze Slovenska',
     plans: {
       basic: {
         name: 'E-book',
-        text: 'Všechno, co potřebuješ, abys dneska začal(a).',
-        features: ['E-book PDF, cca 70 stran', '8 kapitol na 5 minut čtení', 'Čte se dobře i na mobilu', 'Aktualizace zdarma'],
-        cta: 'Chci e-book',
+        features: ['E-book v PDF, 70 stran', 'Aktualizace zdarma'],
+        cta: 'Koupit e-book',
       },
       bundle: {
         name: 'E-book + bonusy',
-        text: 'E-book a k tomu nářadí na celé zkouškové i bakalářku.',
         features: [
-          'Všechno z e-booku',
-          'Týdenní plánovač (PDF)',
-          'Notion šablona',
-          'SOS karta zkouškového',
+          'E-book v PDF, 70 stran',
+          'Týdenní plánovač k tisku',
+          'Šablona do Notionu',
+          'SOS karta na zkouškové',
           'Pracovní listy ke kapitolám',
+          'Aktualizace zdarma',
         ],
-        cta: 'Chci všechno',
+        cta: 'Koupit balíček',
       },
     },
   },
 
-  // TODO: záruku musí potvrdit majitel – upravit podmínky (lhůtu, postup) podle skutečnosti.
-  guarantee: {
-    title: 'Nepomohlo? Vrátíme peníze.',
-    text:
-      'Když ti e-book nepomůže začít, napiš nám do 14 dnů od nákupu na e-mail a vrátíme ti peníze. Bez dotazníku a bez „a proč?“.',
+  lead: {
+    title: 'SOS karta zdarma',
+    text: 'Jedna stránka s postupem na posledních dvanáct hodin před zkouškou. Pošleme ti ji e-mailem.',
+    emailLabel: 'E-mail',
+    emailPlaceholder: 'tvuj@email.cz',
+    consent:
+      'Souhlasím se zasíláním SOS karty a občasných tipů e-mailem. Odhlásit se můžu kdykoli. Více v [zásadách ochrany osobních údajů](/gdpr).',
+    submit: 'Poslat',
+    sending: 'Posílám…',
+    successTitle: 'Hotovo',
+    successText: 'SOS karta je na cestě. Pokud nedorazí do pár minut, podívej se do složky Promo nebo Spam.',
+    error: 'Odeslání se nepovedlo. Zkus to prosím za chvíli znovu.',
+    invalidEmail: 'Zkontroluj prosím e-mailovou adresu.',
+    consentRequired: 'Bez souhlasu ti nemůžeme nic poslat.',
   },
 
   faq: {
-    title: 'Otázky, které si klademe místo učení',
+    title: 'Časté otázky',
     items: [
       {
-        q: 'V jakém formátu e-book je? Přečtu ho na mobilu?',
-        a: 'Je to PDF. Otevřeš ho na mobilu, tabletu i v počítači. Sazba je dělaná tak, aby se dala číst i na malém displeji, takže žádné zoomování. Notion šablonu si jedním klikem zkopíruješ do svého Notionu.',
+        q: 'V jakém formátu e-book je?',
+        a: 'V PDF. Otevřeš ho na mobilu, tabletu i v počítači a text je čitelný i na malém displeji. Šablonu do Notionu si zkopíruješ jedním kliknutím.',
       },
       {
-        q: 'Jak dlouho trvá to přečíst?',
-        a: 'Celé zhruba dvě hodiny. Ale nemusíš najednou. Každá kapitola je na 5 minut. Jedna kapitola, jeden krok, hotovo.',
+        q: 'Jak dlouho trvá ho přečíst?',
+        a: 'Celý zhruba dvě hodiny. Každá kapitola má asi pět minut čtení, takže ho můžeš číst postupně.',
       },
       {
         q: 'Jak můžu zaplatit?',
-        a: 'Kartou nebo QR platbou (převodem). Platba probíhá přes zabezpečenou bránu SimpleShop. Hned po zaplacení ti přijde e-mail s odkazem ke stažení.',
+        a: 'Kartou nebo bankovním převodem přes platební bránu SimpleShop. Po zaplacení ti přijde e-mail s odkazem ke stažení.',
       },
       {
         q: 'Dostanu fakturu?',
-        a: 'Jo. Fakturu ti systém pošle automaticky e-mailem hned po zaplacení. Kupuješ na firmu? Vyplň v objednávce IČO.',
+        a: 'Ano, faktura přijde e-mailem automaticky po zaplacení. Pokud kupuješ na firmu, vyplň v objednávce IČO.',
       },
       {
-        q: 'Funguje to i na Slovensku?',
-        a: 'Jasně. Zaplatíš v eurech kartou i převodem. E-book je zatím v češtině, ale přečteš ho bez problémů. Slovenská verze se chystá.',
+        q: 'Můžu nakoupit ze Slovenska?',
+        a: 'Ano, zaplatíš v eurech kartou nebo převodem. E-book je v češtině.',
       },
       {
         q: 'Dostanu aktualizace?',
-        a: 'Ano, zdarma. Když e-book vylepšíme nebo přidáme kapitolu, pošleme ti novou verzi na e-mail, který zadáš při nákupu.',
+        a: 'Ano, zdarma. Novou verzi ti pošleme na e-mail, který zadáš při nákupu.',
       },
       {
-        q: 'Co když mi to nepomůže?',
-        a: 'Napiš nám do 14 dnů od nákupu a vrátíme ti peníze. Víc nahoře v sekci Férová záruka.',
+        q: 'Co když mi e-book nepomůže?',
+        a: 'Napiš nám do 14 dnů od nákupu a vrátíme ti peníze.',
       },
     ],
   },
 
-  finalCta: {
-    title: ['Žádných dalších 5 minut.', 'Začni teď.'],
-    text: 'Stáhneš za minutu. První kapitolu přečteš za pět.',
-    cta: 'Chci to',
-  },
-
   footer: {
-    tagline: 'Pro všechny, co tohle čtou místo učení. To je v pohodě. Ale teď už jdi na to.',
-    legalTitle: 'Právní věci',
     legal: [
       { label: 'Obchodní podmínky', href: '/obchodni-podminky' },
       { label: 'Ochrana osobních údajů', href: '/gdpr' },
       { label: 'Reklamační řád', href: '/reklamacni-rad' },
     ],
-    contactTitle: 'Kontakt',
-    socialTitle: 'Sleduj nás',
     cookieSettings: 'Nastavení cookies',
-    rights: 'Všechna práva vyhrazena.',
-    signoff: '~~zítra~~ teď.',
-    toTop: 'Ještě 5 minut – zpět nahoru',
   },
-
-  miniTimer: { label: 'Do startu', done: 'Čas začít', cta: 'Chci to' },
 
   cookies: {
     label: 'Souhlas s analytikou',
@@ -263,8 +162,8 @@ export const cs: SiteContent = {
   },
 
   notFound: {
-    title: 'Tahle stránka si dala ještě 5 minut.',
-    text: 'A pak dalších 5. A pak zmizela. Zkus to od začátku.',
+    title: 'Stránka nenalezena',
+    text: 'Tahle stránka neexistuje nebo byla přesunuta.',
     cta: 'Zpět na úvod',
   },
 

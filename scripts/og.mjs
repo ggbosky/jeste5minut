@@ -7,44 +7,29 @@ import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const root = fileURLToPath(new URL('..', import.meta.url));
-const font = (p) => `data:font/woff2;base64,${readFileSync(require.resolve(p)).toString('base64')}`;
-
 const css = `
-@font-face{font-family:AD;font-weight:100 900;font-stretch:62% 125%;src:url(${font('@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2')})}
-@font-face{font-family:AD;font-weight:100 900;font-stretch:62% 125%;src:url(${font('@fontsource-variable/archivo/files/archivo-latin-ext-wdth-normal.woff2')});unicode-range:U+0100-02BA}
-@font-face{font-family:JB;font-weight:500;src:url(${font('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2')})}
-@font-face{font-family:JB;font-weight:500;src:url(${font('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-500-normal.woff2')});unicode-range:U+0100-02BA}
 *{margin:0;box-sizing:border-box}
-body{width:1200px;height:630px;background:#FAF7F0;color:#14213D;font-family:AD;overflow:hidden;position:relative}
-.c{color:#FF5A36}
+body{width:1200px;height:630px;background:#fff;color:#14213D;font-family:-apple-system,'SF Pro Display','Segoe UI',Inter,Roboto,Arial,sans-serif;overflow:hidden;position:relative}
 `;
 
 const og = `<!doctype html><html><head><meta charset="utf-8"><style>${css}
-.wrap{position:absolute;left:72px;top:64px;width:760px}
-.kicker{font-family:JB;font-size:20px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
-s{position:relative;text-decoration:none}s:after{content:'';position:absolute;left:-3px;right:-3px;top:52%;height:3px;background:#FF5A36}
-h1{font-weight:800;font-stretch:72%;font-size:190px;line-height:.88;margin-top:30px}
-h2{font-weight:800;font-stretch:72%;font-size:92px;line-height:.92;margin-top:14px}
-.phone{position:absolute;right:80px;top:56px;width:270px;height:560px;border-radius:44px;background:#0c1426;padding:9px;box-shadow:0 30px 60px -20px rgba(20,33,61,.5)}
-.screen{height:100%;border-radius:36px;background:radial-gradient(120% 60% at 50% 0%,#24335a 0%,transparent 70%),radial-gradient(90% 50% at 80% 100%,rgba(255,90,54,.25) 0%,transparent 70%),#14213D;color:#FAF7F0;display:flex;flex-direction:column;align-items:center;padding:56px 16px 18px;font-family:Arial,sans-serif}
-.date{font-size:16px;opacity:.85}
-.time{font-family:AD;font-weight:600;font-stretch:88%;font-size:84px;line-height:1}
-.alarm{margin-top:auto;width:100%;background:rgba(250,247,240,.1);border-radius:22px;padding:14px}
-.label{font-weight:700;font-size:15px}
-.btn{margin-top:12px;background:#FF5A36;color:#14213D;border-radius:99px;text-align:center;font-weight:700;font-size:18px;padding:16px 0}
+.wrap{position:absolute;left:96px;top:0;bottom:0;width:620px;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:104px;font-weight:700;letter-spacing:-.035em;line-height:1}
+h2{font-size:44px;font-weight:600;letter-spacing:-.02em;margin-top:18px}
+p{font-size:28px;color:#5b6478;margin-top:28px}
+.book{position:absolute;right:120px;top:95px;width:300px;height:420px;perspective:1600px}
+.cover{height:100%;border-radius:5px 12px 12px 5px;background:#14213D;color:#fff;padding:32px;display:flex;flex-direction:column;justify-content:flex-end;transform:rotateY(-14deg) rotateX(4deg);box-shadow:inset 6px 0 0 rgba(255,255,255,.08),inset 9px 0 0 rgba(0,0,0,.25),30px 40px 60px -24px rgba(20,33,61,.45)}
+.rule{position:absolute;top:32px;left:32px;width:42px;height:5px;border-radius:3px;background:#FF5A36}
+.t{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.02}
+.s{font-size:17px;opacity:.75;margin-top:10px}
 </style></head><body>
-<div class="wrap">
-<div class="kicker">E-book pro studenty, co začnou <s>zítra</s> teď</div>
-<h1>Ještě <span class="c">5</span> minut.</h1>
-<h2>A pak už fakt začneš.</h2>
-</div>
-<div class="phone"><div class="screen"><div class="date">úterý 14. ledna</div><div class="time">23:55</div>
-<div class="alarm"><div class="label">Zkouška z makra · 8:00</div><div class="btn">Odložit (5 min)</div></div></div></div>
+<div class="wrap"><h1>Ještě 5 minut</h1><h2>Jak přestat odkládat učení.</h2><p>E-book pro vysokoškoláky · 70 stran · PDF</p></div>
+<div class="book"><div class="cover"><span class="rule"></span><div class="t">Ještě 5 minut</div><div class="s">Jak přestat odkládat učení</div></div></div>
 </body></html>`;
 
 const icon = (size) => `<!doctype html><html><head><meta charset="utf-8"><style>${css}
 body{width:${size}px;height:${size}px;background:#14213D;display:grid;place-items:center}
-span{font-weight:800;font-stretch:72%;font-size:${size * 0.82}px;line-height:1;color:#FF5A36;transform:translateY(3%)}
+span{font-weight:700;font-size:${size * 0.7}px;line-height:1;color:#fff;letter-spacing:-.04em}
 </style></head><body><span>5</span></body></html>`;
 
 const browser = await chromium.launch();

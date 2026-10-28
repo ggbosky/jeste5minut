@@ -1,6 +1,6 @@
 # Ještě 5 minut – web
 
-One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, interakce ve vanilla JS (bez frameworku, ~8 kB JS celkem).
+One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, pár řádků vanilla JS (formulář, FAQ, lišta cookies). Systémové písmo, žádné fonty ke stažení.
 
 ## Spuštění
 
@@ -25,9 +25,9 @@ npm run check     # kontrola typů (třeba po úpravě textů)
 | **Analytika** (Plausible / GA4 / vypnuto) | `site.config.ts` → `analytics` |
 | **Kontakt, IČO, sociální sítě** | `site.config.ts` → `contact`, `socials` |
 | Doména (canonical, sitemap, OG) | `site.config.ts` → `site.url` a `public/robots.txt` |
-| Barvy, fonty, stíny | `src/styles/global.css` → `@theme` |
+| Barvy, písmo | `src/styles/global.css` → `@theme` |
 
-V textech funguje mini-syntaxe: `~~přeškrtnuté~~`, `==zvýrazňovač==`, `**tučně**`, `[odkaz](/url)`. Jednopísmenné předložky se automaticky nezlomí na konec řádku.
+V textech funguje mini-syntaxe: `**tučně**`, `[odkaz](/url)`. Jednopísmenné předložky se automaticky nezlomí na konec řádku.
 
 Když skončí launch cena, nastav `pricing.basic.launch = null` – zmizí přeškrtnutá cena i štítek a všude se ukáže běžná cena.
 
@@ -55,7 +55,7 @@ Dokud endpoint není nastavený, formulář ve `npm run dev` jen předstírá ú
 
 ## Analytika a cookies
 
-Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, dokončený budík, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
+Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
 
 ## Deploy
 
@@ -92,12 +92,12 @@ site.config.ts         ceny, checkout, e-mail, analytika, kontakty
 src/content/           texty (cs.ts) + typ pro jazykové verze
 src/components/        jedna sekce = jeden soubor
 src/layouts/           Base (SEO, schema.org, fonty), Legal
-src/lib/               subscribe, analytics, timer, scroll, rich (mini-syntaxe), format
+src/lib/               subscribe, analytics, rich (mini-syntaxe), format
 src/pages/             index, obchodní podmínky, GDPR, reklamační řád, 404
 scripts/               generátor OG obrázku, screenshoty
-docs/DESIGN.md         směr designu, varianty hera, self-review
+docs/DESIGN.md         historie designových rozhodnutí
 ```
 
 ## Výkon a přístupnost
 
-Lighthouse (lokálně, produkční build): mobil **99 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Fonty jsou self-hosted (Archivo + JetBrains Mono, jen latin + latin-ext woff2; nadpisový řez je statický výřez ~10 kB z `scripts/make-fonts.py`), CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formulář i FAQ jdou ovládat klávesnicí.
+Lighthouse (lokálně, produkční build): mobil **100 / 100 / 100 / 100**, desktop **100 / 100 / 100 / 100** (výkon / přístupnost / best practices / SEO). Písmo je systémové (SF na Applu, Segoe UI na Windows, Roboto na Androidu), takže se nestahují žádné fonty. CSS je inline, sekce pod ohybem mají `content-visibility: auto`. Všechny animace respektují `prefers-reduced-motion`; formulář i FAQ jdou ovládat klávesnicí.

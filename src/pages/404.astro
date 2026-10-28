@@ -1,21 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
-import Logo from '../components/Logo.astro';
 import { getContent } from '../content';
-import { rich } from '../lib/rich';
 
 const t = getContent().notFound;
 ---
 
-<Base title={`404 – ${t.title}`} description={t.text} noindex>
-  <main id="main" class="grain flex min-h-[100svh] flex-col justify-between px-4 py-8 sm:px-10 sm:py-10">
-    <a href="/" class="text-2xl" aria-label="Ještě 5 minut"><Logo /></a>
-    <div class="max-w-[60rem]">
-      <p class="font-display text-[clamp(6rem,30vw,16rem)] leading-[0.8] font-bold tracking-[-0.06em]" aria-hidden="true">4<span class="hero-five">0</span>4</p>
-      <h1 class="display-md mt-8" set:html={rich(t.title)} />
-      <p class="mt-5 text-xl leading-relaxed" set:html={rich(t.text)} />
-      <a href="/" class="btn btn-lg btn-coral mt-8">{t.cta}</a>
-    </div>
-    <span></span>
+<Base title={`${t.title} – Ještě 5 minut`} description={t.text} noindex>
+  <main id="main" class="container-page flex min-h-[100svh] flex-col items-center justify-center text-center">
+    <p class="text-sm font-semibold text-muted">404</p>
+    <h1 class="mt-3 text-4xl sm:text-5xl">{t.title}</h1>
+    <p class="mt-4 text-lg text-muted">{t.text}</p>
+    <a href="/" class="btn mt-8">{t.cta}</a>
   </main>
 </Base>

@@ -7,108 +7,44 @@ interface Props {
   id: string;
   /** odkud lead přišel – pošle se do e-mailové služby */
   source: string;
-  dark?: boolean;
 }
 
-const { id, source, dark = false } = Astro.props;
+const { id, source } = Astro.props;
 const l = getContent().lead;
-const field = dark
-  ? 'border-paper/40 bg-ink text-paper placeholder:text-paper/55'
-  : 'border-[var(--color-line)] bg-white/70 text-ink placeholder:text-ink/45';
 ---
 
 <div class="lead-form" data-lead-form>
   <form id={id} novalidate data-source={source} class="grid gap-4">
-    <div class="grid gap-4 sm:grid-cols-2">
-      <label class="grid gap-1.5">
-        <span class="text-sm font-semibold">{l.nameLabel}</span>
-        <input
-          type="text"
-          name="name"
-          autocomplete="given-name"
-          placeholder={l.namePlaceholder}
-          class:list={['h-13 rounded-xl border px-4 text-base transition-colors outline-none focus:border-coral focus:ring-2 focus:ring-coral/30', field]}
-        />
-      </label>
-      <label class="grid gap-1.5">
-        <span class="text-sm font-semibold">{l.emailLabel} <span aria-hidden="true">*</span></span>
-        <input
-          type="email"
-          name="email"
-          required
-          autocomplete="email"
-          inputmode="email"
-          placeholder={l.emailPlaceholder}
-          aria-describedby={`${id}-email-err`}
-          class:list={['h-13 rounded-xl border px-4 text-base transition-colors outline-none focus:border-coral focus:ring-2 focus:ring-coral/30', field]}
-        />
-        <span id={`${id}-email-err`} class="field-err hidden text-sm font-semibold" data-err-for="email">{l.invalidEmail}</span>
-      </label>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <label class="sr-only" for={`${id}-email`}>{l.emailLabel}</label>
+      <input
+        id={`${id}-email`}
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder={l.emailPlaceholder}
+        aria-describedby={`${id}-email-err`}
+        class="h-12 w-full min-w-0 rounded-full sm:flex-1 border border-line bg-paper px-5 text-base outline-none focus:border-ink"
+      />
+      <button type="submit" class="btn btn-dark" data-label={l.submit} data-sending={l.sending}>{l.submit}</button>
     </div>
+    <p id={`${id}-email-err`} class="hidden text-sm text-coral-dark" data-err-for="email">{l.invalidEmail}</p>
 
-    <label class="consent flex cursor-pointer items-start gap-3 text-[0.9375rem] leading-snug">
-      <input type="checkbox" name="consent" class="peer sr-only" aria-describedby={`${id}-consent-err`} />
-      <span class:list={['consent-box mt-0.5 grid size-5 shrink-0 place-items-center rounded-[5px] border-[1.5px]', dark ? 'border-paper' : 'border-ink']} aria-hidden="true">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m4 12.5 5 5L20 6.5" stroke="var(--color-paper)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </span>
+    <label class="flex cursor-pointer items-start gap-3 text-sm leading-snug text-muted">
+      <input type="checkbox" name="consent" class="mt-0.5 size-4 shrink-0 accent-ink" aria-describedby={`${id}-consent-err`} />
       <span set:html={rich(l.consent)} />
     </label>
-    <span id={`${id}-consent-err`} class="field-err -mt-2 hidden text-sm font-semibold" data-err-for="consent">{l.consentRequired}</span>
-
-    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-      <button type="submit" class:list={['btn btn-coral', dark && 'on-dark']} data-label={l.submit} data-sending={l.sending}>
-        {l.submit}
-      </button>
-      <p class="form-error hidden text-sm font-semibold" role="alert">{l.error}</p>
-    </div>
+    <p id={`${id}-consent-err`} class="hidden text-sm text-coral-dark" data-err-for="consent">{l.consentRequired}</p>
+    <p class="form-error hidden text-sm text-coral-dark" role="alert">{l.error}</p>
   </form>
 
   <div class="form-success hidden" tabindex="-1">
-    <div class="flex items-start gap-4">
-      <svg class="shrink-0" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="11" fill="var(--color-mint)"></circle>
-        <path d="m7 12.5 3.2 3.2L17 8.8" fill="none" stroke="var(--color-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      <div>
-        <p class="font-display text-3xl leading-none font-extrabold [font-stretch:72%]">{l.successTitle}</p>
-        <p class="mt-1 leading-relaxed opacity-90">{l.successText}</p>
-      </div>
-    </div>
+    <p class="text-lg font-semibold">{l.successTitle}</p>
+    <p class="mt-1 text-muted">{l.successText}</p>
   </div>
 </div>
-
-<style>
-  .consent input:checked + .consent-box {
-    background: var(--color-ink);
-  }
-  .consent-box svg {
-    opacity: 0;
-    transform: scale(0.4);
-    transition:
-      opacity 0.15s,
-      transform 0.25s var(--ease-out-expo);
-  }
-  .consent input:checked + .consent-box svg {
-    opacity: 1;
-    transform: none;
-  }
-  .consent input:focus-visible + .consent-box {
-    outline: 3px solid var(--color-coral);
-    outline-offset: 2px;
-  }
-  .field-err,
-  .form-error {
-    color: inherit;
-  }
-  .field-err::before,
-  .form-error::before {
-    content: '↳ ';
-    color: var(--color-coral);
-  }
-  [aria-invalid='true'] {
-    border-color: var(--color-coral) !important;
-  }
-</style>
 
 <script>
   import { isValidEmail, subscribe } from '../lib/subscribe';
@@ -138,16 +74,10 @@ const field = dark
       if (!okEmail) return email.focus();
       if (!consent.checked) return consent.focus();
 
-      const data = new FormData(form);
       btn.disabled = true;
       btn.textContent = btn.dataset.sending!;
       try {
-        await subscribe({
-          email: email.value,
-          name: String(data.get('name') || ''),
-          consent: consent.checked,
-          source: form.dataset.source || 'web',
-        });
+        await subscribe({ email: email.value, consent: consent.checked, source: form.dataset.source || 'web' });
         form.classList.add('hidden');
         success.classList.remove('hidden');
         success.focus();

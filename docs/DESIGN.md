@@ -67,3 +67,12 @@ Zpětná vazba: moc cartoon, divný font, čtverec budíku, celé to působí mo
 - Odstraněno: pás s citáty, kvíz, malé popisky nad nadpisy, dělítka se stupnicí, platební poznámka pod ceníkem, obří odpočet v závěrečné sekci.
 - Kapitoly číslované („Kapitola 1 · 5 min čtení“) místo časových značek, které působily jako audiokniha.
 - Zvýrazňovač na tmavém pozadí nahrazen oranžovou barvou textu; menu má jen tenké podtržení.
+
+## Revize 4 – čistý obchod
+
+Zpětná vazba: texty, fonty a množství prvků pořád působí jako AI. Zvolený směr: „čistý obchod“ (jako produktová stránka Applu).
+
+- Systémové písmo, bílé pozadí, tmavý text, oranžová jen na tlačítka.
+- Sekce: hero s obálkou a cenou → Co se naučíš → Obsah → Cena → SOS karta zdarma → Časté otázky → patička.
+- Texty přepsané věcně, bez vtipných nadpisů a slovních hříček.
+- Odstraněno: budík, odpočet, sekce „Nejsi líný“, Jak to funguje, ukázkové recenze, samostatná záruka (je v FAQ), závěrečná výzva, ukázka SOS karty, pole „jméno“ ve formuláři.

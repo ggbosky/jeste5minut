@@ -1,0 +1,28 @@
+---
+import { getContent } from '../content';
+import { rich } from '../lib/rich';
+
+const c = getContent().contents;
+---
+
+<section id="obsah" class="py-20 sm:py-28" aria-labelledby="contents-title">
+  <div class="container-page grid gap-10 md:grid-cols-12">
+    <div class="md:col-span-4" data-reveal>
+      <h2 id="contents-title" class="section-title">{c.title}</h2>
+      <p class="mt-4 max-w-[22rem] leading-relaxed text-muted" set:html={rich(c.intro)} />
+    </div>
+    <ol class="md:col-span-8">
+      {
+        c.chapters.map((ch, n) => (
+          <li class="grid grid-cols-[2.5rem_1fr] gap-x-4 border-t border-line py-5" data-reveal>
+            <span class="text-lg font-semibold text-muted tabular-nums">{n + 1}</span>
+            <div>
+              <h3 class="text-lg font-semibold tracking-tight">{ch.title}</h3>
+              <p class="mt-1 leading-relaxed text-muted" set:html={rich(ch.text)} />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

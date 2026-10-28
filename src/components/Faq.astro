@@ -5,24 +5,18 @@ import { rich } from '../lib/rich';
 const f = getContent().faq;
 ---
 
-<section id="faq" class="relative py-20 sm:py-28 lg:py-32" aria-labelledby="faq-title">
-  <div class="mx-auto grid max-w-[90rem] gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-10">
-    <div class="lg:col-span-4">
-      <div class="lg:sticky lg:top-28">
-        <h2 id="faq-title" class="display-md" data-reveal style="--i:1" set:html={rich(f.title)} />
-      </div>
-    </div>
-    <div class="border-t border-[var(--color-line)] lg:col-span-8">
+<section id="faq" class="bg-soft py-20 sm:py-28" aria-labelledby="faq-title">
+  <div class="container-page grid gap-10 md:grid-cols-12">
+    <h2 id="faq-title" class="section-title md:col-span-4" data-reveal>{f.title}</h2>
+    <div class="md:col-span-8">
       {
-        f.items.map((item, n) => (
-          <details class="faq group" data-reveal style={`--i:${n % 3}`} name="faq">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 sm:py-6">
-              <span class="text-lg leading-snug font-semibold sm:text-xl" set:html={rich(item.q)} />
+        f.items.map((item) => (
+          <details class="faq border-t border-line" name="faq">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-medium">
+              <span set:html={rich(item.q)} />
               <span class="faq-icon" aria-hidden="true" />
             </summary>
-            <div class="faq-a pb-6">
-              <p class="max-w-[46rem] text-lg leading-relaxed text-ink/85" set:html={rich(item.a)} />
-            </div>
+            <p class="max-w-[40rem] pb-6 leading-relaxed text-muted" set:html={rich(item.a)} />
           </details>
         ))
       }
@@ -31,53 +25,30 @@ const f = getContent().faq;
 </section>
 
 <style>
-  .faq {
-    border-bottom: 1px solid var(--color-line);
-  }
   .faq summary::-webkit-details-marker {
     display: none;
   }
   .faq-icon {
     position: relative;
     flex-shrink: 0;
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid var(--color-line);
-    border-radius: 999px;
-    transition:
-      background-color 0.2s,
-      rotate 0.35s var(--ease-out-expo);
+    width: 12px;
+    height: 12px;
+    transition: rotate 0.3s var(--ease-out-expo);
   }
   .faq-icon::before,
   .faq-icon::after {
     content: '';
     position: absolute;
-    inset: 50% auto auto 50%;
-    width: 11px;
+    inset: 50% auto auto 0;
+    width: 12px;
     height: 1.5px;
-    background: var(--color-ink);
-    translate: -50% -50%;
+    translate: 0 -50%;
+    background: currentColor;
   }
   .faq-icon::after {
     rotate: 90deg;
   }
   .faq[open] .faq-icon {
-    background: var(--color-coral);
-    border-color: var(--color-coral);
     rotate: 45deg;
-  }
-  .faq summary:hover .faq-icon {
-    border-color: var(--color-ink);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .faq[open] .faq-a {
-      animation: faq-in 0.35s var(--ease-out-expo);
-    }
-  }
-  @keyframes faq-in {
-    from {
-      opacity: 0;
-      transform: translateY(-6px);
-    }
   }
 </style>
