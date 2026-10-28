@@ -1,0 +1,33 @@
+---
+/** Značka: ciferník s vyznačeným výsekem pěti minut + název. */
+interface Props {
+  class?: string;
+}
+const { class: cls = '' } = Astro.props;
+---
+
+<span class:list={['logo inline-flex items-center gap-2 font-bold tracking-tight', cls]}>
+  <svg class="logo-mark" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+    <!-- 5 minut = 30° výseč od dvanáctky -->
+    <path class="logo-wedge" d="M12 12 L12 4.5 A7.5 7.5 0 0 1 15.75 5.5 Z" fill="var(--color-coral)"></path>
+    <circle cx="12" cy="12" r="1.6" fill="currentColor"></circle>
+  </svg>
+  <span>Ještě 5 minut</span>
+</span>
+
+<style>
+  .logo-wedge {
+    transform-origin: 12px 12px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .logo:hover .logo-wedge {
+      animation: tick 1.2s var(--ease-out-expo);
+    }
+  }
+  @keyframes tick {
+    from {
+      transform: rotate(-360deg);
+    }
+  }
+</style>

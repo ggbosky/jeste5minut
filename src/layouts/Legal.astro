@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import Footer from '../components/Footer.astro';
+import Logo from '../components/Logo.astro';
 import { getContent } from '../content';
 import type { LegalPage } from '../content/types';
 import { rich } from '../lib/rich';
@@ -15,7 +16,7 @@ const t = getContent();
 <Base title={`${page.title} – Ještě 5 minut`} description={page.description}>
   <header class="border-b border-line">
     <div class="container-page flex h-14 items-center justify-between">
-      <a href="/" class="font-semibold tracking-tight" aria-label={t.nav.logoLabel}>Ještě 5 minut</a>
+      <a href="/" class="text-[1.0625rem]" aria-label={t.nav.logoLabel}><Logo /></a>
       <a href="/" class="link text-sm">{t.legal.back}</a>
     </div>
   </header>

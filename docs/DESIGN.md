@@ -90,3 +90,11 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 
 - Scroll příběh už se nepřipíná: časy a věty se scrollují normálně s celou stránkou a každý řádek najede, až na něj dojedeš.
 - Odstraněna obálka e-booku (fakta jsou jeden řádek pod cenou) a odstavec, který se rozsvěcel slovo po slově.
+
+## Revize 7 – hero, které prodává
+
+- Rozložení: text vlevo, vpravo ukázka dvou stránek e-booku (kapitola „Pravidlo pěti minut“ s úkolem na 5 minut + obsah). Stránky při načtení přiletí, na desktopu se při scrollu posouvají různou rychlostí.
+- Pod animovaným nadpisem konkrétní slib („Přestaň se učit noc před zkouškou.“), tři přínosy, CTA s cenou v tlačítku, druhé tlačítko na SOS kartu a řádek důvěry (běžná cena, PDF hned, 14 dní na vrácení peněz).
+- Logo: ciferník s vyznačeným výsekem 5 minut + název.
+- CTA: „Začnu teď“ (navazuje na nadpis), „Chci e-book“, „Chci e-book i bonusy“, „Pošlete mi SOS kartu“.
+- Lišta cookies se ukáže až po prvním scrollu a je kompaktní, aby nezakrývala hlavní tlačítko.

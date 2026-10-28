@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import { getContent } from '../content';
 
 const t = getContent();
@@ -6,7 +7,7 @@ const t = getContent();
 
 <header id="nav" class="sticky top-0 z-50 border-b border-transparent transition-[background-color,border-color] duration-300">
   <nav class="container-page flex h-14 items-center justify-between gap-6" aria-label={t.nav.ariaLabel}>
-    <a href="#top" class="font-semibold tracking-tight" aria-label={t.nav.logoLabel}>Ještě 5 minut</a>
+    <a href="#top" class="text-[1.0625rem]" aria-label={t.nav.logoLabel}><Logo /></a>
     <div class="flex items-center gap-6 text-[0.9375rem]">
       <ul class="hidden items-center gap-6 sm:flex">
         {

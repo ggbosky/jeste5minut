@@ -4,51 +4,117 @@ import { getContent } from '../content';
 import { czk, currentPrice } from '../lib/format';
 import { rich } from '../lib/rich';
 
-const h = getContent().hero;
+const t = getContent();
+const h = t.hero;
+const pv = h.preview;
 const now = currentPrice(pricing.basic);
 ---
 
-<section id="top" class="overflow-clip pt-16 pb-24 text-center sm:pt-28 sm:pb-36">
-  <div class="container-page">
-    <!-- Výmluvy se postupně přeškrtnou, zůstane „teď.“ (bez JS / s omezeným pohybem rovnou „teď.“) -->
-    <h1 class="hero-title" aria-label={`${h.lead} ${h.now}`}>
-      <span class="block" aria-hidden="true">{h.lead}</span>
-      <span class="swap" aria-hidden="true" data-swap>
-        {h.excuses.map((w) => <span class="w">{w}</span>)}
-        <span class="w w-now">{h.now}</span>
-      </span>
-    </h1>
+<section id="top" class="overflow-clip pt-12 pb-20 sm:pt-20 sm:pb-28 lg:pt-24">
+  <div class="container-page grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
+    <div class="lg:col-span-7">
+      <!-- Výmluvy se postupně přeškrtnou, zůstane „teď.“ (bez JS / s omezeným pohybem rovnou „teď.“) -->
+      <h1 class="hero-title" aria-label={`${h.lead} ${h.now}`}>
+        <span class="block" aria-hidden="true">{h.lead}</span>
+        <span class="swap" aria-hidden="true" data-swap>
+          {h.excuses.map((w) => <span class="w">{w}</span>)}
+          <span class="w w-now">{h.now}</span>
+        </span>
+      </h1>
 
-    <p class="hero-in mx-auto mt-8 max-w-[34rem] text-lg leading-relaxed text-muted sm:text-xl" style="--d:200ms" set:html={rich(h.text)} />
+      <p class="hero-in mt-7 text-2xl font-semibold tracking-tight sm:text-3xl" style="--d:150ms">{h.subtitle}</p>
+      <p class="hero-in mt-4 max-w-[34rem] text-lg leading-relaxed text-muted" style="--d:220ms" set:html={rich(h.text)} />
 
-    <div class="hero-in mt-8 flex flex-col items-center gap-4" style="--d:300ms">
-      <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
-        <span class="text-2xl font-semibold tracking-tight">{czk(now)}</span>
+      <ul class="hero-in mt-6 grid gap-2.5" style="--d:290ms">
+        {
+          h.points.map((p) => (
+            <li class="flex items-center gap-3 text-[1.0625rem]">
+              <span class="grid size-6 shrink-0 place-items-center rounded-full bg-coral/15 text-coral-text" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span set:html={rich(p)} />
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="hero-in mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style="--d:360ms">
+        <a href="#cena" class="btn btn-lg btn-cta" data-track="cta_hero">
+          {h.buy}
+          <span class="btn-price">{czk(now)}</span>
+        </a>
+        <a href="#sos-karta" class="btn btn-lg btn-ghost" data-track="lead_hero">{h.free}</a>
+      </div>
+
+      <p class="hero-in mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted" style="--d:420ms">
         {
           pricing.basic.launch && (
-            <span class="text-muted">
+            <span>
               {h.regularLabel} <s>{czk(pricing.basic.regular)}</s>
             </span>
           )
         }
-        <a href="#cena" class="btn btn-lg" data-track="cta_hero">{h.buy}</a>
-      </div>
-      <p class="text-[0.9375rem] text-muted">{h.facts.map((f) => `${f.value} ${f.label}`).join(' · ')}</p>
-      <a href="#sos-karta" class="link text-[0.9375rem] text-muted">{h.free}</a>
+        {
+          h.trust.map((x) => (
+            <span class="inline-flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              {x}
+            </span>
+          ))
+        }
+      </p>
     </div>
 
+    <!-- Ukázka stránek e-booku -->
+    <figure class="lg:col-span-5" data-preview>
+      <div class="pages" aria-hidden="true">
+        <div class="page page-back">
+          <p class="pg-label">{pv.tocTitle}</p>
+          <ol class="mt-3 grid gap-1.5">
+            {
+              t.contents.chapters.map((c, i) => (
+                <li class="flex gap-2.5">
+                  <span class="w-4 text-muted tabular-nums">{i + 1}</span>
+                  <span>{c.title}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+        <div class="page page-front">
+          <p class="pg-label text-coral-text">{pv.chapter}</p>
+          <p class="pg-title">{pv.title}</p>
+          {pv.paragraphs.map((p) => <p class="pg-text">{p}</p>)}
+          <div class="pg-task">
+            <p class="font-semibold">{pv.taskLabel}</p>
+            <p class="mt-1">{pv.task}</p>
+          </div>
+          <span class="pg-num">14</span>
+        </div>
+      </div>
+      <figcaption class="mt-6 text-center text-sm text-muted">{pv.label}</figcaption>
+    </figure>
   </div>
 </section>
 
 <style>
   .hero-title {
-    font-size: clamp(3.75rem, 16vw, 9.5rem);
+    font-size: clamp(3.75rem, 16vw, 7.5rem);
     line-height: 0.95;
     letter-spacing: -0.045em;
   }
+  @media (min-width: 1024px) {
+    .hero-title {
+      font-size: min(8.4vw, 7.5rem);
+    }
+  }
   .swap {
     display: inline-grid;
-    justify-items: center;
+    justify-items: start;
   }
   .w {
     grid-area: 1 / 1;
@@ -114,11 +180,108 @@ const now = currentPrice(pricing.basic);
     }
   }
 
-  /* úvodní najetí textu pod nadpisem (jen posun, nic se neskrývá → nezdržuje LCP) */
+  /* CTA s cenou */
+  .btn-cta {
+    gap: 0.75rem;
+    padding-right: 0.5rem;
+  }
+  .btn-price {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.35);
+    font-size: 0.95em;
+  }
+
+  /* ---------- ukázka stránek ---------- */
+  .pages {
+    --w: min(17rem, 68vw);
+    position: relative;
+    width: calc(var(--w) * 1.3);
+    height: calc(var(--w) * 1.45);
+    margin-inline: auto;
+  }
+  .page {
+    position: absolute;
+    width: var(--w);
+    aspect-ratio: 0.707;
+    padding: calc(var(--w) * 0.09);
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid var(--color-line);
+    box-shadow:
+      0 1px 2px rgb(20 33 61 / 0.06),
+      0 24px 50px -20px rgb(20 33 61 / 0.3);
+    font-size: calc(var(--w) * 0.042);
+    line-height: 1.5;
+    text-align: left;
+    transition: rotate 0.6s var(--ease-out-expo);
+  }
+  .page-back {
+    top: 0;
+    right: 0;
+    rotate: 6deg;
+  }
+  .page-front {
+    bottom: 0;
+    left: 0;
+    rotate: -4deg;
+  }
+  /* parallax jen na desktopu, kde jsou stránky vedle textu */
+  @media (min-width: 1024px) {
+    .page-back {
+      translate: 0 calc(var(--s, 0) * -0.04px);
+    }
+    .page-front {
+      translate: 0 calc(var(--s, 0) * -0.12px);
+    }
+  }
+  [data-preview]:hover .page-front {
+    rotate: -1deg;
+  }
+  [data-preview]:hover .page-back {
+    rotate: 9deg;
+  }
+  .pg-label {
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+  .pg-title {
+    margin-top: 0.3em;
+    font-size: 1.9em;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .pg-text {
+    margin-top: 0.9em;
+    color: var(--color-muted);
+  }
+  .pg-task {
+    margin-top: 1.1em;
+    padding: 0.8em 0.9em;
+    border-left: 3px solid var(--color-coral);
+    border-radius: 4px;
+    background: var(--color-soft);
+  }
+  .pg-num {
+    position: absolute;
+    right: calc(var(--w) * 0.09);
+    bottom: calc(var(--w) * 0.06);
+    font-size: 0.85em;
+    color: var(--color-muted);
+  }
+
+  /* úvodní najetí: text jen posunem (nezdržuje LCP), stránky přiletí */
   @media (prefers-reduced-motion: no-preference) {
     .hero-in {
       animation: hero-in 0.9s var(--ease-out-expo) both;
       animation-delay: var(--d, 0ms);
+    }
+    .page-back {
+      animation: back-in 1.1s var(--ease-out-expo) 0.3s both;
+    }
+    .page-front {
+      animation: front-in 1.1s var(--ease-out-expo) 0.45s both;
     }
   }
   @keyframes hero-in {
@@ -126,7 +289,18 @@ const now = currentPrice(pricing.basic);
       transform: translateY(18px);
     }
   }
-
+  @keyframes back-in {
+    from {
+      opacity: 0;
+      transform: translate(40px, -20px) rotate(10deg);
+    }
+  }
+  @keyframes front-in {
+    from {
+      opacity: 0;
+      transform: translate(-20px, 60px) rotate(-8deg);
+    }
+  }
 </style>
 
 <script>
@@ -140,12 +314,12 @@ const now = currentPrice(pricing.basic);
     words[0].classList.add('is-active');
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
     (async () => {
-      await wait(900);
+      await wait(700);
       while (i < words.length - 1) {
         const cur = words[i];
         const next = words[i + 1];
         cur.classList.add('is-struck');
-        await wait(550);
+        await wait(500);
         next.classList.add('is-entering');
         void next.offsetWidth;
         cur.classList.add('is-leaving');
@@ -153,9 +327,27 @@ const now = currentPrice(pricing.basic);
         next.classList.add('is-active');
         next.classList.remove('is-entering');
         i++;
-        await wait(i === words.length - 1 ? 0 : 1000);
+        await wait(i === words.length - 1 ? 0 : 750);
       }
     })();
   }
 
+  // 2) Stránky se při scrollu posouvají různou rychlostí (parallax)
+  const preview = document.querySelector<HTMLElement>('[data-preview]');
+  if (preview && !calm) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      preview.style.setProperty('--s', String(Math.min(scrollY, 900)));
+    };
+    addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      },
+      { passive: true },
+    );
+  }
 </script>

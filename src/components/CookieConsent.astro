@@ -14,10 +14,10 @@ const enabled = analytics.provider !== null;
       aria-live="polite"
       aria-label={t.cookies.label}
       hidden
-      class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-[30rem]"
+      class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-xl sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-[38rem]"
     >
-      <div class="flex flex-col gap-4 rounded-2xl border border-line bg-paper p-5 shadow-[0_10px_40px_-12px_rgb(20_33_61/0.25)]">
-        <p class="text-[0.9375rem] leading-snug text-muted">{t.cookies.text}</p>
+      <div class="flex flex-col gap-3 rounded-2xl border border-line bg-paper p-4 shadow-[0_10px_40px_-12px_rgb(20_33_61/0.25)] sm:flex-row sm:items-center sm:gap-4">
+        <p class="text-sm leading-snug text-muted">{t.cookies.text}</p>
         <div class="flex shrink-0 gap-3">
           <button type="button" class="btn btn-sm btn-dark" data-consent="denied">
             {t.cookies.decline}
@@ -41,8 +41,8 @@ const enabled = analytics.provider !== null;
 
     const current = getConsent();
     if (current === 'granted') loadAnalytics();
-    // Lištu ukážeme až po chvíli, ať nepřekáží prvnímu dojmu ani LCP
-    else if (current === null) setTimeout(show, 2500);
+    // Lištu ukážeme až po prvním scrollu, ať nezakrývá hero a hlavní tlačítko
+    else if (current === null) addEventListener('scroll', () => setTimeout(show, 600), { once: true, passive: true });
 
     box.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((b) =>
       b.addEventListener('click', () => {

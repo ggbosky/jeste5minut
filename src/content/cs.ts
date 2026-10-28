@@ -22,7 +22,7 @@ export const cs: SiteContent = {
       { label: 'Cena', href: '#cena' },
       { label: 'Otázky', href: '#faq' },
     ],
-    cta: 'Koupit',
+    cta: 'Začnu teď',
     skip: 'Přeskočit na obsah',
     logoLabel: 'Ještě 5 minut – úvod',
     ariaLabel: 'Hlavní navigace',
@@ -32,15 +32,30 @@ export const cs: SiteContent = {
     lead: 'Začnu',
     excuses: ['zítra.', 'v pondělí.', 'po obědě.', 'večer.'],
     now: 'teď.',
-    text: '**Ještě 5 minut** je e-book pro vysokoškoláky, kteří chtějí přestat odkládat učení. Osm krátkých kapitol, každá na pět minut.',
-    buy: 'Koupit',
+    subtitle: 'Přestaň se učit noc před zkouškou.',
+    text: '**Ještě 5 minut** je e-book pro vysokoškoláky. Osm kapitol po pěti minutách, které tě dostanou od odkládání k učení.',
+    points: ['Začneš, i když se ti nechce', 'Mobil tě přestane rozhazovat', 'Zkouškové i bakalářka po malých krocích'],
+    trust: ['PDF hned po zaplacení', '14 dní na vrácení peněz'],
+    buy: 'Začnu teď',
     regularLabel: 'běžně',
-    free: 'Nebo si stáhni SOS kartu zdarma',
+    free: 'SOS karta zdarma',
     facts: [
       { value: '70', label: 'stran' },
       { value: '8', label: 'kapitol' },
       { value: 'PDF', label: 'pro mobil i počítač' },
     ],
+    preview: {
+      label: 'Ukázka z e-booku',
+      chapter: 'Kapitola 2',
+      title: 'Pravidlo pěti minut',
+      paragraphs: [
+        'Mozek nemá rád velké úkoly. „Naučit se statistiku“ zní jako hora, a tak ji obejde. Pět minut ale zní nevinně.',
+        'Proto si neslibuj, že se budeš učit dvě hodiny. Slib si pět minut. Když pak budeš chtít skončit, skonči. Většinou nebudeš chtít.',
+      ],
+      taskLabel: 'Úkol na 5 minut',
+      task: 'Nastav si časovač na 5 minut a otevři skripta na první stránce. Nic víc.',
+      tocTitle: 'Obsah',
+    },
   },
 
   story: {
@@ -89,7 +104,7 @@ export const cs: SiteContent = {
       basic: {
         name: 'E-book',
         features: ['E-book v PDF, 70 stran', 'Aktualizace zdarma'],
-        cta: 'Koupit e-book',
+        cta: 'Chci e-book',
       },
       bundle: {
         name: 'E-book + bonusy',
@@ -101,7 +116,7 @@ export const cs: SiteContent = {
           'Pracovní listy ke kapitolám',
           'Aktualizace zdarma',
         ],
-        cta: 'Koupit balíček',
+        cta: 'Chci e-book i bonusy',
       },
     },
   },
@@ -113,7 +128,7 @@ export const cs: SiteContent = {
     emailPlaceholder: 'tvuj@email.cz',
     consent:
       'Souhlasím se zasíláním SOS karty a občasných tipů e-mailem. Odhlásit se můžu kdykoli. Více v [zásadách ochrany osobních údajů](/gdpr).',
-    submit: 'Poslat',
+    submit: 'Pošlete mi SOS kartu',
     sending: 'Posílám…',
     successTitle: 'Hotovo',
     successText: 'SOS karta je na cestě. Pokud nedorazí do pár minut, podívej se do složky Promo nebo Spam.',
@@ -167,7 +182,7 @@ export const cs: SiteContent = {
 
   cookies: {
     label: 'Souhlas s analytikou',
-    text: 'Používáme jen to nutné. Anonymní statistiky návštěvnosti zapneme, jen když řekneš. Žádná reklama, žádné sledování napříč webem.',
+    text: 'Anonymní statistiky návštěvnosti zapneme, jen když souhlasíš.',
     decline: 'Jen nutné',
     accept: 'Povolit statistiky',
   },

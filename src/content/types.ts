@@ -35,11 +35,24 @@ export type SiteContent = {
     lead: string;
     excuses: string[];
     now: string;
+    subtitle: string;
     text: string;
+    points: string[];
     buy: string;
+    trust: string[];
     regularLabel: string;
     free: string;
     facts: { value: string; label: string }[];
+    /** Ukázka stránek e-booku vedle nadpisu */
+    preview: {
+      label: string;
+      chapter: string;
+      title: string;
+      paragraphs: string[];
+      taskLabel: string;
+      task: string;
+      tocTitle: string;
+    };
   };
   story: {
     steps: { time: string; text: string }[];

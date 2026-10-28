@@ -30,14 +30,14 @@ const l = getContent().lead;
       />
       <button type="submit" class="btn btn-dark" data-label={l.submit} data-sending={l.sending}>{l.submit}</button>
     </div>
-    <p id={`${id}-email-err`} class="hidden text-sm text-coral-dark" data-err-for="email">{l.invalidEmail}</p>
+    <p id={`${id}-email-err`} class="hidden text-sm text-coral-text" data-err-for="email">{l.invalidEmail}</p>
 
     <label class="flex cursor-pointer items-start gap-3 text-sm leading-snug text-muted">
       <input type="checkbox" name="consent" class="mt-0.5 size-4 shrink-0 accent-ink" aria-describedby={`${id}-consent-err`} />
       <span set:html={rich(l.consent)} />
     </label>
-    <p id={`${id}-consent-err`} class="hidden text-sm text-coral-dark" data-err-for="consent">{l.consentRequired}</p>
-    <p class="form-error hidden text-sm text-coral-dark" role="alert">{l.error}</p>
+    <p id={`${id}-consent-err`} class="hidden text-sm text-coral-text" data-err-for="consent">{l.consentRequired}</p>
+    <p class="form-error hidden text-sm text-coral-text" role="alert">{l.error}</p>
   </form>
 
   <div class="form-success hidden" tabindex="-1">
