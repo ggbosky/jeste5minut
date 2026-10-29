@@ -44,6 +44,8 @@ Hodnoty můžeš místo úpravy souboru nastavit i jako proměnné prostředí n
 
 ## E-mailový formulář (SOS karta)
 
+> Sekce se SOS kartou je zatím **vypnutá**. Zapneš ji v `src/pages/index.astro` přidáním `<LeadSection />` (komponenta i formulář jsou připravené).
+
 Veškeré odesílání je v jedné funkci: `src/lib/subscribe.ts`. Posílá `POST` na `email.endpoint` s poli `email`, `name` (nepovinné), `gdpr_consent` a `source` (`sos-karta`). Názvy polí změníš v `site.config.ts → email.fields`, formát (JSON / form-urlencoded) v `email.format`.
 
 **Nikdy nedávej do konfigurace API klíč** – kód běží v prohlížeči. Možnosti:

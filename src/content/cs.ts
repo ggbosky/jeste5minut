@@ -33,13 +33,16 @@ export const cs: SiteContent = {
     excuses: ['zítra.', 'v pondělí.', 'po obědě.', 'večer.'],
     now: 'teď.',
     subtitle: 'Přestaň se učit noc před zkouškou.',
-    text: '**Ještě 5 minut** je e-book pro vysokoškoláky. Osm kapitol po pěti minutách, které tě dostanou od odkládání k učení.',
-    points: ['Začneš, i když se ti nechce', 'Mobil tě přestane rozhazovat', 'Zkouškové i bakalářka po malých krocích'],
-    trust: ['14 dní na vrácení peněz', 'Jednorázově, žádné předplatné'],
+    points: [
+      '8 kapitol, každá na 5 minut čtení',
+      'Začneš, i když se ti nechce',
+      'Mobil tě přestane rozhazovat',
+      'Zkouškové i bakalářka po malých krocích',
+    ],
+    trust: ['14 dní na vrácení peněz'],
     buy: 'Začnu teď',
     regularLabel: 'běžně',
     discountLabel: 'launch sleva',
-    free: 'Nejdřív zkusit zdarma',
     ctaNote: 'PDF ti přijde do minuty',
     videoLabel: 'Video: na lísteček v diáři se píše „Done!“',
   },
@@ -47,6 +50,7 @@ export const cs: SiteContent = {
   learn: {
     title: 'Co se změní',
     intro: 'Tohle si z e-booku odneseš.',
+    beforeLabel: 'Místo:',
     items: [
       { before: 'Otevřu skripta a nic.', after: 'Začneš, i když se ti nechce.' },
       { before: 'Za tři minuty jsem na mobilu.', after: 'Učíš se, aniž bys sahal po telefonu.' },

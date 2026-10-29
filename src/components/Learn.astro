@@ -7,7 +7,7 @@ const l = getContent().learn;
 
 <section class="bg-soft py-20 sm:py-28" aria-labelledby="learn-title">
   <div class="container-page">
-    <div class="max-w-[40rem]" data-reveal>
+    <div class="mx-auto max-w-[40rem] text-center" data-reveal>
       <h2 id="learn-title" class="section-title">{l.title}</h2>
       <p class="mt-4 text-lg leading-relaxed text-muted" set:html={rich(l.intro)} />
     </div>
@@ -16,18 +16,14 @@ const l = getContent().learn;
       {
         l.items.map((item) => (
           <li class="change" data-reveal>
+            <span class="change-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <p class="after" set:html={rich(item.after)} />
             <p class="before">
-              <span class="sr-only">Dřív: </span>
-              <s>{item.before}</s>
-            </p>
-            <p class="after">
-              <span class="sr-only">Teď: </span>
-              <span class="after-icon" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-              <span set:html={rich(item.after)} />
+              <span class="before-label">{l.beforeLabel}</span> {item.before}
             </p>
           </li>
         ))
@@ -40,8 +36,8 @@ const l = getContent().learn;
   .change {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
-    padding: 1.6rem;
+    gap: 0.9rem;
+    padding: 1.75rem;
     border-radius: 22px;
     background: var(--color-paper);
     box-shadow:
@@ -57,53 +53,32 @@ const l = getContent().learn;
       0 1px 2px rgb(20 33 61 / 0.04),
       0 22px 40px -18px rgb(20 33 61 / 0.32);
   }
-  .before {
-    color: var(--color-muted);
-    font-size: 1rem;
-  }
-  .before s {
-    position: relative;
-    text-decoration: none;
-  }
-  /* oranžové škrtnutí se dokreslí, když karta najede */
-  .before s::after {
-    content: '';
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: 55%;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--color-coral);
-    transform-origin: left;
-  }
-  .after {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-  }
-  .after-icon {
+  .change-icon {
     display: grid;
     place-items: center;
-    flex-shrink: 0;
-    width: 1.6rem;
-    height: 1.6rem;
-    margin-top: 0.05rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 999px;
     background: var(--color-coral);
     color: var(--color-ink);
   }
-  @media (prefers-reduced-motion: no-preference) {
-    :global(.js) .change[data-reveal] .before s::after {
-      transform: scaleX(0);
-      transition: transform 0.6s var(--ease-out-expo) calc(var(--i, 0) * 70ms + 0.35s);
-    }
-    :global(.js) .change[data-reveal].is-in .before s::after {
-      transform: scaleX(1);
-    }
+  /* řešení je hlavní sdělení */
+  .after {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  /* problém jen jako malá poznámka, čitelná, bez škrtnutí */
+  .before {
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+  .before-label {
+    font-weight: 600;
+    color: var(--color-ink);
   }
 </style>

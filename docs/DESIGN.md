@@ -111,3 +111,12 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 
 - Dodané logo (oranžová „5“ jako ciferník s ručičkami) v menu, patičce, faviconu, ikonách a OG obrázku. Po najetí myší se ručičky protočí.
 - Oranžová webu sjednocena s logem: #FB6720.
+
+## Revize 10 – méně textu, víc tmavé modré
+
+- Hero: jen nadpis, slib, čtyři výhody, cena, jedno tlačítko a krátký řádek (PDF do minuty, 14 dní na vrácení peněz). Druhé tlačítko a odstavec pryč.
+- „Co se změní“: řešení velké a tučné, problém jako čitelná poznámka „Místo: …“ (bez škrtnutí). Nadpis na střed.
+- „Obsah“: tmavě modré pozadí, nadpis na střed, kapitoly ve dvou sloupcích s oranžovými čísly.
+- Cena: kolem oblíbené varianty obíhá světelný okraj se září (conic-gradient + @property), tlačítka bez ceny.
+- SOS karta zatím vypnutá.
+- FAQ: tmavě modré pozadí, nadpis na střed, otázky jako rozbalovací karty.

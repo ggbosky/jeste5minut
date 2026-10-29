@@ -36,18 +36,16 @@ export type SiteContent = {
     excuses: string[];
     now: string;
     subtitle: string;
-    text: string;
     points: string[];
     buy: string;
     trust: string[];
     regularLabel: string;
     discountLabel: string;
-    free: string;
     /** malý text pod hlavním tlačítkem */
     ctaNote: string;
     videoLabel: string;
   };
-  learn: { title: string; intro: string; items: { before: string; after: string }[] };
+  learn: { title: string; intro: string; beforeLabel: string; items: { before: string; after: string }[] };
   contents: { title: string; intro: string; chapters: { title: string; text: string }[] };
   pricing: {
     title: string;

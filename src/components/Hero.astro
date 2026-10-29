@@ -40,7 +40,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </h1>
 
       <p class="hero-in mt-7 text-2xl font-semibold tracking-tight sm:text-3xl" style="--d:150ms">{h.subtitle}</p>
-      <p class="hero-in mt-4 max-w-[34rem] text-lg leading-relaxed text-white/80" style="--d:220ms" set:html={rich(h.text)} />
 
       <ul class="hero-in mt-6 grid gap-2.5" style="--d:290ms">
         {
@@ -80,7 +79,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
-        <a href="#sos-karta" class="cta-soft" data-track="lead_hero">{h.free}</a>
       </div>
 
       <p class="hero-in mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/75" style="--d:420ms">
@@ -286,25 +284,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     100% {
       transform: translateX(120%);
     }
-  }
-  .cta-soft {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 4rem;
-    padding: 0.8rem 1.75rem;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 1.0625rem;
-    color: #fff;
-    background: rgb(255 255 255 / 0.1);
-    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: background-color 0.2s;
-  }
-  .cta-soft:hover {
-    background: rgb(255 255 255 / 0.2);
   }
 
   /* úvodní najetí textu (jen posun, nic se neskrývá → nezdržuje LCP) */

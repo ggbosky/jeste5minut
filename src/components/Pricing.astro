@@ -11,7 +11,7 @@ const plans = [
 ];
 ---
 
-<section id="cena" class="bg-soft py-20 sm:py-28" aria-labelledby="price-title">
+<section id="cena" class="bg-paper py-20 sm:py-28" aria-labelledby="price-title">
   <div class="container-page">
     <h2 id="price-title" class="section-title text-center" data-reveal>{p.title}</h2>
 
@@ -21,9 +21,9 @@ const plans = [
           const plan = p.plans[key];
           const now = cfg.launch ?? cfg.regular;
           return (
+            <div class:list={['plan-wrap', featured && 'is-featured']} data-reveal>
             <article
-              class:list={['flex flex-col rounded-3xl bg-paper p-7 sm:p-9', featured && 'ring-2 ring-ink']}
-              data-reveal
+              class:list={['plan flex h-full flex-col rounded-3xl bg-paper p-7 sm:p-9', !featured && 'border border-line']}
               aria-labelledby={`plan-${key}`}
             >
               {featured && <p class="mb-2 text-sm font-semibold text-coral-text">{p.popular}</p>}
@@ -55,18 +55,73 @@ const plans = [
 
               <a href={cfg.checkoutUrl} class:list={['btn btn-lg btn-arrow mt-auto w-full', featured ? 'btn-glow' : 'btn-dark']} data-track={`checkout_${key}`} rel="nofollow">
                 {plan.cta}
-                <span class="opacity-70">· {czk(now)}</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </a>
             </article>
+            </div>
           );
         })
       }
     </div>
   </div>
 </section>
+
+<style>
+  /* Světelný okraj, který obíhá kolem oblíbené varianty */
+  @property --glow-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+  .plan-wrap {
+    position: relative;
+    isolation: isolate;
+    border-radius: 26px;
+  }
+  .plan-wrap.is-featured {
+    padding: 2px;
+  }
+  .plan-wrap.is-featured::before,
+  .plan-wrap.is-featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--glow-angle),
+      rgb(251 103 32 / 0.15) 0deg,
+      var(--color-coral) 70deg,
+      #ffc59f 110deg,
+      var(--color-coral) 150deg,
+      rgb(251 103 32 / 0.15) 220deg,
+      rgb(251 103 32 / 0.15) 360deg
+    );
+  }
+  /* rozmazaná kopie = záře kolem karty */
+  .plan-wrap.is-featured::after {
+    z-index: -2;
+    inset: -6px;
+    filter: blur(22px);
+    opacity: 0.55;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .plan-wrap.is-featured::before,
+    .plan-wrap.is-featured::after {
+      animation: glow-spin 5s linear infinite;
+    }
+  }
+  @keyframes glow-spin {
+    to {
+      --glow-angle: 360deg;
+    }
+  }
+  .plan-wrap.is-featured .plan {
+    border-radius: 24px;
+  }
+</style>
 
 <script>
   import { track } from '../lib/analytics';
