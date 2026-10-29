@@ -1,28 +1,34 @@
 ---
-/** Značka: ciferník s vyznačeným výsekem pěti minut + název. */
+/** Logo projektu (oranžová „5“ jako ciferník) + název. Ručičky berou barvu z --logo-hands. */
 interface Props {
   class?: string;
+  /** jen značka bez názvu */
+  markOnly?: boolean;
 }
-const { class: cls = '' } = Astro.props;
+const { class: cls = '', markOnly = false } = Astro.props;
 ---
 
-<span class:list={['logo inline-flex items-center gap-2 font-bold tracking-tight', cls]}>
-  <svg class="logo-mark" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
-    <!-- 5 minut = 30° výseč od dvanáctky -->
-    <path class="logo-wedge" d="M12 12 L12 4.5 A7.5 7.5 0 0 1 15.75 5.5 Z" fill="var(--color-coral)"></path>
-    <circle cx="12" cy="12" r="1.6" fill="currentColor"></circle>
+<span class:list={['logo inline-flex items-center gap-2.5 font-bold tracking-tight', cls]}>
+  <svg class="logo-mark" viewBox="0 0 801 1035" aria-hidden="true">
+    <path fill="var(--color-coral)" fill-rule="evenodd" d="M 138.210938 0.390625 L 658.339844 0.390625 C 683.71875 0.390625 704.289062 20.960938 704.289062 46.339844 C 704.289062 71.714844 683.71875 92.285156 658.339844 92.285156 L 215.972656 92.285156 C 193.441406 92.285156 174.234375 108.625 170.621094 130.867188 L 144.464844 291.933594 C 142.53125 303.84375 155.925781 312.144531 165.75 305.136719 C 333.917969 185.136719 568.855469 212.15625 704.890625 372.570312 C 848.320312 541.710938 827.480469 795.097656 658.339844 938.53125 C 489.199219 1081.964844 235.8125 1061.121094 92.378906 891.984375 C 42.015625 832.589844 10.253906 760.144531 0.386719 683.640625 C -3.164062 656.105469 18.179688 631.675781 45.945312 631.675781 L 46.664062 631.675781 C 69.570312 631.675781 88.878906 648.5625 92.160156 671.230469 C 114.160156 823.195312 246.214844 938.730469 403.792969 936.082031 C 574.78125 933.210938 711.070312 792.269531 708.199219 621.277344 C 705.324219 450.285156 564.382812 314 393.390625 316.871094 C 288.199219 318.636719 191.554688 373.640625 136.160156 462.117188 C 130.34375 471.40625 119.316406 476.019531 108.664062 473.464844 L 49.851562 459.347656 C 36.984375 456.257812 28.65625 443.792969 30.726562 430.722656 L 92.828125 39.140625 C 96.367188 16.824219 115.609375 0.390625 138.210938 0.390625 "></path>
+    <path class="logo-hands" fill="none" stroke-width="58" stroke-linecap="round" stroke-linejoin="round" d="M398.6 391.9V629.7L529 505.3"></path>
   </svg>
-  <span>Ještě 5 minut</span>
+  {!markOnly && <span>Ještě 5 minut</span>}
 </span>
 
 <style>
-  .logo-wedge {
-    transform-origin: 12px 12px;
+  .logo-mark {
+    height: 1.55em;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .logo-hands {
+    stroke: var(--logo-hands, #4d4d4d);
+    transform-origin: 398.6px 629.7px;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .logo:hover .logo-wedge {
-      animation: tick 1.2s var(--ease-out-expo);
+    .logo:hover .logo-hands {
+      animation: tick 1s var(--ease-out-expo);
     }
   }
   @keyframes tick {

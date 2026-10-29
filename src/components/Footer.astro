@@ -1,5 +1,6 @@
 ---
 import { analytics, contact, socials } from '../../site.config';
+import Logo from './Logo.astro';
 import { getContent } from '../content';
 
 const f = getContent().footer;
@@ -10,7 +11,7 @@ const year = new Date().getFullYear();
   <!-- TODO: kontaktní údaje doplň v site.config.ts → contact -->
   <div class="container-page flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
     <div class="grid gap-1">
-      <p class="font-semibold text-ink">Ještě 5 minut</p>
+      <p class="text-ink"><Logo /></p>
       <p>{contact.company} · IČO {contact.ico}</p>
       <p><a href={`mailto:${contact.email}`} class="link">{contact.email}</a></p>
     </div>

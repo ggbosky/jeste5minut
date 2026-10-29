@@ -12,25 +12,25 @@ const css = `
 body{width:1200px;height:630px;background:#fff;color:#14213D;font-family:-apple-system,'SF Pro Display','Segoe UI',Inter,Roboto,Arial,sans-serif;overflow:hidden;position:relative}
 `;
 
+// logo projektu (public/logo.svg) vložené jako data URI
+const logo = `data:image/svg+xml;base64,${readFileSync(`${root}public/logo.svg`).toString('base64')}`;
+
 const og = `<!doctype html><html><head><meta charset="utf-8"><style>${css}
-.wrap{position:absolute;left:96px;top:0;bottom:0;width:620px;display:flex;flex-direction:column;justify-content:center}
-h1{font-size:104px;font-weight:700;letter-spacing:-.035em;line-height:1}
-h2{font-size:44px;font-weight:600;letter-spacing:-.02em;margin-top:18px}
-p{font-size:28px;color:#5b6478;margin-top:28px}
-.book{position:absolute;right:120px;top:95px;width:300px;height:420px;perspective:1600px}
-.cover{height:100%;border-radius:5px 12px 12px 5px;background:#14213D;color:#fff;padding:32px;display:flex;flex-direction:column;justify-content:flex-end;transform:rotateY(-14deg) rotateX(4deg);box-shadow:inset 6px 0 0 rgba(255,255,255,.08),inset 9px 0 0 rgba(0,0,0,.25),30px 40px 60px -24px rgba(20,33,61,.45)}
-.rule{position:absolute;top:32px;left:32px;width:42px;height:5px;border-radius:3px;background:#FF5A36}
-.t{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.02}
-.s{font-size:17px;opacity:.75;margin-top:10px}
+.wrap{position:absolute;left:96px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:112px;font-weight:800;letter-spacing:-.04em;line-height:.95}
+h1 span{color:#FB6720}
+h2{font-size:42px;font-weight:600;letter-spacing:-.02em;margin-top:26px}
+p{font-size:26px;color:#5b6478;margin-top:22px}
+.mark{position:absolute;right:110px;top:50%;height:440px;transform:translateY(-50%)}
 </style></head><body>
-<div class="wrap"><h1>Ještě 5 minut</h1><h2>Jak přestat odkládat učení.</h2><p>E-book pro vysokoškoláky · 70 stran · PDF</p></div>
-<div class="book"><div class="cover"><span class="rule"></span><div class="t">Ještě 5 minut</div><div class="s">Jak přestat odkládat učení</div></div></div>
+<div class="wrap"><h1>Začnu<br><span>teď.</span></h1><h2>Přestaň se učit noc před zkouškou.</h2><p>Ještě 5 minut · e-book pro vysokoškoláky</p></div>
+<img class="mark" src="${logo}" alt="">
 </body></html>`;
 
 const icon = (size) => `<!doctype html><html><head><meta charset="utf-8"><style>${css}
-body{width:${size}px;height:${size}px;background:#14213D;display:grid;place-items:center}
-span{font-weight:700;font-size:${size * 0.7}px;line-height:1;color:#fff;letter-spacing:-.04em}
-</style></head><body><span>5</span></body></html>`;
+body{width:${size}px;height:${size}px;background:#fff;display:grid;place-items:center}
+img{height:${Math.round(size * 0.74)}px}
+</style></head><body><img src="${logo}" alt=""></body></html>`;
 
 const browser = await chromium.launch();
 async function shot(html, w, h, out) {

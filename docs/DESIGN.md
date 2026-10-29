@@ -106,3 +106,8 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 - Sekce s časy večera odstraněna.
 - „Co se naučíš“ → „Co se změní“: karty před → po, bolest se při najetí oranžově přeškrtne, pod ní výsledek.
 - Ceník: tlačítka s cenou a šipkou, u balíčku „Nejčastější volba“.
+
+## Revize 9 – logo projektu
+
+- Dodané logo (oranžová „5“ jako ciferník s ručičkami) v menu, patičce, faviconu, ikonách a OG obrázku. Po najetí myší se ručičky protočí.
+- Oranžová webu sjednocena s logem: #FB6720.

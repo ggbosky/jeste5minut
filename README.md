@@ -57,9 +57,13 @@ Dokud endpoint není nastavený, formulář ve `npm run dev` jen předstírá ú
 
 Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
 
+## Logo
+
+Logo projektu je v `public/logo.svg` (oranžová „5“ jako ciferník, #FB6720 + ručičky #4D4D4D). Na webu ho vykresluje `src/components/Logo.astro`, favicon je `public/favicon.svg`. Oranžová webu (`--color-coral` v `src/styles/global.css`) odpovídá barvě loga.
+
 ## Deploy
 
-**Vercel**: Import repozitáře → framework „Astro“ se pozná sám → Deploy. (Build `npm run build`, výstup `dist`.)
+**Vercel**: [vercel.com/new](https://vercel.com/new) → Import Git Repository → `ggbosky/jeste5minut` → framework „Astro“ se pozná sám → Deploy. (Build `npm run build`, výstup `dist`.) Každý další push do produkční větve se nasadí automaticky.
 **Netlify**: Add new site → Import from Git → build `npm run build`, publish directory `dist`.
 
 U obou nastav Node 22 (respektují `.nvmrc`) a případně proměnné prostředí výše. Cache hlavičky pro `/_astro/*` jsou v `vercel.json` a `public/_headers`.
