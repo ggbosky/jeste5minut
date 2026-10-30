@@ -83,8 +83,8 @@ const plans = [
   .plan-wrap.is-featured {
     padding: 2px;
   }
-  .plan-wrap.is-featured::before,
-  .plan-wrap.is-featured::after {
+  /* tenký okraj: tlumená oranžová dokola + jasná linka, která obíhá */
+  .plan-wrap.is-featured::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -92,30 +92,42 @@ const plans = [
     border-radius: inherit;
     background: conic-gradient(
       from var(--glow-angle),
-      rgb(251 103 32 / 0.15) 0deg,
-      var(--color-coral) 70deg,
-      #ffc59f 110deg,
-      var(--color-coral) 150deg,
-      rgb(251 103 32 / 0.15) 220deg,
-      rgb(251 103 32 / 0.15) 360deg
+      rgb(251 103 32 / 0.35) 0deg,
+      rgb(251 103 32 / 0.35) 250deg,
+      var(--color-coral) 300deg,
+      #ffd2b3 330deg,
+      var(--color-coral) 345deg,
+      rgb(251 103 32 / 0.35) 360deg
     );
   }
-  /* rozmazaná kopie = záře kolem karty */
+  /* rovnoměrná záře kolem celé karty */
   .plan-wrap.is-featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     z-index: -2;
-    inset: -6px;
-    filter: blur(22px);
-    opacity: 0.55;
+    border-radius: inherit;
+    box-shadow:
+      0 0 0 1px rgb(251 103 32 / 0.25),
+      0 0 24px rgb(251 103 32 / 0.28),
+      0 18px 60px -10px rgb(251 103 32 / 0.35);
   }
   @media (prefers-reduced-motion: no-preference) {
-    .plan-wrap.is-featured::before,
+    .plan-wrap.is-featured::before {
+      animation: glow-spin 4s linear infinite;
+    }
     .plan-wrap.is-featured::after {
-      animation: glow-spin 5s linear infinite;
+      animation: glow-breathe 3s ease-in-out infinite;
     }
   }
   @keyframes glow-spin {
     to {
       --glow-angle: 360deg;
+    }
+  }
+  @keyframes glow-breathe {
+    50% {
+      opacity: 0.55;
     }
   }
   .plan-wrap.is-featured .plan {
