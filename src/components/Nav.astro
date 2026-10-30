@@ -49,9 +49,6 @@ const t = getContent();
     border-radius: 999px;
     color: #fff;
     --logo-hands: #fff;
-    /* tlačítko na tmavém videu se při najetí zabarví do bíla */
-    --btn-fill: #fff;
-    --btn-fill-text: var(--color-ink);
     transition:
       max-width 0.5s var(--ease-out-expo),
       height 0.5s var(--ease-out-expo),
@@ -75,9 +72,15 @@ const t = getContent();
     color: #fff;
     background: rgb(255 255 255 / 0.12);
   }
+  /* na tmavém videu se tlačítko při najetí přelije do bíla, na bílé liště do modré */
   .nav-cta {
+    --btn-fill: #fff;
+    --btn-fill-text: var(--color-ink);
     padding-inline: 1.1rem 0.95rem;
     box-shadow: 0 6px 18px -8px rgb(251 103 32 / 0.8);
+  }
+  .nav-cta:hover {
+    box-shadow: none;
   }
 
   /* po scrollu: plovoucí bílá pilulka se stínem */
@@ -91,13 +94,15 @@ const t = getContent();
     padding-inline: 1.25rem 0.5rem;
     color: var(--color-ink);
     --logo-hands: #4d4d4d;
-    --btn-fill: var(--color-ink);
-    --btn-fill-text: #fff;
     background: rgb(255 255 255 / 0.86);
     backdrop-filter: saturate(1.8) blur(18px);
     box-shadow:
       0 0 0 1px rgb(20 33 61 / 0.07),
       0 12px 32px -12px rgb(20 33 61 / 0.28);
+  }
+  #nav.is-stuck .nav-cta {
+    --btn-fill: var(--color-ink);
+    --btn-fill-text: #fff;
   }
   #nav.is-stuck .nav-link {
     color: var(--color-muted);
