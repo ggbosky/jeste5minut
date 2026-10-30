@@ -28,7 +28,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </video>
   <div class="hero-shade" aria-hidden="true"></div>
 
-  <div class="container-page relative pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32">
+  <div class="container-page relative pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
     <div class="max-w-[44rem]">
       <!-- Výmluvy se postupně přeškrtnou, zůstane „teď.“ (bez JS / s omezeným pohybem rovnou „teď.“) -->
       <h1 class="hero-title" aria-label={`${h.lead} ${h.now}`}>
@@ -227,6 +227,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   /* ---------- hlavní CTA ---------- */
   .cta-main {
     position: relative;
+    isolation: isolate;
     overflow: hidden;
     display: inline-flex;
     align-items: center;
@@ -243,16 +244,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       0 10px 30px -8px rgb(251 103 32 / 0.65),
       inset 0 1px 0 rgb(255 255 255 / 0.35);
     transition:
-      transform 0.2s var(--ease-out-expo),
-      box-shadow 0.3s,
-      background-color 0.2s;
+      transform 0.3s var(--ease-out-expo),
+      box-shadow 0.4s;
   }
-  .cta-main:hover {
-    transform: translateY(-2px);
-    background: #ff7a3a;
-    box-shadow:
-      0 16px 40px -8px rgb(251 103 32 / 0.8),
-      inset 0 1px 0 rgb(255 255 255 / 0.35);
+  /* při najetí se tlačítko zleva přelije do bíla */
+  .cta-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: #fff;
+    transform: translateX(-101%);
+    transition: transform 0.55s var(--ease-out-expo);
+  }
+  @media (hover: hover) {
+    .cta-main:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 18px 44px -10px rgb(251 103 32 / 0.9),
+        0 0 0 4px rgb(251 103 32 / 0.25);
+    }
+    .cta-main:hover::before {
+      transform: translateX(0);
+    }
   }
   .cta-main:active {
     transform: translateY(0) scale(0.98);
