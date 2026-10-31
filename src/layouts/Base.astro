@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css';
-import CookieConsent from '../components/CookieConsent.astro';
 import { site, pricing } from '../../site.config';
 import { getContent } from '../content';
 import { plain } from '../lib/rich';
@@ -96,9 +95,11 @@ const schema = productSchema
   <body class="bg-paper text-ink">
     <a href="#main" class="sr-only-focusable btn btn-sm fixed top-3 left-3 z-[100]">{t.nav.skip}</a>
     <slot />
-    <CookieConsent />
 
     <script>
+      import { loadAnalytics } from '../lib/analytics';
+      loadAnalytics();
+
       // Jemný reveal při scrollu
       const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
       // sourozenci najíždějí postupně

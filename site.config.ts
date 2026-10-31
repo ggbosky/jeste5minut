@@ -50,25 +50,19 @@ export const email = {
 };
 
 export const analytics = {
-  /** 'plausible' | 'ga4' | null (null = žádná analytika, žádná cookie lišta) */
-  provider: 'plausible' as 'plausible' | 'ga4' | null,
+  /** 'plausible' | null. Plausible nepoužívá cookies, takže není potřeba cookie lišta. */
+  provider: 'plausible' as 'plausible' | null,
   plausibleDomain: 'jeste5minut.cz',
   plausibleSrc: 'https://plausible.io/js/script.js',
-  ga4Id: 'G-XXXXXXXXXX',
 };
 
-export const contact = {
-  // TODO: doplnit
-  email: 'ahoj@jeste5minut.cz',
-  company: '{{Jméno / firma}}',
-  ico: '{{IČO}}',
-  address: '{{Adresa}}',
+export const shop = {
+  /**
+   * Adresa Shopify obchodu (bez lomítka na konci), např. https://jeste5minut.myshopify.com.
+   * Patička odkazuje na jeho právní stránky: /policies/terms-of-service, /policies/privacy-policy…
+   */
+  url: env.PUBLIC_SHOP_URL || '{{SHOPIFY_URL}}',
 };
 
-export const socials = {
-  tiktok: 'https://www.tiktok.com/@jeste5minut',
-  instagram: 'https://www.instagram.com/jeste5minut',
-};
-
-export const config = { site, pricing, email, analytics, contact, socials };
+export const config = { site, pricing, email, analytics, shop };
 export default config;

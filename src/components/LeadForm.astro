@@ -1,6 +1,7 @@
 ---
 import { getContent } from '../content';
 import { rich } from '../lib/rich';
+import { shop } from '../../site.config';
 
 interface Props {
   /** unikátní id formuláře na stránce */
@@ -34,7 +35,7 @@ const l = getContent().lead;
 
     <label class="flex cursor-pointer items-start gap-3 text-sm leading-snug text-muted">
       <input type="checkbox" name="consent" class="mt-0.5 size-4 shrink-0 accent-ink" aria-describedby={`${id}-consent-err`} />
-      <span set:html={rich(l.consent)} />
+      <span set:html={rich(l.consent.replace('{{privacy}}', `${shop.url}/policies/privacy-policy`))} />
     </label>
     <p id={`${id}-consent-err`} class="hidden text-sm text-coral-text" data-err-for="consent">{l.consentRequired}</p>
     <p class="form-error hidden text-sm text-coral-text" role="alert">{l.error}</p>

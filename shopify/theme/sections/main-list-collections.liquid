@@ -1,0 +1,12 @@
+<section class="page-wrap">
+  <h1 class="section-title">Kolekce</h1>
+  <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {%- for c in collections -%}
+      <li><a href="{{ c.url }}" class="block rounded-3xl border border-line p-6 text-lg font-semibold hover:bg-soft">{{ c.title | escape }}</a></li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{ "name": "Seznam kolekcí" }
+{% endschema %}

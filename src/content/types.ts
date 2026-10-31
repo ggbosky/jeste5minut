@@ -9,13 +9,6 @@
 
 export type Link = { label: string; href: string };
 
-export type LegalPage = {
-  title: string;
-  description: string;
-  updated: string;
-  sections: { heading: string; body: string[] }[];
-};
-
 export type SiteContent = {
   meta: {
     title: string;
@@ -69,13 +62,7 @@ export type SiteContent = {
     consentRequired: string;
   };
   faq: { title: string; items: { q: string; a: string }[] };
-  footer: { legal: Link[]; cookieSettings: string };
-  cookies: { text: string; decline: string; accept: string; label: string };
+  /** handle = adresa zásady v Shopify: /policies/<handle> */
+  footer: { policies: { label: string; handle: string }[] };
   notFound: { title: string; text: string; cta: string };
-  legal: {
-    placeholderNote: string;
-    back: string;
-    updatedLabel: string;
-    pages: Record<'obchodniPodminky' | 'gdpr' | 'reklamacniRad', LegalPage>;
-  };
 };

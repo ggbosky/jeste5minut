@@ -1,0 +1,160 @@
+{%- comment -%}
+  Produkty ze Shopify. Každý blok = jedna karta: v editoru vybereš produkt, napíšeš body a text tlačítka.
+  Cena a přeškrtnutá „původní cena“ (compare-at price) se berou přímo z produktu.
+  Tlačítko přidá produkt do košíku a pošle zákazníka rovnou do pokladny.
+{%- endcomment -%}
+<section id="{{ section.settings.anchor | remove: '#' | default: section.id }}" class="bg-paper py-20 sm:py-28" aria-labelledby="price-{{ section.id }}">
+  <div class="container-page">
+    <h2 id="price-{{ section.id }}" class="section-title text-center" data-reveal>{{ section.settings.title }}</h2>
+    {%- if section.settings.intro != blank -%}
+      <p class="mx-auto mt-4 max-w-[36rem] text-center text-lg text-muted" data-reveal>{{ section.settings.intro }}</p>
+    {%- endif -%}
+
+    <div class="mx-auto mt-12 grid max-w-[52rem] gap-5 {% if section.blocks.size > 1 %}md:grid-cols-2{% else %}max-w-[26rem]{% endif %}">
+      {%- for block in section.blocks -%}
+        {%- assign product = block.settings.product -%}
+        {%- if product == blank and request.design_mode == false -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign featured = block.settings.featured -%}
+        <div class="plan-wrap{% if featured %} is-featured{% endif %}" data-reveal {{ block.shopify_attributes }}>
+          <article class="plan flex h-full flex-col rounded-3xl bg-paper p-7 sm:p-9{% unless featured %} border border-line{% endunless %}">
+            {%- if featured and block.settings.label != blank -%}
+              <p class="mb-2 text-sm font-semibold text-coral-text">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
+
+            {%- if product != blank -%}
+              {%- assign variant = product.selected_or_first_available_variant -%}
+              <h3 class="text-xl font-semibold tracking-tight">{{ block.settings.title | default: product.title | escape }}</h3>
+              <p class="mt-4 flex items-baseline gap-3">
+                <span class="text-4xl font-bold tracking-tight">{{ variant.price | money_without_trailing_zeros }}</span>
+                {%- if variant.compare_at_price > variant.price -%}
+                  <span class="text-muted">{{ section.settings.regular_label | escape }} <s>{{ variant.compare_at_price | money_without_trailing_zeros }}</s></span>
+                {%- endif -%}
+              </p>
+            {%- else -%}
+              <h3 class="text-xl font-semibold tracking-tight">{{ block.settings.title | default: 'Produkt' | escape }}</h3>
+              <p class="mt-4 rounded-2xl border border-dashed border-line bg-soft px-4 py-3 text-sm text-muted">
+                Vyber produkt v nastavení bloku vlevo. Tahle karta se na webu ukáže, až bude produkt vybraný.
+              </p>
+            {%- endif -%}
+
+            {%- assign features = block.settings.features | newline_to_br | split: '<br />' -%}
+            <ul class="mt-7 mb-8 grid gap-2.5">
+              {%- for f in features -%}
+                {%- assign f = f | strip -%}
+                {%- if f != blank -%}
+                  <li class="flex gap-3 leading-snug">
+                    {% render 'icon', name: 'check', size: 18, class: 'mt-0.5 shrink-0 text-coral' %}
+                    <span>{{ f | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+
+            {%- if product != blank -%}
+              {% render 'buy-form', product: product, label: block.settings.button_label, featured: featured %}
+            {%- else -%}
+              <span class="btn btn-lg mt-auto w-full{% unless featured %} btn-dark{% endunless %}" aria-disabled="true">{{ block.settings.button_label | escape }}</span>
+            {%- endif -%}
+          </article>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  /* Světelný okraj, který obíhá kolem oblíbené varianty */
+  @property --glow-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+  .plan-wrap {
+    position: relative;
+    isolation: isolate;
+    border-radius: 26px;
+  }
+  .plan-wrap.is-featured {
+    padding: 2px;
+  }
+  /* tenký okraj: tlumená oranžová dokola + jasná linka, která obíhá */
+  .plan-wrap.is-featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--glow-angle),
+      rgb(251 103 32 / 0.35) 0deg,
+      rgb(251 103 32 / 0.35) 250deg,
+      var(--color-coral) 300deg,
+      #ffd2b3 330deg,
+      var(--color-coral) 345deg,
+      rgb(251 103 32 / 0.35) 360deg
+    );
+  }
+  /* rovnoměrná záře kolem celé karty */
+  .plan-wrap.is-featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    box-shadow:
+      0 0 0 1px rgb(251 103 32 / 0.25),
+      0 0 24px rgb(251 103 32 / 0.28),
+      0 18px 60px -10px rgb(251 103 32 / 0.35);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .plan-wrap.is-featured::before {
+      animation: glow-spin 4s linear infinite;
+    }
+    .plan-wrap.is-featured::after {
+      animation: glow-breathe 3s ease-in-out infinite;
+    }
+  }
+  @keyframes glow-spin {
+    to {
+      --glow-angle: 360deg;
+    }
+  }
+  @keyframes glow-breathe {
+    50% {
+      opacity: 0.55;
+    }
+  }
+  .plan-wrap.is-featured .plan {
+    border-radius: 24px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Cena / produkty",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "inline_richtext", "id": "title", "label": "Nadpis", "default": "Cena" },
+    { "type": "inline_richtext", "id": "intro", "label": "Úvod" },
+    { "type": "text", "id": "regular_label", "label": "Text před přeškrtnutou cenou", "default": "běžně" },
+    { "type": "text", "id": "anchor", "label": "Kotva sekce", "default": "cena", "info": "Na tuhle sekci odkazují tlačítka (#cena)." }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produkt",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produkt" },
+        { "type": "text", "id": "title", "label": "Název na kartě", "info": "Když necháš prázdné, použije se název produktu." },
+        { "type": "textarea", "id": "features", "label": "Co obsahuje (jedna věc na řádek)", "default": "E-book v PDF, 70 stran\nAktualizace zdarma" },
+        { "type": "text", "id": "button_label", "label": "Text tlačítka", "default": "Chci e-book" },
+        { "type": "checkbox", "id": "featured", "label": "Zvýraznit (oranžový okraj a tlačítko)", "default": false },
+        { "type": "text", "id": "label", "label": "Štítek zvýrazněné karty", "default": "Nejčastější volba" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Cena / produkty" }]
+}
+{% endschema %}

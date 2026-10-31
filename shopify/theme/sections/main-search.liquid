@@ -1,0 +1,22 @@
+<section class="page-wrap">
+  <h1 class="section-title">Hledat</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="mt-8 flex max-w-[32rem] gap-3">
+    <label for="q" class="sr-only">Hledat</label>
+    <input id="q" type="search" name="q" value="{{ search.terms | escape }}" class="min-h-12 w-full rounded-full border border-line px-5" placeholder="Co hledáš?">
+    <input type="hidden" name="type" value="product">
+    <button type="submit" class="btn btn-dark">Hledat</button>
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results_count == 0 -%}
+        <p class="mt-8 text-muted">Nic jsme nenašli.</p>
+      {%- else -%}
+        {% render 'product-grid', products: search.results %}
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Vyhledávání" }
+{% endschema %}

@@ -97,7 +97,7 @@ Zpětná vazba: čistý obchod je lepší, ale chybí animace, silný hook a lep
 - Pod animovaným nadpisem konkrétní slib („Přestaň se učit noc před zkouškou.“), tři přínosy, CTA s cenou v tlačítku, druhé tlačítko na SOS kartu a řádek důvěry (běžná cena, PDF hned, 14 dní na vrácení peněz).
 - Logo: ciferník s vyznačeným výsekem 5 minut + název.
 - CTA: „Začnu teď“ (navazuje na nadpis), „Chci e-book“, „Chci e-book i bonusy“, „Pošlete mi SOS kartu“.
-- Lišta cookies se ukáže až po prvním scrollu a je kompaktní, aby nezakrývala hlavní tlačítko.
+- Cookie lišta odstraněna (revize 11): analytika je Plausible bez cookies, právní stránky a kontakt jsou v Shopify.
 
 ## Revize 8 – video v hero, lepší CTA
 

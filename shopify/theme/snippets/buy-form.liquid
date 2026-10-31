@@ -1,0 +1,24 @@
+{%- comment -%}
+  Tlačítko „koupit“ – přidá produkt do košíku a pošle zákazníka rovnou do pokladny.
+  Parametry: product, label, featured (true = oranžové tlačítko)
+{%- endcomment -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- form 'product', product, class: 'buy-form mt-auto' -%}
+  <input type="hidden" name="id" value="{{ variant.id }}">
+  <input type="hidden" name="quantity" value="1">
+  <input type="hidden" name="return_to" value="{{ routes.root_url | append: '/checkout' | replace: '//', '/' }}">
+  <button
+    type="submit"
+    class="btn btn-lg btn-arrow w-full{% if featured %} btn-glow{% else %} btn-dark{% endif %}"
+    {% unless variant.available %}
+      disabled
+    {% endunless %}
+  >
+    {%- if variant.available -%}
+      {{ label | default: 'Koupit' | escape }}
+      {% render 'icon', name: 'arrow', size: 18 %}
+    {%- else -%}
+      Vyprodáno
+    {%- endif -%}
+  </button>
+{%- endform -%}

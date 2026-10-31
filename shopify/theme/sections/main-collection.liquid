@@ -1,0 +1,13 @@
+<section class="page-wrap">
+  <h1 class="section-title">{{ collection.title | escape }}</h1>
+  {%- paginate collection.products by 24 -%}
+    {% render 'product-grid', products: collection.products %}
+    {%- if paginate.pages > 1 -%}
+      <div class="mt-10 text-center">{{ paginate | default_pagination }}</div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{ "name": "Kolekce" }
+{% endschema %}

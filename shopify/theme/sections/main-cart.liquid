@@ -1,0 +1,37 @@
+<section class="page-wrap max-w-[44rem]">
+  <h1 class="section-title">Košík</h1>
+  {%- if cart.item_count == 0 -%}
+    <p class="mt-6 text-lg text-muted">Košík je prázdný.</p>
+    <a href="{{ routes.root_url }}" class="btn mt-8">Zpět na úvod</a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" class="mt-8">
+      <ul class="divide-y divide-line border-y border-line">
+        {%- for item in cart.items -%}
+          <li class="flex items-center justify-between gap-4 py-5">
+            <div>
+              <a href="{{ item.url }}" class="font-semibold">{{ item.product.title | escape }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <p class="text-sm text-muted">{{ item.variant.title | escape }}</p>
+              {%- endunless -%}
+              <a href="{{ item.url_to_remove }}" class="text-sm text-muted underline">Odebrat</a>
+            </div>
+            <div class="flex items-center gap-4">
+              <label class="sr-only" for="qty-{{ forloop.index }}">Počet</label>
+              <input id="qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="w-16 rounded-xl border border-line px-2 py-2 text-center">
+              <span class="font-semibold">{{ item.final_line_price | money }}</span>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="mt-6 flex justify-between text-lg font-semibold"><span>Celkem</span><span>{{ cart.total_price | money }}</span></p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <button type="submit" name="update" class="btn btn-ghost">Aktualizovat</button>
+        <button type="submit" name="checkout" class="btn btn-arrow btn-glow">Pokračovat k platbě {% render 'icon', name: 'arrow', size: 18 %}</button>
+      </div>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Košík" }
+{% endschema %}

@@ -1,0 +1,135 @@
+{%- comment -%}
+  Na hlavní stránce je lišta nahoře průhledná přes video, po scrollu se z ní stane plovoucí bílá „pilulka“.
+  Na ostatních stránkách (produkt, zásady, košík…) je pilulka vidět rovnou.
+{%- endcomment -%}
+{%- liquid
+  assign home = ''
+  unless template.name == 'index'
+    assign home = routes.root_url | append: '/' | replace: '//', '/'
+  endunless
+-%}
+<header id="nav" class="fixed inset-x-0 top-0 z-50{% unless template.name == 'index' %} is-stuck is-solid{% endunless %}">
+  <nav class="nav-shell" aria-label="Hlavní navigace">
+    <a href="{{ routes.root_url }}" class="nav-logo text-[1.0625rem]" aria-label="{{ shop.name }} – úvod">{% render 'logo' %}</a>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <ul class="hidden items-center gap-1 sm:flex">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <a href="{{ home }}{{ block.settings.anchor }}" class="nav-link">{{ block.settings.label | escape }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ home }}{{ section.settings.cta_anchor }}" class="btn btn-sm btn-arrow nav-cta">
+          {{ section.settings.cta_label | escape }}
+          {% render 'icon', name: 'arrow', size: 15 %}
+        </a>
+      {%- endif -%}
+    </div>
+  </nav>
+</header>
+
+{% stylesheet %}
+  #nav {
+    padding-top: 0;
+    transition: padding 0.5s var(--ease-out-expo);
+  }
+  .nav-shell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 4rem;
+    width: 100%;
+    max-width: 68rem;
+    margin-inline: auto;
+    padding-inline: max(1.25rem, env(safe-area-inset-left, 0px));
+    border-radius: 999px;
+    color: #fff;
+    --logo-hands: #fff;
+    transition:
+      max-width 0.5s var(--ease-out-expo),
+      height 0.5s var(--ease-out-expo),
+      padding 0.5s var(--ease-out-expo),
+      background-color 0.3s,
+      box-shadow 0.3s,
+      color 0.3s;
+  }
+  .nav-link {
+    display: block;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: rgb(255 255 255 / 0.78);
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+  }
+  .nav-link:hover {
+    color: #fff;
+    background: rgb(255 255 255 / 0.12);
+  }
+  /* na tmavém videu se tlačítko při najetí přelije do bíla, na bílé liště do modré */
+  .nav-cta {
+    --btn-fill: #fff;
+    --btn-fill-text: var(--color-ink);
+    padding-inline: 1.1rem 0.95rem;
+    box-shadow: 0 6px 18px -8px rgb(251 103 32 / 0.8);
+  }
+  .nav-cta:hover {
+    box-shadow: none;
+  }
+
+  /* po scrollu: plovoucí bílá pilulka se stínem */
+  #nav.is-stuck {
+    padding-top: 0.625rem;
+  }
+  #nav.is-stuck .nav-shell {
+    width: calc(100% - 1.25rem);
+    max-width: 58rem;
+    height: 3.5rem;
+    padding-inline: 1.25rem 0.5rem;
+    color: var(--color-ink);
+    --logo-hands: #4d4d4d;
+    background: rgb(255 255 255 / 0.86);
+    backdrop-filter: saturate(1.8) blur(18px);
+    box-shadow:
+      0 0 0 1px rgb(20 33 61 / 0.07),
+      0 12px 32px -12px rgb(20 33 61 / 0.28);
+  }
+  #nav.is-stuck .nav-cta {
+    --btn-fill: var(--color-ink);
+    --btn-fill-text: #fff;
+  }
+  #nav.is-stuck .nav-link {
+    color: var(--color-muted);
+  }
+  #nav.is-stuck .nav-link:hover {
+    color: var(--color-ink);
+    background: var(--color-soft);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Lišta nahoře",
+  "class": "section-header",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "cta_label", "label": "Tlačítko – text", "default": "Začnu teď" },
+    { "type": "text", "id": "cta_anchor", "label": "Tlačítko – kotva sekce", "default": "#cena", "info": "Např. #cena – odkaz na sekci na hlavní stránce" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Odkaz",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Text", "default": "Obsah" },
+        { "type": "text", "id": "anchor", "label": "Kotva sekce", "default": "#obsah", "info": "#obsah, #cena nebo #faq" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

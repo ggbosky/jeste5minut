@@ -1,0 +1,44 @@
+{
+  "type": "header",
+  "name": "Lišta nahoře",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "cta_label": "Začnu teď",
+        "cta_anchor": "#cena"
+      },
+      "blocks": {
+        "b1": {
+          "type": "link",
+          "settings": {
+            "label": "Obsah",
+            "anchor": "#obsah"
+          }
+        },
+        "b2": {
+          "type": "link",
+          "settings": {
+            "label": "Cena",
+            "anchor": "#cena"
+          }
+        },
+        "b3": {
+          "type": "link",
+          "settings": {
+            "label": "Otázky",
+            "anchor": "#faq"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

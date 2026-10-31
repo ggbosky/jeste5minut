@@ -1,0 +1,38 @@
+{%- assign variant = product.selected_or_first_available_variant -%}
+<section class="page-wrap">
+  <div class="grid gap-10 md:grid-cols-2 md:items-start">
+    <div class="overflow-hidden rounded-3xl bg-soft">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '(min-width: 768px) 50vw, 100vw', class: 'h-auto w-full', alt: product.featured_media.alt | default: product.title }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'h-auto w-full' }}
+      {%- endif -%}
+    </div>
+    <div class="flex flex-col">
+      <h1 class="section-title">{{ product.title | escape }}</h1>
+      <p class="mt-5 flex items-baseline gap-3">
+        <span class="text-4xl font-bold tracking-tight">{{ variant.price | money_without_trailing_zeros }}</span>
+        {%- if variant.compare_at_price > variant.price -%}
+          <s class="text-muted">{{ variant.compare_at_price | money_without_trailing_zeros }}</s>
+        {%- endif -%}
+      </p>
+      {%- if product.description != blank -%}
+        <div class="rte mt-6 text-muted">{{ product.description }}</div>
+      {%- endif -%}
+      <div class="mt-8 max-w-[24rem]">
+        {% render 'buy-form', product: product, label: section.settings.button_label, featured: true %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Produkt",
+  "settings": [{ "type": "text", "id": "button_label", "label": "Text tlačítka", "default": "Koupit" }]
+}
+{% endschema %}

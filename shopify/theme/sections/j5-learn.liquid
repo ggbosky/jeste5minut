@@ -1,0 +1,98 @@
+<section class="bg-soft py-20 sm:py-28" aria-labelledby="learn-{{ section.id }}">
+  <div class="container-page">
+    <div class="mx-auto max-w-[40rem] text-center" data-reveal>
+      <h2 id="learn-{{ section.id }}" class="section-title">{{ section.settings.title }}</h2>
+      {%- if section.settings.intro != blank -%}
+        <p class="mt-4 text-lg leading-relaxed text-muted">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {%- for block in section.blocks -%}
+        <li class="change" data-reveal {{ block.shopify_attributes }}>
+          <span class="change-icon">{% render 'icon', name: 'check', size: 18, stroke: 3 %}</span>
+          <p class="after">{{ block.settings.after }}</p>
+          {%- if block.settings.before != blank -%}
+            <p class="before">
+              <span class="before-label">{{ section.settings.before_label | escape }}</span> {{ block.settings.before | escape }}
+            </p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .change {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.75rem;
+    border-radius: 22px;
+    background: var(--color-paper);
+    box-shadow:
+      0 1px 2px rgb(20 33 61 / 0.04),
+      0 12px 30px -18px rgb(20 33 61 / 0.25);
+    transition:
+      translate 0.35s var(--ease-out-expo),
+      box-shadow 0.35s;
+  }
+  .change:hover {
+    translate: 0 -4px;
+    box-shadow:
+      0 1px 2px rgb(20 33 61 / 0.04),
+      0 22px 40px -18px rgb(20 33 61 / 0.32);
+  }
+  .change-icon {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    background: var(--color-coral);
+    color: var(--color-ink);
+  }
+  /* řešení je hlavní sdělení */
+  .change .after {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  /* problém jen jako malá poznámka */
+  .change .before {
+    margin-top: auto;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+  }
+  .change .before-label {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Co se změní",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "inline_richtext", "id": "title", "label": "Nadpis", "default": "Co se změní" },
+    { "type": "inline_richtext", "id": "intro", "label": "Úvod", "default": "Tohle si z e-booku odneseš." },
+    { "type": "text", "id": "before_label", "label": "Popisek problému", "default": "Místo:" }
+  ],
+  "blocks": [
+    {
+      "type": "change",
+      "name": "Změna",
+      "settings": [
+        { "type": "inline_richtext", "id": "after", "label": "Řešení (velký text)", "default": "Začneš, i když se ti nechce." },
+        { "type": "text", "id": "before", "label": "Problém (malý text)", "default": "Otevřu skripta a nic." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Co se změní" }]
+}
+{% endschema %}

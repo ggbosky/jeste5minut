@@ -1,0 +1,344 @@
+{%- comment -%}
+  Hero: video v pozadí, nadpis s přeškrtávanými výmluvami, výhody, cena a hlavní tlačítko.
+  Cena se bere z vybraného produktu (cena + „původní cena“). Bez produktu se použije text z nastavení.
+{%- endcomment -%}
+{%- liquid
+  assign excuses = section.settings.excuses | split: ','
+  assign p = section.settings.product
+  if p != blank
+    assign variant = p.selected_or_first_available_variant
+    assign price = variant.price | money_without_trailing_zeros
+    assign compare = ''
+    assign pct = 0
+    if variant.compare_at_price > variant.price
+      assign compare = variant.compare_at_price | money_without_trailing_zeros
+      assign pct = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price
+    endif
+  else
+    assign price = section.settings.price
+    assign compare = section.settings.compare_price
+    assign pct = section.settings.discount
+  endif
+-%}
+<section id="top" class="hero relative isolate overflow-clip text-white">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" data-hero-video
+    {%- if section.settings.video != blank %} poster="{{ section.settings.video.preview_image | image_url: width: 1600 }}"{% else %} poster="{{ 'hero-poster.webp' | asset_url }}"{% endif %}
+    aria-label="{{ section.settings.video_label | escape }}">
+    {%- if section.settings.video != blank -%}
+      {%- for source in section.settings.video.sources -%}
+        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+      {%- endfor -%}
+    {%- else -%}
+      <source src="{{ 'hero.webm' | asset_url }}" type="video/webm">
+      <source src="{{ 'hero.mp4' | asset_url }}" type="video/mp4">
+    {%- endif -%}
+  </video>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="container-page relative pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
+    <div class="max-w-[44rem]">
+      <!-- Výmluvy se postupně přeškrtnou, zůstane „teď.“ (bez JS / s omezeným pohybem rovnou „teď.“) -->
+      <h1 class="hero-title" aria-label="{{ section.settings.lead | escape }} {{ section.settings.now | escape }}">
+        <span class="block" aria-hidden="true">{{ section.settings.lead | escape }}</span>
+        <span class="swap" aria-hidden="true" data-swap>
+          {%- for w in excuses -%}
+            <span class="w">{{ w | strip | escape }}</span>
+          {%- endfor -%}
+          <span class="w w-now">{{ section.settings.now | escape }}</span>
+        </span>
+      </h1>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="hero-in mt-7 text-2xl font-semibold tracking-tight sm:text-3xl" style="--d:150ms">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="hero-in mt-6 grid gap-2.5" style="--d:290ms">
+          {%- for block in section.blocks -%}
+            <li class="flex items-center gap-3 text-[1.0625rem]" {{ block.shopify_attributes }}>
+              <span class="grid size-6 shrink-0 place-items-center rounded-full bg-coral text-ink">
+                {% render 'icon', name: 'check', size: 13, stroke: 3.2 %}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if price != blank -%}
+        <div class="hero-in mt-10 flex items-end gap-4" style="--d:340ms">
+          <span class="price-now">{{ price }}</span>
+          {%- if compare != blank -%}
+            <span class="pb-1.5 leading-tight">
+              <s class="block text-white/60">{{ compare }}</s>
+              {%- if pct > 0 -%}
+                <span class="block text-sm font-semibold text-coral">−{{ pct }} % {{ section.settings.discount_label | escape }}</span>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="hero-in mt-5 flex flex-col gap-3 sm:flex-row" style="--d:380ms">
+        <a href="{{ section.settings.button_anchor }}" class="cta-main">
+          <span class="cta-shine" aria-hidden="true"></span>
+          {{ section.settings.button_label | escape }}
+          {% render 'icon', name: 'arrow', size: 22, class: 'cta-arrow' %}
+        </a>
+      </div>
+
+      <p class="hero-in mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/75" style="--d:420ms">
+        {%- if section.settings.note != blank -%}
+          <span class="inline-flex items-center gap-1.5">{% render 'icon', name: 'download', size: 14 %}{{ section.settings.note | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.guarantee != blank -%}
+          <span class="inline-flex items-center gap-1.5">{% render 'icon', name: 'shield', size: 15 %}{{ section.settings.guarantee | escape }}</span>
+        {%- endif -%}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .hero-title {
+    font-size: clamp(3.75rem, 16vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  @media (min-width: 1024px) {
+    .hero-title {
+      font-size: min(8.4vw, 7.5rem);
+    }
+  }
+  .swap {
+    display: inline-grid;
+    justify-items: start;
+  }
+  .swap .w {
+    grid-area: 1 / 1;
+    position: relative;
+    white-space: nowrap;
+    opacity: 0;
+    transition:
+      opacity 0.45s ease,
+      transform 0.6s var(--ease-out-expo),
+      color 0.3s;
+  }
+  /* škrtnutí */
+  .swap .w::after {
+    content: '';
+    position: absolute;
+    left: -0.04em;
+    right: -0.04em;
+    top: 54%;
+    height: 0.07em;
+    border-radius: 0.04em;
+    background: var(--color-coral);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .swap .w.is-struck {
+    color: rgb(255 255 255 / 0.55);
+  }
+  .swap .w.is-struck::after {
+    transform: scaleX(1);
+  }
+  .swap .w.is-active {
+    opacity: 1;
+  }
+  .swap .w.is-leaving {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+  .swap .w.is-entering {
+    transform: translateY(0.35em);
+  }
+  .swap .w-now {
+    color: var(--color-coral);
+  }
+  .swap .w-now::after {
+    display: none;
+  }
+  /* s JS je od prvního vykreslení vidět první výmluva */
+  html.js .swap .w:first-child:not(.is-leaving) {
+    opacity: 1;
+  }
+  /* bez JS nebo s omezeným pohybem: rovnou finální „teď.“ */
+  html:not(.js) .swap .w-now {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swap .w {
+      opacity: 0 !important;
+    }
+    .swap .w-now {
+      opacity: 1 !important;
+    }
+  }
+
+  /* ---------- video v pozadí ---------- */
+  .hero {
+    background: var(--color-ink);
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+  }
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgb(20 33 61 / 0.92) 0%, rgb(20 33 61 / 0.78) 45%, rgb(20 33 61 / 0.35) 100%),
+      linear-gradient(0deg, rgb(20 33 61 / 0.6), transparent 40%);
+  }
+  @media (max-width: 767px) {
+    .hero-shade {
+      background: rgb(20 33 61 / 0.82);
+    }
+  }
+
+  /* ---------- cena ---------- */
+  .price-now {
+    font-size: clamp(2.75rem, 9vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  /* ---------- hlavní CTA ---------- */
+  .cta-main {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 4rem;
+    padding: 0.8rem 2.25rem;
+    border-radius: 999px;
+    background: var(--color-coral);
+    color: var(--color-ink);
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow:
+      0 10px 30px -8px rgb(251 103 32 / 0.65),
+      inset 0 1px 0 rgb(255 255 255 / 0.35);
+    transition:
+      transform 0.3s var(--ease-out-expo),
+      box-shadow 0.4s;
+  }
+  /* při najetí se tlačítko zleva přelije do bíla */
+  .cta-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: #fff;
+    transform: translateX(-101%);
+    transition: transform 0.55s var(--ease-out-expo);
+  }
+  @media (hover: hover) {
+    .cta-main:hover {
+      transform: translateY(-3px);
+      background-color: #fff;
+      box-shadow: none;
+      transition:
+        transform 0.3s var(--ease-out-expo),
+        box-shadow 0.3s,
+        background-color 0s 0.4s;
+    }
+    .cta-main:hover::before {
+      transform: translateX(0);
+    }
+  }
+  .cta-main:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .cta-arrow {
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+  .cta-main:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+  /* lesk, který občas přejede přes tlačítko a přitáhne pohled */
+  .cta-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.45) 50%, transparent 65%);
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .cta-shine {
+      animation: shine 4.5s ease-in-out 2.5s infinite;
+    }
+  }
+  @keyframes shine {
+    0% {
+      transform: translateX(-120%);
+    }
+    25%,
+    100% {
+      transform: translateX(120%);
+    }
+  }
+
+  /* úvodní najetí textu (jen posun, nic se neskrývá → nezdržuje LCP) */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-in {
+      animation: hero-in 0.9s var(--ease-out-expo) both;
+      animation-delay: var(--d, 0ms);
+    }
+  }
+  @keyframes hero-in {
+    from {
+      transform: translateY(18px);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero s videem",
+  "tag": "div",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "header", "content": "Nadpis" },
+    { "type": "text", "id": "lead", "label": "První řádek", "default": "Začnu" },
+    { "type": "text", "id": "excuses", "label": "Výmluvy (oddělené čárkou)", "default": "zítra., v pondělí., po obědě., večer." },
+    { "type": "text", "id": "now", "label": "Konec nadpisu", "default": "teď." },
+    { "type": "inline_richtext", "id": "subtitle", "label": "Podnadpis", "default": "Přestaň se učit noc před zkouškou." },
+    { "type": "header", "content": "Video" },
+    { "type": "video", "id": "video", "label": "Video v pozadí", "info": "Bez zvuku, ve smyčce. Když nic nevybereš, použije se video z tématu." },
+    { "type": "text", "id": "video_label", "label": "Popis videa (pro čtečky)", "default": "Video: na lísteček v diáři se píše „Done!“" },
+    { "type": "header", "content": "Cena" },
+    { "type": "product", "id": "product", "label": "Produkt pro cenu", "info": "Ukáže jeho cenu a přeškrtnutou „původní cenu“ (compare-at price)." },
+    { "type": "text", "id": "price", "label": "Cena (když není vybraný produkt)", "default": "199 Kč" },
+    { "type": "text", "id": "compare_price", "label": "Přeškrtnutá cena (když není vybraný produkt)", "default": "299 Kč" },
+    { "type": "number", "id": "discount", "label": "Sleva v % (když není vybraný produkt)", "default": 33 },
+    { "type": "text", "id": "discount_label", "label": "Text za slevou", "default": "launch sleva" },
+    { "type": "header", "content": "Tlačítko" },
+    { "type": "text", "id": "button_label", "label": "Text", "default": "Začnu teď" },
+    { "type": "text", "id": "button_anchor", "label": "Kotva sekce", "default": "#cena" },
+    { "type": "text", "id": "note", "label": "Poznámka pod tlačítkem", "default": "PDF ti přijde do minuty" },
+    { "type": "text", "id": "guarantee", "label": "Záruka", "default": "14 dní na vrácení peněz" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Výhoda",
+      "settings": [{ "type": "inline_richtext", "id": "text", "label": "Text", "default": "8 kapitol, každá na 5 minut čtení" }]
+    }
+  ],
+  "presets": [{ "name": "Hero s videem" }]
+}
+{% endschema %}

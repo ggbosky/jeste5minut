@@ -1,0 +1,22 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Dárková karta – {{ shop.name }}</title>
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="bg-paper text-ink">
+    <main class="mx-auto max-w-[30rem] px-5 py-16 text-center">
+      <p class="text-2xl">{% render 'logo' %}</p>
+      <h1 class="mt-8 text-3xl font-bold">{{ gift_card.initial_value | money }}</h1>
+      <p class="mt-4 text-muted">Kód dárkové karty</p>
+      <p class="mt-2 text-2xl font-semibold tracking-wider">{{ gift_card.code | format_code }}</p>
+      {%- if gift_card.expired -%}<p class="mt-4 text-coral-text">Platnost vypršela.</p>{%- endif -%}
+      <a href="{{ shop.url }}" class="btn mt-8">Do obchodu</a>
+    </main>
+  </body>
+</html>

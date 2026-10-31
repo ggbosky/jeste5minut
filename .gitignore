@@ -8,3 +8,5 @@ dist/
 shots/
 .lighthouse/
 dist-preview/
+dist-shopify/
+shopify/.tailwind-input.css

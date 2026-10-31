@@ -1,0 +1,6 @@
+{
+  "type": "footer",
+  "name": "Patička",
+  "sections": { "footer": { "type": "footer", "settings": {} } },
+  "order": ["footer"]
+}

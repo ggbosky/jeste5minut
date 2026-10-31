@@ -1,0 +1,16 @@
+<section class="page-wrap max-w-[40rem] text-center">
+  <h1 class="section-title">{{ section.settings.title | escape }}</h1>
+  <p class="mt-4 text-lg text-muted">{{ section.settings.text | escape }}</p>
+  <a href="{{ routes.root_url }}" class="btn mt-8">{{ section.settings.button_label | escape }}</a>
+</section>
+
+{% schema %}
+{
+  "name": "Stránka nenalezena",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Nadpis", "default": "Stránka nenalezena" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Tahle stránka neexistuje nebo byla přesunuta." },
+    { "type": "text", "id": "button_label", "label": "Tlačítko", "default": "Zpět na úvod" }
+  ]
+}
+{% endschema %}

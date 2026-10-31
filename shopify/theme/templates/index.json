@@ -1,0 +1,274 @@
+{
+  "sections": {
+    "hero": {
+      "type": "j5-hero",
+      "settings": {
+        "lead": "Začnu",
+        "excuses": "zítra., v pondělí., po obědě., večer.",
+        "now": "teď.",
+        "subtitle": "Přestaň se učit noc před zkouškou.",
+        "video_label": "Video: na lísteček v diáři se píše „Done!“",
+        "price": "199 Kč",
+        "compare_price": "299 Kč",
+        "discount": 33,
+        "discount_label": "launch sleva",
+        "button_label": "Začnu teď",
+        "button_anchor": "#cena",
+        "note": "PDF ti přijde do minuty",
+        "guarantee": "14 dní na vrácení peněz"
+      },
+      "blocks": {
+        "b1": {
+          "type": "point",
+          "settings": {
+            "text": "8 kapitol, každá na 5 minut čtení"
+          }
+        },
+        "b2": {
+          "type": "point",
+          "settings": {
+            "text": "Začneš, i když se ti nechce"
+          }
+        },
+        "b3": {
+          "type": "point",
+          "settings": {
+            "text": "Mobil tě přestane rozhazovat"
+          }
+        },
+        "b4": {
+          "type": "point",
+          "settings": {
+            "text": "Zkouškové i bakalářka po malých krocích"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "learn": {
+      "type": "j5-learn",
+      "settings": {
+        "title": "Co se změní",
+        "intro": "Tohle si z e-booku odneseš.",
+        "before_label": "Místo:"
+      },
+      "blocks": {
+        "b1": {
+          "type": "change",
+          "settings": {
+            "after": "Začneš, i když se ti nechce.",
+            "before": "Otevřu skripta a nic."
+          }
+        },
+        "b2": {
+          "type": "change",
+          "settings": {
+            "after": "Učíš se, aniž bys sahal po telefonu.",
+            "before": "Za tři minuty jsem na mobilu."
+          }
+        },
+        "b3": {
+          "type": "change",
+          "settings": {
+            "after": "Zkouškové máš naplánované dopředu.",
+            "before": "Učím se až noc před zkouškou."
+          }
+        },
+        "b4": {
+          "type": "change",
+          "settings": {
+            "after": "Píšeš ji po malých krocích.",
+            "before": "Bakalářka je v nedohlednu."
+          }
+        },
+        "b5": {
+          "type": "change",
+          "settings": {
+            "after": "Hotové je lepší než dokonalé.",
+            "before": "Musí to být dokonalé."
+          }
+        },
+        "b6": {
+          "type": "change",
+          "settings": {
+            "after": "Navážeš i po dni, kdy se nic nepovedlo.",
+            "before": "Jeden špatný den a vzdám to."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6"
+      ]
+    },
+    "contents": {
+      "type": "j5-contents",
+      "settings": {
+        "title": "Obsah",
+        "intro": "Každá kapitola se dá přečíst zhruba za pět minut a končí jedním konkrétním úkolem.",
+        "anchor": "obsah"
+      },
+      "blocks": {
+        "b1": {
+          "type": "chapter",
+          "settings": {
+            "title": "Proč odkládáme",
+            "text": "Co se děje v hlavě, když učení odsouváme, a proč to není lenost."
+          }
+        },
+        "b2": {
+          "type": "chapter",
+          "settings": {
+            "title": "Pravidlo pěti minut",
+            "text": "Jak začít nejmenším možným krokem."
+          }
+        },
+        "b3": {
+          "type": "chapter",
+          "settings": {
+            "title": "Mobil",
+            "text": "Jak omezit rozptylování bez úplného digitálního detoxu."
+          }
+        },
+        "b4": {
+          "type": "chapter",
+          "settings": {
+            "title": "Zkouškové",
+            "text": "Plán na čtrnáct dní před zkouškou a co dělat, když zbývají tři."
+          }
+        },
+        "b5": {
+          "type": "chapter",
+          "settings": {
+            "title": "Bakalářská práce",
+            "text": "Od prázdné stránky k první hotové kapitole."
+          }
+        },
+        "b6": {
+          "type": "chapter",
+          "settings": {
+            "title": "Perfekcionismus",
+            "text": "Proč je hotová práce lepší než dokonalá."
+          }
+        },
+        "b7": {
+          "type": "chapter",
+          "settings": {
+            "title": "Když to nevyjde",
+            "text": "Jak navázat po dni, kdy se nic neudělalo."
+          }
+        },
+        "b8": {
+          "type": "chapter",
+          "settings": {
+            "title": "Tvůj plán",
+            "text": "Sestavíš si plán na příští týden."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8"
+      ]
+    },
+    "pricing": {
+      "type": "j5-pricing",
+      "settings": {
+        "title": "Cena",
+        "regular_label": "běžně",
+        "anchor": "cena"
+      },
+      "blocks": {
+        "b1": {
+          "type": "product",
+          "settings": {
+            "title": "E-book",
+            "features": "E-book v PDF, 70 stran\nAktualizace zdarma",
+            "button_label": "Chci e-book",
+            "featured": false,
+            "label": "Nejčastější volba"
+          }
+        },
+        "b2": {
+          "type": "product",
+          "settings": {
+            "title": "E-book + bonusy",
+            "features": "E-book v PDF, 70 stran\nTýdenní plánovač k tisku\nŠablona do Notionu\nSOS karta na zkouškové\nPracovní listy ke kapitolám\nAktualizace zdarma",
+            "button_label": "Chci e-book i bonusy",
+            "featured": true,
+            "label": "Nejčastější volba"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ]
+    },
+    "faq": {
+      "type": "j5-faq",
+      "settings": {
+        "title": "Časté otázky",
+        "anchor": "faq"
+      },
+      "blocks": {
+        "b1": {
+          "type": "question",
+          "settings": {
+            "question": "V jakém formátu e-book je?",
+            "answer": "<p>V PDF. Otevřeš ho na mobilu, tabletu i v počítači a text je čitelný i na malém displeji. Šablonu do Notionu si zkopíruješ jedním kliknutím.</p>"
+          }
+        },
+        "b2": {
+          "type": "question",
+          "settings": {
+            "question": "Jak dlouho trvá ho přečíst?",
+            "answer": "<p>Celý zhruba dvě hodiny. Každá kapitola má asi pět minut čtení, takže ho můžeš číst postupně.</p>"
+          }
+        },
+        "b3": {
+          "type": "question",
+          "settings": {
+            "question": "Pro koho je e-book?",
+            "answer": "<p>Pro vysokoškoláky, kteří učení a bakalářku odkládají na poslední chvíli. Nemusíš mít žádný systém ani aplikace, stačí mobil nebo počítač.</p>"
+          }
+        },
+        "b4": {
+          "type": "question",
+          "settings": {
+            "question": "Pomůže mi, i když mám zkoušku za pár dní?",
+            "answer": "<p>Ano. Kapitola o zkouškovém má plán na čtrnáct dní i postup pro situaci, kdy zbývají jen tři.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "learn",
+    "contents",
+    "pricing",
+    "faq"
+  ]
+}

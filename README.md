@@ -1,6 +1,6 @@
 # Ještě 5 minut – web
 
-One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace nadpisu, najíždění sekcí, formulář, lišta cookies). Systémové písmo, žádné fonty ke stažení.
+One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace nadpisu, najíždění sekcí, formulář). Systémové písmo, žádné fonty ke stažení.
 
 ## Spuštění
 
@@ -18,12 +18,12 @@ npm run check     # kontrola typů (třeba po úpravě textů)
 
 | Co | Kde |
 | --- | --- |
-| **Všechny texty** (nadpisy, FAQ, recenze, právní stránky…) | `src/content/cs.ts` |
+| **Všechny texty** (nadpisy, FAQ…) | `src/content/cs.ts` |
 | **Ceny** (Kč, €, launch cena) | `site.config.ts` → `pricing` |
-| **Odkazy na checkout** (SimpleShop) | `site.config.ts` → `pricing.basic.checkoutUrl`, `pricing.bundle.checkoutUrl` |
+| **Odkazy na checkout** (např. Shopify `/cart/VARIANT_ID:1`) | `site.config.ts` → `pricing.basic.checkoutUrl`, `pricing.bundle.checkoutUrl` |
 | **E-mailový formulář** (endpoint, formát, názvy polí) | `site.config.ts` → `email` |
-| **Analytika** (Plausible / GA4 / vypnuto) | `site.config.ts` → `analytics` |
-| **Kontakt, IČO, sociální sítě** | `site.config.ts` → `contact`, `socials` |
+| **Analytika** (Plausible / vypnuto) | `site.config.ts` → `analytics` |
+| **Adresa Shopify obchodu** (patička odkazuje na jeho zásady) | `site.config.ts` → `shop.url` |
 | Doména (canonical, sitemap, OG) | `site.config.ts` → `site.url` a `public/robots.txt` |
 | Barvy, písmo | `src/styles/global.css` → `@theme` |
 
@@ -33,14 +33,12 @@ Když skončí launch cena, nastav `pricing.basic.launch = null` – zmizí pře
 
 ### Placeholdery, které musíš vyplnit před spuštěním
 
-- `{{CHECKOUT_URL_BASIC}}`, `{{CHECKOUT_URL_BUNDLE}}` – URL produktů ze SimpleShopu
+- `{{CHECKOUT_URL_BASIC}}`, `{{CHECKOUT_URL_BUNDLE}}` – odkazy do pokladny (Shopify: `https://obchod.cz/cart/VARIANT_ID:1`)
 - `{{EMAIL_ENDPOINT}}` – viz níže
-- `contact` v `site.config.ts` (firma, IČO, adresa)
-- Recenze (`testimonials` v `cs.ts`, označené `TODO: real testimonials`) – až budou skutečné, nastav `placeholder: false`
-- Záruka (`guarantee`) – ověř, že znění odpovídá tomu, co opravdu nabízíš
-- Právní stránky (`legal`) – šablony, nech je zkontrolovat
+- `{{SHOPIFY_URL}}` – adresa Shopify obchodu (odkazy na obchodní podmínky, ochranu údajů, vrácení peněz a kontakt)
+- Záruka „14 dní na vrácení peněz“ (`hero.trust`) – ověř, že odpovídá tvým zásadám vrácení peněz v Shopify
 
-Hodnoty můžeš místo úpravy souboru nastavit i jako proměnné prostředí na hostingu (viz `.env.example`): `PUBLIC_CHECKOUT_URL_BASIC`, `PUBLIC_CHECKOUT_URL_BUNDLE`, `PUBLIC_EMAIL_ENDPOINT`.
+Hodnoty můžeš místo úpravy souboru nastavit i jako proměnné prostředí na hostingu (viz `.env.example`): `PUBLIC_CHECKOUT_URL_BASIC`, `PUBLIC_CHECKOUT_URL_BUNDLE`, `PUBLIC_EMAIL_ENDPOINT`, `PUBLIC_SHOP_URL`.
 
 ## E-mailový formulář (SOS karta)
 
@@ -55,9 +53,25 @@ Veškeré odesílání je v jedné funkci: `src/lib/subscribe.ts`. Posílá `POS
 
 Dokud endpoint není nastavený, formulář ve `npm run dev` jen předstírá úspěch (vypíše data do konzole), v produkci ukáže chybu.
 
-## Analytika a cookies
+## Analytika
 
-Ve výchozím stavu se **nic nenačítá**, dokud návštěvník neklikne na „Povolit statistiky“ (lišta se ukáže po 2,5 s, volba se uloží do `localStorage`, změnit jde odkazem v patičce). Nastavení: `site.config.ts → analytics`. `provider: null` vypne analytiku i lištu. Vlastní události (klik na checkout, odeslaný lead) se posílají přes `track()` v `src/lib/analytics.ts`.
+Plausible (bez cookies, takže web nepotřebuje cookie lištu). Nastavení: `site.config.ts → analytics`, `provider: null` analytiku vypne. Vlastní události (klik na checkout) posílá `track()` v `src/lib/analytics.ts`. Právní stránky a kontaktní údaje web nemá – patička odkazuje na zásady napsané v Shopify.
+
+## Shopify téma (Liquid)
+
+Stejný web jako Shopify téma je ve složce `shopify/theme`. ZIP pro nahrání sestavíš:
+
+```bash
+npm run theme   # → dist-shopify/jeste5minut-theme.zip
+```
+
+Nahrání: Shopify admin → **Online Store → Themes → Add theme → Upload zip file** → u nového tématu **Customize**.
+
+- **Produkty** – sekce „Cena / produkty“: v každém bloku vyber produkt, napiš body (jeden na řádek) a text tlačítka. Cena a přeškrtnutá cena se berou z produktu (Price / Compare-at price). Tlačítko přidá produkt do košíku a pošle zákazníka rovnou do pokladny. Blok bez vybraného produktu se na webu neukáže.
+- **Cena v heru** – v sekci „Hero s videem“ vyber produkt, jinak se použije text z nastavení.
+- **Video** – v heru můžeš nahrát vlastní, jinak se použije `assets/hero.mp4` z tématu.
+- **Patička** – odkazy na zásady se berou automaticky z **Nastavení → Zásady** (obchodní podmínky, ochrana údajů, vrácení peněz, kontaktní údaje…).
+- **Texty** – všechno jde upravit v editoru tématu. Výchozí obsah se při `npm run theme` generuje z `src/content/cs.ts` (`templates/index.json`, `sections/header-group.json`), CSS z Tailwindu a `src/styles/global.css` (+ `shopify/extra.css`).
 
 ## Logo
 
@@ -104,12 +118,14 @@ npm run og
 ## Struktura
 
 ```
-site.config.ts         ceny, checkout, e-mail, analytika, kontakty
+site.config.ts         ceny, checkout, e-mail, analytika, adresa Shopify
 src/content/           texty (cs.ts) + typ pro jazykové verze
 src/components/        jedna sekce = jeden soubor
-src/layouts/           Base (SEO, schema.org, fonty), Legal
+src/layouts/           Base (SEO, schema.org)
 src/lib/               subscribe, analytics, rich (mini-syntaxe), format
-src/pages/             index, obchodní podmínky, GDPR, reklamační řád, 404
+src/pages/             index, 404
+shopify/theme/         Shopify téma (Liquid) – npm run theme
+scripts/shopify-theme.mjs  sestavení a ZIP tématu
 scripts/               generátor OG obrázku, screenshoty
 docs/DESIGN.md         historie designových rozhodnutí
 ```

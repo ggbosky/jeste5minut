@@ -1,0 +1,87 @@
+/* Styly sdílené napříč tématem (logo, podstránky, texty ze Shopify, zásady) */
+.logo-mark {
+  height: 1.55em;
+  width: auto;
+  flex-shrink: 0;
+}
+.logo-hands {
+  stroke: var(--logo-hands, #4d4d4d);
+  transform-origin: 398.6px 629.7px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo:hover .logo-hands {
+    animation: tick 1s var(--ease-out-expo);
+  }
+}
+@keyframes tick {
+  from {
+    transform: rotate(-360deg);
+  }
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* podstránky (produkt, stránka, košík…) – místo pod plovoucí lištou */
+.page-wrap {
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
+  padding: 8rem max(1.25rem, env(safe-area-inset-left, 0px)) 5rem;
+}
+
+/* text ze Shopify editoru (popis produktu, stránky, zásady) */
+.rte,
+.shopify-policy__body {
+  line-height: 1.7;
+}
+.rte > * + *,
+.shopify-policy__body .rte > * + * {
+  margin-top: 1em;
+}
+.rte h2,
+.rte h3,
+.shopify-policy__body h2,
+.shopify-policy__body h3 {
+  margin-top: 1.8em;
+  font-size: 1.35rem;
+  color: var(--color-ink);
+}
+.rte ul,
+.shopify-policy__body ul {
+  list-style: disc;
+  padding-left: 1.25em;
+}
+.rte ol,
+.shopify-policy__body ol {
+  list-style: decimal;
+  padding-left: 1.25em;
+}
+.rte a,
+.shopify-policy__body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* právní stránky ze Shopify (/policies/…) */
+.shopify-policy__container {
+  max-width: 44rem !important;
+  margin: 0 auto;
+  padding: 8rem 1.25rem 5rem;
+}
+.shopify-policy__title h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
+}
+
+/* stránkování */
+.pagination {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+.pagination .current {
+  font-weight: 700;
+}

@@ -1,0 +1,31 @@
+{%- comment -%}
+  Patička: logo + odkazy na právní stránky, které máš napsané v Shopify
+  (Nastavení → Zásady: obchodní podmínky, ochrana údajů, vrácení peněz, kontaktní údaje…).
+{%- endcomment -%}
+<footer class="border-t border-line py-10 text-sm text-muted">
+  <div class="container-page flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <p class="text-ink">{% render 'logo' %}</p>
+    {%- if shop.policies.size > 0 -%}
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {%- for policy in shop.policies -%}
+          <li><a href="{{ policy.url }}" class="hover:text-ink">{{ policy.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+  <p class="container-page mt-6">© {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+</footer>
+
+{% schema %}
+{
+  "name": "Patička",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Odkazy se berou ze Shopify: Nastavení → Zásady."
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

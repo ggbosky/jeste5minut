@@ -1,0 +1,60 @@
+<section id="{{ section.settings.anchor | remove: '#' | default: section.id }}" class="bg-ink py-20 text-white sm:py-28" aria-labelledby="contents-{{ section.id }}">
+  <div class="container-page">
+    <div class="mx-auto max-w-[40rem] text-center" data-reveal>
+      <h2 id="contents-{{ section.id }}" class="section-title">{{ section.settings.title }}</h2>
+      {%- if section.settings.intro != blank -%}
+        <p class="mt-4 text-lg leading-relaxed text-white/70">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </div>
+
+    <ol class="mx-auto mt-14 grid max-w-[56rem] gap-x-12 md:grid-cols-2">
+      {%- for block in section.blocks -%}
+        <li class="chapter" data-reveal {{ block.shopify_attributes }}>
+          <span class="chapter-n tabular-nums" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+          <div>
+            <h3 class="text-lg font-semibold tracking-tight">{{ block.settings.title | escape }}</h3>
+            <p class="mt-1 leading-relaxed text-white/65">{{ block.settings.text }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% stylesheet %}
+  .chapter {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    gap: 0 1rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+  .chapter-n {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-coral);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Obsah e-booku",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "inline_richtext", "id": "title", "label": "Nadpis", "default": "Obsah" },
+    { "type": "inline_richtext", "id": "intro", "label": "Úvod" },
+    { "type": "text", "id": "anchor", "label": "Kotva sekce", "default": "obsah", "info": "Na tuhle sekci odkazuje lišta nahoře (#obsah)." }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Kapitola",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Název", "default": "Kapitola" },
+        { "type": "inline_richtext", "id": "text", "label": "Popis" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Obsah e-booku" }]
+}
+{% endschema %}

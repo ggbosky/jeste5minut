@@ -108,7 +108,7 @@ export const cs: SiteContent = {
     emailLabel: 'E-mail',
     emailPlaceholder: 'tvuj@email.cz',
     consent:
-      'Souhlasím se zasíláním SOS karty a občasných tipů e-mailem. Odhlásit se můžu kdykoli. Více v [zásadách ochrany osobních údajů](/gdpr).',
+      'Souhlasím se zasíláním SOS karty a občasných tipů e-mailem. Odhlásit se můžu kdykoli. Více v [zásadách ochrany osobních údajů]({{privacy}}).',
     submit: 'Pošlete mi SOS kartu',
     sending: 'Posílám…',
     successTitle: 'Hotovo',
@@ -130,135 +130,29 @@ export const cs: SiteContent = {
         a: 'Celý zhruba dvě hodiny. Každá kapitola má asi pět minut čtení, takže ho můžeš číst postupně.',
       },
       {
-        q: 'Jak můžu zaplatit?',
-        a: 'Kartou nebo bankovním převodem přes platební bránu SimpleShop. Po zaplacení ti přijde e-mail s odkazem ke stažení.',
+        q: 'Pro koho je e-book?',
+        a: 'Pro vysokoškoláky, kteří učení a bakalářku odkládají na poslední chvíli. Nemusíš mít žádný systém ani aplikace, stačí mobil nebo počítač.',
       },
       {
-        q: 'Dostanu fakturu?',
-        a: 'Ano, faktura přijde e-mailem automaticky po zaplacení. Pokud kupuješ na firmu, vyplň v objednávce IČO.',
-      },
-      {
-        q: 'Můžu nakoupit ze Slovenska?',
-        a: 'Ano, zaplatíš v eurech kartou nebo převodem. E-book je v češtině.',
-      },
-      {
-        q: 'Dostanu aktualizace?',
-        a: 'Ano, zdarma. Novou verzi ti pošleme na e-mail, který zadáš při nákupu.',
-      },
-      {
-        q: 'Co když mi e-book nepomůže?',
-        a: 'Napiš nám do 14 dnů od nákupu a vrátíme ti peníze.',
+        q: 'Pomůže mi, i když mám zkoušku za pár dní?',
+        a: 'Ano. Kapitola o zkouškovém má plán na čtrnáct dní i postup pro situaci, kdy zbývají jen tři.',
       },
     ],
   },
 
   footer: {
-    legal: [
-      { label: 'Obchodní podmínky', href: '/obchodni-podminky' },
-      { label: 'Ochrana osobních údajů', href: '/gdpr' },
-      { label: 'Reklamační řád', href: '/reklamacni-rad' },
+    policies: [
+      { label: 'Obchodní podmínky', handle: 'terms-of-service' },
+      { label: 'Ochrana osobních údajů', handle: 'privacy-policy' },
+      { label: 'Vrácení peněz a reklamace', handle: 'refund-policy' },
+      { label: 'Kontaktní údaje', handle: 'contact-information' },
     ],
-    cookieSettings: 'Nastavení cookies',
-  },
-
-  cookies: {
-    label: 'Souhlas s analytikou',
-    text: 'Anonymní statistiky návštěvnosti zapneme, jen když souhlasíš.',
-    decline: 'Jen nutné',
-    accept: 'Povolit statistiky',
   },
 
   notFound: {
     title: 'Stránka nenalezena',
     text: 'Tahle stránka neexistuje nebo byla přesunuta.',
     cta: 'Zpět na úvod',
-  },
-
-  // TODO: právní texty jsou šablona. Před spuštěním je nech zkontrolovat (ideálně právníkem).
-  legal: {
-    placeholderNote: 'Šablona – před spuštěním doplň skutečné údaje a nech text zkontrolovat.',
-    back: '← Zpět na úvod',
-    updatedLabel: 'Aktualizováno',
-    pages: {
-      obchodniPodminky: {
-        title: 'Obchodní podmínky',
-        description: 'Obchodní podmínky prodeje e-booku Ještě 5 minut.',
-        updated: '{{datum}}',
-        sections: [
-          {
-            heading: '1. Prodávající',
-            body: ['{{Jméno / firma}}, IČO {{IČO}}, se sídlem {{adresa}}. Kontakt: {{e-mail}}.', '{{Plátce / neplátce DPH}}.'],
-          },
-          {
-            heading: '2. Předmět koupě',
-            body: [
-              'Předmětem koupě je digitální obsah – e-book ve formátu PDF, případně s bonusovými materiály podle zvoleného balíčku.',
-            ],
-          },
-          {
-            heading: '3. Objednávka a platba',
-            body: [
-              'Objednávka probíhá přes platební systém SimpleShop. Platit lze kartou nebo bankovním převodem (QR platbou).',
-              'Po připsání platby obdrží kupující e-mail s odkazem ke stažení a daňový doklad.',
-            ],
-          },
-          {
-            heading: '4. Odstoupení od smlouvy',
-            body: [
-              '{{Doplnit: souhlas kupujícího s dodáním digitálního obsahu před uplynutím lhůty pro odstoupení a poučení o ztrátě práva na odstoupení (§ 1837 písm. l) občanského zákoníku).}}',
-              '{{Doplnit: podmínky dobrovolné záruky vrácení peněz, pokud ji nabízíš.}}',
-            ],
-          },
-          { heading: '5. Závěrečná ustanovení', body: ['{{Doplnit.}}'] },
-        ],
-      },
-      gdpr: {
-        title: 'Ochrana osobních údajů',
-        description: 'Jak zpracováváme osobní údaje na webu Ještě 5 minut.',
-        updated: '{{datum}}',
-        sections: [
-          { heading: 'Správce údajů', body: ['{{Jméno / firma}}, IČO {{IČO}}, {{adresa}}, {{e-mail}}.'] },
-          {
-            heading: 'Jaké údaje zpracováváme',
-            body: [
-              'Při stažení SOS karty: e-mail a nepovinně jméno. Účel: zaslání SOS karty a občasných tipů. Právní základ: souhlas, který můžeš kdykoli odvolat (odkaz v každém e-mailu).',
-              'Při nákupu: údaje nutné k vyřízení objednávky a vystavení dokladu. Právní základ: plnění smlouvy a zákonné povinnosti.',
-            ],
-          },
-          {
-            heading: 'Zpracovatelé',
-            body: ['{{Doplnit: e-mailingová služba (Ecomail / MailerLite), SimpleShop, hosting, případně analytika.}}'],
-          },
-          {
-            heading: 'Cookies a statistiky',
-            body: [
-              'Bez tvého souhlasu nepoužíváme žádné analytické ani marketingové cookies. Souhlas můžeš kdykoli změnit odkazem „Nastavení cookies“ v patičce.',
-            ],
-          },
-          {
-            heading: 'Tvoje práva',
-            body: [
-              'Máš právo na přístup k údajům, opravu, výmaz, omezení zpracování, přenositelnost, odvolání souhlasu a podání stížnosti u ÚOOÚ (uoou.gov.cz).',
-            ],
-          },
-        ],
-      },
-      reklamacniRad: {
-        title: 'Reklamační řád',
-        description: 'Jak reklamovat e-book Ještě 5 minut.',
-        updated: '{{datum}}',
-        sections: [
-          {
-            heading: 'Jak reklamovat',
-            body: [
-              'Nejde ti soubor stáhnout nebo otevřít? Napiš na {{e-mail}} a do předmětu dej „Reklamace“. Uveď číslo objednávky a popis problému.',
-            ],
-          },
-          { heading: 'Lhůty', body: ['{{Doplnit: lhůta pro vyřízení reklamace (max. 30 dní).}}'] },
-          { heading: 'Způsob vyřízení', body: ['{{Doplnit: zaslání nového odkazu / opravené verze, případně vrácení peněz.}}'] },
-        ],
-      },
-    },
   },
 };
 
