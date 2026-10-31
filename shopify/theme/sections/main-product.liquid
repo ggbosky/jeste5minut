@@ -1,27 +1,109 @@
+{%- comment -%}
+  Detail produktu: galerie, cena, popis, nákup (+ rychlé platby), platební metody,
+  výhody a rozbalovací informace (bloky – v editoru je můžeš přidat, smazat a přeskládat).
+{%- endcomment -%}
 {%- assign variant = product.selected_or_first_available_variant -%}
 <section class="page-wrap">
-  <div class="grid gap-10 md:grid-cols-2 md:items-start">
-    <div class="overflow-hidden rounded-3xl bg-soft">
-      {%- if product.featured_media -%}
-        {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '(min-width: 768px) 50vw, 100vw', class: 'h-auto w-full', alt: product.featured_media.alt | default: product.title }}
-      {%- else -%}
-        {{ 'product-1' | placeholder_svg_tag: 'h-auto w-full' }}
+  <a href="{{ routes.root_url | append: '/#cena' | replace: '//', '/' }}" class="back-link inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-ink">
+    {% render 'icon', name: 'arrow', size: 16, class: 'rotate-180' %}
+    {{ section.settings.back_label | escape }}
+  </a>
+
+  <div class="mt-6 grid gap-10 md:grid-cols-2 md:items-start lg:gap-16">
+    <!-- Galerie -->
+    <div class="grid gap-4 md:sticky md:top-24">
+      <div class="overflow-hidden rounded-3xl bg-soft">
+        {%- if product.featured_media -%}
+          {{ product.featured_media | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 768px) 50vw, 100vw', class: 'h-auto w-full', alt: product.featured_media.alt | default: product.title }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'h-auto w-full' }}
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <ul class="grid grid-cols-2 gap-4">
+          {%- for media in product.media offset: 1 -%}
+            {%- if media.media_type == 'image' -%}
+              <li class="overflow-hidden rounded-2xl bg-soft">
+                {{ media | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 768px) 25vw, 50vw', class: 'h-full w-full object-cover', alt: media.alt | default: product.title }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
       {%- endif -%}
     </div>
+
+    <!-- Informace a nákup -->
     <div class="flex flex-col">
-      <h1 class="section-title">{{ product.title | escape }}</h1>
-      <p class="mt-5 flex items-baseline gap-3">
+      {%- if section.settings.kicker != blank -%}
+        <p class="text-sm font-semibold text-coral-text">{{ section.settings.kicker | escape }}</p>
+      {%- endif -%}
+      <h1 class="mt-2 text-[clamp(2rem,4.5vw,2.75rem)] font-bold">{{ product.title | escape }}</h1>
+
+      <p class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span class="text-4xl font-bold tracking-tight">{{ variant.price | money_without_trailing_zeros }}</span>
         {%- if variant.compare_at_price > variant.price -%}
+          {%- assign pct = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price | floor -%}
           <s class="text-muted">{{ variant.compare_at_price | money_without_trailing_zeros }}</s>
+          <span class="rounded-full bg-coral/15 px-2.5 py-0.5 text-sm font-semibold text-coral-text">−{{ pct }} %</span>
         {%- endif -%}
       </p>
+
       {%- if product.description != blank -%}
-        <div class="rte mt-6 text-muted">{{ product.description }}</div>
+        <div class="rte mt-6 text-[1.0625rem] text-muted">{{ product.description }}</div>
       {%- endif -%}
-      <div class="mt-8 max-w-[24rem]">
-        {% render 'buy-form', product: product, label: section.settings.button_label, featured: true %}
+
+      <div class="mt-8">
+        {% render 'buy-form', product: product, label: section.settings.button_label, featured: true, variants: true, express: section.settings.express %}
       </div>
+
+      {%- if section.settings.trust != blank -%}
+        {%- assign trust = section.settings.trust | newline_to_br | split: '<br />' -%}
+        <ul class="mt-6 grid gap-2 text-[0.9375rem]">
+          {%- for t in trust -%}
+            {%- assign t = t | strip -%}
+            {%- if t != blank -%}
+              <li class="flex items-center gap-2.5">
+                <span class="grid size-5 shrink-0 place-items-center rounded-full bg-coral text-ink">{% render 'icon', name: 'check', size: 11, stroke: 3.2 %}</span>
+                {{ t | escape }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <div class="mt-6">
+          <p class="text-sm text-muted">{{ section.settings.payment_label | escape }}</p>
+          <ul class="payment-icons mt-2 flex flex-wrap gap-2">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="mt-8 border-t border-line">
+          {%- for block in section.blocks -%}
+            <details class="info" {{ block.shopify_attributes }}>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold">
+                {{ block.settings.heading | escape }}
+                <span class="info-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="rte pb-5 text-muted">
+                {{ block.settings.content }}
+                {%- if block.settings.policy == 'refund' and shop.refund_policy -%}
+                  <p><a href="{{ shop.refund_policy.url }}">Celé zásady vrácení peněz</a></p>
+                {%- elsif block.settings.policy == 'terms' and shop.terms_of_service -%}
+                  <p><a href="{{ shop.terms_of_service.url }}">Obchodní podmínky</a></p>
+                {%- elsif block.settings.policy == 'privacy' and shop.privacy_policy -%}
+                  <p><a href="{{ shop.privacy_policy.url }}">Ochrana osobních údajů</a></p>
+                {%- endif -%}
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -30,9 +112,92 @@
   {{ product | structured_data }}
 </script>
 
+{% stylesheet %}
+  .payment-icons svg {
+    height: 1.6rem;
+    width: auto;
+  }
+  .express .shopify-payment-button__button {
+    border-radius: 999px;
+    min-height: 3.25rem;
+    overflow: hidden;
+  }
+  .express .shopify-payment-button__more-options {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-decoration: underline;
+  }
+  .info {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .info summary::-webkit-details-marker {
+    display: none;
+  }
+  .info-icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: var(--color-soft);
+    transition:
+      rotate 0.3s var(--ease-out-expo),
+      background-color 0.25s;
+  }
+  .info-icon::before,
+  .info-icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 11px;
+    height: 1.5px;
+    translate: -50% -50%;
+    background: currentColor;
+  }
+  .info-icon::after {
+    rotate: 90deg;
+  }
+  .info[open] .info-icon {
+    rotate: 45deg;
+    background: var(--color-coral);
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
-  "name": "Produkt",
-  "settings": [{ "type": "text", "id": "button_label", "label": "Text tlačítka", "default": "Koupit" }]
+  "name": "Detail produktu",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "back_label", "label": "Odkaz zpět", "default": "Zpět na nabídku" },
+    { "type": "text", "id": "kicker", "label": "Štítek nad názvem", "default": "E-book v PDF" },
+    { "type": "text", "id": "button_label", "label": "Text tlačítka", "default": "Koupit a stáhnout" },
+    { "type": "checkbox", "id": "express", "label": "Rychlé platby pod tlačítkem", "default": true, "info": "Apple Pay, Google Pay, Shop Pay… podle toho, co máš zapnuté v Nastavení → Platby." },
+    { "type": "textarea", "id": "trust", "label": "Výhody (jedna na řádek)", "default": "PDF ti přijde e-mailem do minuty\n14 dní na vrácení peněz\nBezpečná platba kartou, Apple Pay i Google Pay" },
+    { "type": "checkbox", "id": "payment_icons", "label": "Ukázat ikony platebních metod", "default": true },
+    { "type": "text", "id": "payment_label", "label": "Text nad ikonami plateb", "default": "Zaplatíš:" }
+  ],
+  "blocks": [
+    {
+      "type": "info",
+      "name": "Rozbalovací info",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Nadpis", "default": "Doručení" },
+        { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Text</p>" },
+        {
+          "type": "select",
+          "id": "policy",
+          "label": "Přidat odkaz na zásady",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "Ne" },
+            { "value": "refund", "label": "Vrácení peněz" },
+            { "value": "terms", "label": "Obchodní podmínky" },
+            { "value": "privacy", "label": "Ochrana údajů" }
+          ]
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

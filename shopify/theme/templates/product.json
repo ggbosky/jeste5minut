@@ -1,4 +1,36 @@
 {
-  "sections": { "main": { "type": "main-product", "settings": {} } },
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {},
+      "blocks": {
+        "delivery": {
+          "type": "info",
+          "settings": {
+            "heading": "Jak e-book dostanu?",
+            "content": "<p>E-book je digitální produkt, nic se neposílá poštou. Hned po zaplacení ti přijde e-mail s odkazem ke stažení PDF. Otevřeš ho na mobilu, tabletu i v počítači.</p>",
+            "policy": "none"
+          }
+        },
+        "payment": {
+          "type": "info",
+          "settings": {
+            "heading": "Jak můžu zaplatit?",
+            "content": "<p>Platba proběhne přes zabezpečenou pokladnu Shopify. Dostupné platební metody vidíš výše. Doklad o nákupu ti přijde e-mailem.</p>",
+            "policy": "terms"
+          }
+        },
+        "refund": {
+          "type": "info",
+          "settings": {
+            "heading": "Co když mi e-book nepomůže?",
+            "content": "<p>Napiš nám do 14 dnů od nákupu a vrátíme ti peníze.</p>",
+            "policy": "refund"
+          }
+        }
+      },
+      "block_order": ["delivery", "payment", "refund"]
+    }
+  },
   "order": ["main"]
 }

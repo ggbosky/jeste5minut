@@ -1,10 +1,28 @@
 {%- comment -%}
   Tlačítko „koupit“ – přidá produkt do košíku a pošle zákazníka rovnou do pokladny.
-  Parametry: product, label, featured (true = oranžové tlačítko)
+  Parametry:
+    product
+    label          text tlačítka
+    featured       true = oranžové tlačítko
+    variants       true = výběr varianty (když jich má produkt víc)
+    express        true = rychlé platby (Apple Pay, Google Pay, Shop Pay…) pod tlačítkem
 {%- endcomment -%}
 {%- assign variant = product.selected_or_first_available_variant -%}
-{%- form 'product', product, class: 'buy-form mt-auto' -%}
-  <input type="hidden" name="id" value="{{ variant.id }}">
+{%- form 'product', product, class: 'buy-form mt-auto grid gap-3' -%}
+  {%- if variants and product.has_only_default_variant == false -%}
+    <label class="grid gap-1.5 text-sm font-semibold">
+      {{ product.options | join: ' / ' | escape }}
+      <select name="id" class="min-h-12 w-full rounded-2xl border border-line bg-paper px-4 text-base font-normal">
+        {%- for v in product.variants -%}
+          <option value="{{ v.id }}"{% if v.id == variant.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>
+            {{ v.title | escape }} – {{ v.price | money_without_trailing_zeros }}{% unless v.available %} (vyprodáno){% endunless %}
+          </option>
+        {%- endfor -%}
+      </select>
+    </label>
+  {%- else -%}
+    <input type="hidden" name="id" value="{{ variant.id }}">
+  {%- endif -%}
   <input type="hidden" name="quantity" value="1">
   <input type="hidden" name="return_to" value="{{ routes.root_url | append: '/checkout' | replace: '//', '/' }}">
   <button
@@ -21,4 +39,7 @@
       Vyprodáno
     {%- endif -%}
   </button>
+  {%- if express -%}
+    <div class="express">{{ form | payment_button }}</div>
+  {%- endif -%}
 {%- endform -%}

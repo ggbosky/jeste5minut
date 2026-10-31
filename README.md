@@ -68,9 +68,10 @@ npm run theme   # → dist-shopify/jeste5minut-theme.zip
 Nahrání: Shopify admin → **Online Store → Themes → Add theme → Upload zip file** → u nového tématu **Customize**.
 
 - **Produkty** – sekce „Cena / produkty“: v každém bloku vyber produkt, napiš body (jeden na řádek) a text tlačítka. Cena a přeškrtnutá cena se berou z produktu (Price / Compare-at price). Tlačítko přidá produkt do košíku a pošle zákazníka rovnou do pokladny. Blok bez vybraného produktu se na webu neukáže.
+- **Detail produktu** – tlačítko „Zobrazit detail“ na kartě otevře stránku produktu: galerie (obrázky produktu), cena, popis, nákup + rychlé platby (Apple Pay, Google Pay, Shop Pay podle Nastavení → Platby), ikony platebních metod a rozbalovací informace (doručení, platba, vrácení peněz). Texty a bloky upravíš v editoru na šabloně produktu.
 - **Cena v heru** – v sekci „Hero s videem“ vyber produkt, jinak se použije text z nastavení.
 - **Video** – v heru můžeš nahrát vlastní, jinak se použije `assets/hero.mp4` z tématu.
-- **Patička** – odkazy na zásady se berou automaticky z **Nastavení → Zásady** (obchodní podmínky, ochrana údajů, vrácení peněz, kontaktní údaje…).
+- **Patička** – česky pojmenované odkazy na zásady z **Nastavení → Zásady** (obchodní podmínky, ochrana údajů, vrácení peněz, kontaktní údaje); ukáže se jen zásada s vyplněným textem. Další odkazy přidáš menu v nastavení patičky.
 - **Texty** – všechno jde upravit v editoru tématu. Výchozí obsah se při `npm run theme` generuje z `src/content/cs.ts` (`templates/index.json`, `sections/header-group.json`), CSS z Tailwindu a `src/styles/global.css` (+ `shopify/extra.css`).
 
 ## Logo

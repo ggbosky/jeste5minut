@@ -1,7 +1,7 @@
 {%- comment -%}
   Produkty ze Shopify. Každý blok = jedna karta: v editoru vybereš produkt, napíšeš body a text tlačítka.
   Cena a přeškrtnutá „původní cena“ (compare-at price) se berou přímo z produktu.
-  Tlačítko přidá produkt do košíku a pošle zákazníka rovnou do pokladny.
+  Tlačítko přidá produkt do košíku a pošle zákazníka rovnou do pokladny, „Zobrazit detail“ otevře stránku produktu.
 {%- endcomment -%}
 <section id="{{ section.settings.anchor | remove: '#' | default: section.id }}" class="bg-paper py-20 sm:py-28" aria-labelledby="price-{{ section.id }}">
   <div class="container-page">
@@ -25,7 +25,7 @@
 
             {%- if product != blank -%}
               {%- assign variant = product.selected_or_first_available_variant -%}
-              <h3 class="text-xl font-semibold tracking-tight">{{ block.settings.title | default: product.title | escape }}</h3>
+              <h3 class="text-xl font-semibold tracking-tight"><a href="{{ product.url }}" class="hover:text-coral-text">{{ block.settings.title | default: product.title | escape }}</a></h3>
               <p class="mt-4 flex items-baseline gap-3">
                 <span class="text-4xl font-bold tracking-tight">{{ variant.price | money_without_trailing_zeros }}</span>
                 {%- if variant.compare_at_price > variant.price -%}
@@ -54,8 +54,14 @@
 
             {%- if product != blank -%}
               {% render 'buy-form', product: product, label: block.settings.button_label, featured: featured %}
+              {%- if block.settings.detail_label != blank -%}
+                <a href="{{ product.url }}" class="btn btn-ghost mt-3 w-full">{{ block.settings.detail_label | escape }}</a>
+              {%- endif -%}
             {%- else -%}
               <span class="btn btn-lg mt-auto w-full{% unless featured %} btn-dark{% endunless %}" aria-disabled="true">{{ block.settings.button_label | escape }}</span>
+              {%- if block.settings.detail_label != blank -%}
+                <span class="btn btn-ghost mt-3 w-full" aria-disabled="true">{{ block.settings.detail_label | escape }}</span>
+              {%- endif -%}
             {%- endif -%}
           </article>
         </div>
@@ -150,6 +156,7 @@
         { "type": "text", "id": "title", "label": "Název na kartě", "info": "Když necháš prázdné, použije se název produktu." },
         { "type": "textarea", "id": "features", "label": "Co obsahuje (jedna věc na řádek)", "default": "E-book v PDF, 70 stran\nAktualizace zdarma" },
         { "type": "text", "id": "button_label", "label": "Text tlačítka", "default": "Chci e-book" },
+        { "type": "text", "id": "detail_label", "label": "Text tlačítka detailu", "default": "Zobrazit detail", "info": "Otevře stránku produktu s popisem a možnostmi platby. Prázdné = bez tlačítka." },
         { "type": "checkbox", "id": "featured", "label": "Zvýraznit (oranžový okraj a tlačítko)", "default": false },
         { "type": "text", "id": "label", "label": "Štítek zvýrazněné karty", "default": "Nejčastější volba" }
       ]
