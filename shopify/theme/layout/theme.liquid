@@ -35,7 +35,15 @@
     {% sections 'header-group' %}
 
     <main id="main" role="main">
-      {{ content_for_layout }}
+      {%- if request.path contains '/policies/' -%}
+        {%- assign policy_handle = request.path | split: '/policies/' | last -%}
+        <div class="policy-page">
+          <h1 class="policy-heading">{% render 'policy-label', handle: policy_handle %}</h1>
+          {{ content_for_layout }}
+        </div>
+      {%- else -%}
+        {{ content_for_layout }}
+      {%- endif -%}
     </main>
 
     {% sections 'footer-group' %}

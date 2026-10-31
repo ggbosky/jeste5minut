@@ -66,15 +66,23 @@
   text-underline-offset: 3px;
 }
 
-/* právní stránky ze Shopify (/policies/…) */
-.shopify-policy__container {
-  max-width: 44rem !important;
+/* právní stránky ze Shopify (/policies/…): vlastní český nadpis místo toho od Shopify */
+.policy-page {
+  max-width: 44rem;
   margin: 0 auto;
   padding: 8rem 1.25rem 5rem;
 }
-.shopify-policy__title h1 {
+.policy-heading {
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 2rem;
+}
+.policy-page .shopify-policy__container {
+  max-width: none !important;
+  margin: 0;
+  padding: 0;
+}
+.policy-page .shopify-policy__title {
+  display: none;
 }
 
 /* stránkování */

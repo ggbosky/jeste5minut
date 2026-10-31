@@ -1,0 +1,14 @@
+{%- comment -%}
+  Český název zásady podle její adresy (/policies/<handle>).
+  Použití: {% render 'policy-label', handle: 'refund-policy' %}
+{%- endcomment -%}
+{%- case handle -%}
+  {%- when 'refund-policy' -%}Zásady vracení peněz
+  {%- when 'privacy-policy' -%}Ochrana osobních údajů
+  {%- when 'terms-of-service' -%}Obchodní podmínky
+  {%- when 'shipping-policy' -%}Doručení
+  {%- when 'contact-information' -%}Kontaktní údaje
+  {%- when 'legal-notice' -%}Právní upozornění
+  {%- when 'subscription-policy' -%}Zásady předplatného
+  {%- else -%}{{ handle | replace: '-', ' ' | capitalize }}
+{%- endcase -%}

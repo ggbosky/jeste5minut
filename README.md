@@ -71,7 +71,7 @@ Nahrání: Shopify admin → **Online Store → Themes → Add theme → Upload 
 - **Detail produktu** – tlačítko „Zobrazit detail“ na kartě otevře stránku produktu: galerie (obrázky produktu), cena, popis, nákup + rychlé platby (Apple Pay, Google Pay, Shop Pay podle Nastavení → Platby), ikony platebních metod a rozbalovací informace (doručení, platba, vrácení peněz). Texty a bloky upravíš v editoru na šabloně produktu.
 - **Cena v heru** – v sekci „Hero s videem“ vyber produkt, jinak se použije text z nastavení.
 - **Video** – v heru můžeš nahrát vlastní, jinak se použije `assets/hero.mp4` z tématu.
-- **Patička** – česky pojmenované odkazy na zásady z **Nastavení → Zásady** (obchodní podmínky, ochrana údajů, vrácení peněz, kontaktní údaje); ukáže se jen zásada s vyplněným textem. Další odkazy přidáš menu v nastavení patičky.
+- **Patička a zásady** – patička odkazuje česky na všech šest zásad (vracení peněz, ochrana údajů, obchodní podmínky, doručení, kontaktní údaje, právní upozornění). Každá musí být v **Nastavení → Zásady** zveřejněná, jinak odkaz vede na „stránka nenalezena“; jednotlivé odkazy jdou vypnout v nastavení patičky. Stránky zásad mají český nadpis (`snippets/policy-label.liquid`) a štítky automatických kontaktních údajů se překládají v `assets/theme.js`.
 - **Texty** – všechno jde upravit v editoru tématu. Výchozí obsah se při `npm run theme` generuje z `src/content/cs.ts` (`templates/index.json`, `sections/header-group.json`), CSS z Tailwindu a `src/styles/global.css` (+ `shopify/extra.css`).
 
 ## Logo

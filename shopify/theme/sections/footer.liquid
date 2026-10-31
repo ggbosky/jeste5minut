@@ -1,27 +1,24 @@
 {%- comment -%}
   Patička: logo + odkazy na zásady napsané v Shopify (Nastavení → Zásady).
-  Zásada se ukáže jen tehdy, když má v Shopify vyplněný text. Názvy jsou česky (dají se přepsat v editoru).
+  Odkazy jsou napevno česky (snippets/policy-label.liquid). Zásada, kterou v Shopify nemáš zveřejněnou,
+  vede na „stránka nenalezena“ – buď ji zveřejni, nebo odkaz vypni v nastavení patičky.
   Volitelně můžeš přidat menu (Online Store → Navigace) s dalšími odkazy, např. na stránku Kontakt.
 {%- endcomment -%}
 <footer class="site-footer border-t border-line py-10 text-sm text-muted">
   <div class="container-page flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
     <p class="text-ink">{% render 'logo' %}</p>
     <ul class="flex flex-wrap gap-x-6 gap-y-2">
-      {%- if shop.terms_of_service -%}
-        <li><a href="{{ shop.terms_of_service.url }}" class="hover:text-ink">{{ section.settings.label_terms | default: shop.terms_of_service.title | escape }}</a></li>
-      {%- endif -%}
-      {%- if shop.privacy_policy -%}
-        <li><a href="{{ shop.privacy_policy.url }}" class="hover:text-ink">{{ section.settings.label_privacy | default: shop.privacy_policy.title | escape }}</a></li>
-      {%- endif -%}
-      {%- if shop.refund_policy -%}
-        <li><a href="{{ shop.refund_policy.url }}" class="hover:text-ink">{{ section.settings.label_refund | default: shop.refund_policy.title | escape }}</a></li>
-      {%- endif -%}
-      {%- if shop.shipping_policy and section.settings.show_shipping -%}
-        <li><a href="{{ shop.shipping_policy.url }}" class="hover:text-ink">{{ section.settings.label_shipping | default: shop.shipping_policy.title | escape }}</a></li>
-      {%- endif -%}
-      {%- if section.settings.show_contact -%}
-        <li><a href="{{ routes.root_url | append: '/policies/contact-information' | replace: '//', '/' }}" class="hover:text-ink">{{ section.settings.label_contact | escape }}</a></li>
-      {%- endif -%}
+      {%- assign handles = 'refund-policy,privacy-policy,terms-of-service,shipping-policy,contact-information,legal-notice' | split: ',' -%}
+      {%- for handle in handles -%}
+        {%- assign key = 'show_' | append: handle | replace: '-', '_' -%}
+        {%- if section.settings[key] -%}
+          <li>
+            <a href="{{ routes.root_url | append: '/policies/' | replace: '//', '/' }}{{ handle }}" class="hover:text-ink">
+              {%- render 'policy-label', handle: handle -%}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
       {%- for link in section.settings.menu.links -%}
         <li><a href="{{ link.url }}" class="hover:text-ink">{{ link.title | escape }}</a></li>
       {%- endfor -%}
@@ -37,16 +34,15 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Zásady se berou ze Shopify: Nastavení → Zásady. Ukáže se jen ta, která má vyplněný text."
+      "content": "Odkazy na zásady ze Shopify (Nastavení → Zásady). Každá zásada musí být v Shopify zveřejněná, jinak odkaz vede na „stránka nenalezena“."
     },
-    { "type": "text", "id": "label_terms", "label": "Obchodní podmínky – název", "default": "Obchodní podmínky" },
-    { "type": "text", "id": "label_privacy", "label": "Ochrana údajů – název", "default": "Ochrana osobních údajů" },
-    { "type": "text", "id": "label_refund", "label": "Vrácení peněz – název", "default": "Vrácení peněz a reklamace" },
-    { "type": "checkbox", "id": "show_shipping", "label": "Ukázat zásady doručení", "default": false },
-    { "type": "text", "id": "label_shipping", "label": "Doručení – název", "default": "Doručení" },
-    { "type": "checkbox", "id": "show_contact", "label": "Ukázat kontaktní údaje", "default": true, "info": "Odkaz na /policies/contact-information" },
-    { "type": "text", "id": "label_contact", "label": "Kontaktní údaje – název", "default": "Kontaktní údaje" },
-    { "type": "link_list", "id": "menu", "label": "Další odkazy (menu)", "info": "Nepovinné. Např. odkaz na stránku Kontakt." }
+    { "type": "checkbox", "id": "show_refund_policy", "label": "Zásady vracení peněz", "default": true },
+    { "type": "checkbox", "id": "show_privacy_policy", "label": "Ochrana osobních údajů", "default": true },
+    { "type": "checkbox", "id": "show_terms_of_service", "label": "Obchodní podmínky", "default": true },
+    { "type": "checkbox", "id": "show_shipping_policy", "label": "Doručení", "default": true },
+    { "type": "checkbox", "id": "show_contact_information", "label": "Kontaktní údaje", "default": true },
+    { "type": "checkbox", "id": "show_legal_notice", "label": "Právní upozornění", "default": true },
+    { "type": "link_list", "id": "menu", "label": "Další odkazy (menu)", "info": "Nepovinné." }
   ],
   "enabled_on": { "groups": ["footer"] }
 }

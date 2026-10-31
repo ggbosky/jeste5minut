@@ -70,6 +70,32 @@
   reveal(document);
   hero(document);
 
+  // Automatické kontaktní údaje od Shopify bývají anglicky → přeložit štítky
+  const body = document.querySelector('.shopify-policy__body');
+  if (body && location.pathname.includes('/policies/contact-information')) {
+    const labels = [
+      ['Customer Support Contact', 'Zákaznická podpora'],
+      ['Business registration number', 'IČO'],
+      ['Company registration number', 'IČO'],
+      ['Trade register number', 'IČO'],
+      ['Physical address', 'Adresa'],
+      ['Merchant Name', 'Název obchodu'],
+      ['Trade name', 'Obchodní název'],
+      ['Phone number', 'Telefon'],
+      ['VAT number', 'DIČ'],
+      ['Tax ID', 'DIČ'],
+      ['Address', 'Adresa'],
+      ['Email', 'E-mail'],
+      ['Phone', 'Telefon'],
+    ];
+    const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      let t = n.nodeValue;
+      for (const [en, cz] of labels) t = t.replace(new RegExp(`\\b${en}(?=\\s*:)`, 'i'), cz);
+      n.nodeValue = t;
+    }
+  }
+
   // Editor tématu: znovu oživit sekci po úpravě
   document.addEventListener('shopify:section:load', (e) => {
     reveal(e.target);
