@@ -1,0 +1,59 @@
+{
+  "id": "k01-pov-6cf443",
+  "chapter": 1,
+  "chapter_title": "Proč odkládáme",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Proč odkládáš učení (a není to lenost)",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: otevřeš skripta a za tři minuty jsi na *mobilu*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Sedíš nad skripty, víš, co by bylo rozumný, a o deset minut později koukáš na *videa*.",
+      "broll": [
+        "laptop_night",
+        "phone_scroll"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Úleva přijde hned, *výčitky až potom*. A tak se ta smyčka točí pořád dokola.",
+      "broll": [
+        "city_night",
+        "clock"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Hele, *zmenši úkol*. Čím menší úkol, tím menší odpor. A tím míň důvodů utíkat.",
+      "broll": [
+        "notes",
+        "desk"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Odkládání není povaha. Je to *zvyk*. A zvyky se dají přepsat.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 30.1,
+  "caption": "Proč odkládáš učení (a není to lenost) 👇\n\nPOV: otevřeš skripta a za tři minuty jsi na mobilu.\n\n#vysoka #vysokaskola #student #jeste5minut #prokrastinace #odkladani #studium"
+}

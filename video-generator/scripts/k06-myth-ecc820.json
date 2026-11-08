@@ -1,0 +1,50 @@
+{
+  "id": "k06-myth-ecc820",
+  "chapter": 6,
+  "chapter_title": "Perfekcionismus",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Perfekcionismus tě brzdí",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Musí to bejt dokonalý zní jako vysoký nároky. V praxi to znamená, že *nezačneš vůbec*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Odkládáš, protože se bojíš, že to nebude dobrý. Pak máš málo času, takže to dobrý *opravdu není*.",
+      "broll": [
+        "clock",
+        "stress"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Upřímně, většina zaseknutí vzniká tím, že se snažíš napsat první větu rovnou *dokonale*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Řekni si předem, co znamená *hotovo*. A až toho dosáhneš, skonči.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.5,
+  "caption": "Perfekcionismus tě brzdí 👇\n\nMusí to bejt dokonalý zní jako vysoký nároky. V praxi to znamená, že nezačneš vůbec.\n\n#vysoka #vysokaskola #student #jeste5minut #perfekcionismus #seminarka #studium"
+}

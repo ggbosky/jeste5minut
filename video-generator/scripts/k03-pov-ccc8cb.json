@@ -1,0 +1,50 @@
+{
+  "id": "k03-pov-ccc8cb",
+  "chapter": 3,
+  "chapter_title": "Mobil",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak tě mobil krade o učení",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: učíš se a mobil leží *hned vedle skript*.",
+      "broll": [
+        "phone_scroll",
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Aplikace jsou navržený tak, aby tě udržely *co nejdýl*. Vůle proti tomu prohrává. Vyhrává *vzdálenost*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "A teď pozor. *Odhlas se* z aplikace, kde trávíš nejvíc času. Zadávat znova heslo je přesně ten malej odpor, co potřebuješ.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Nejde o to, že bys byl slabej. Jde o to, že mobil je *moc blízko*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.0,
+  "caption": "Jak tě mobil krade o učení 👇\n\nPOV: učíš se a mobil leží hned vedle skript.\n\n#vysoka #vysokaskola #student #jeste5minut #screentime #mobil #soustredeni"
+}

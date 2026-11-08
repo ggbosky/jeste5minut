@@ -1,0 +1,64 @@
+{
+  "id": "k03-challenge-84f3c6",
+  "chapter": 3,
+  "chapter_title": "Mobil",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak tě mobil krade o učení",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Dej mi [pět|5] minut. *Jen [pět|5].*",
+      "broll": [
+        "timer"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Úkol na [pět|5] minut. *Teď hned.*",
+      "broll": [
+        "timer"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Vypni upozornění aspoň u *tří aplikací*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Dej telefon do *jiný místnosti* a pět minut pracuj.",
+      "broll": [
+        "phone_down",
+        "desk"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A čárkuj, kolikrát tě to k mobilu táhlo. *Nehodnoť, jen počítej.*",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Nejde o to, že bys byl slabej. Jde o to, že mobil je *moc blízko*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.5,
+  "caption": "Jak tě mobil krade o učení 👇\n\nDej mi 5 minut. Jen 5.\n\n#vysoka #vysokaskola #student #jeste5minut #screentime #mobil #soustredeni"
+}

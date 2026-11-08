@@ -1,0 +1,51 @@
+{
+  "id": "k04-mistake-61a4a6",
+  "chapter": 4,
+  "chapter_title": "Zkouškové",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Plán na zkouškové za 14 dní",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba ve zkouškovým? Pořád dokola *číst poznámky*.",
+      "broll": [
+        "notes",
+        "books"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Upřímně, čteš to potřetí a pořád máš pocit, že to *neumíš*.",
+      "broll": [
+        "notes",
+        "stress"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Víš co? Zakryj text a zkus odpovědět *zpaměti*. Je to nepříjemný, protože hned vidíš, co nevíš. A přesně proto to funguje.",
+      "broll": [
+        "notes"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Zbývají tři dny? Roztřiď okruhy na *umím, trochu a vůbec*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.9,
+  "caption": "Plán na zkouškové za 14 dní 👇\n\nNejvětší chyba ve zkouškovým? Pořád dokola číst poznámky.\n\n#vysoka #vysokaskola #student #jeste5minut #zkouskove #zkouska #uceni"
+}

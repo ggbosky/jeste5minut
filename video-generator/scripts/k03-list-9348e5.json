@@ -1,0 +1,56 @@
+{
+  "id": "k03-list-9348e5",
+  "chapter": 3,
+  "chapter_title": "Mobil",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak tě mobil krade o učení",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] úpravy mobilu, který ti zachrání *zkouškový*.",
+      "broll": [
+        "phone_down"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: *vypni upozornění* u aplikací, který tě vytrhávají.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: při učení dej mobil *do jiný místnosti*.",
+      "broll": [
+        "phone_down"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: *odhlas se* z appky, kde trávíš nejvíc času.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Co je daleko, to se *nedělá*.",
+      "broll": [
+        "phone_down"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 22.0,
+  "caption": "Jak tě mobil krade o učení 👇\n\n3 úpravy mobilu, který ti zachrání zkouškový.\n\n#vysoka #vysokaskola #student #jeste5minut #screentime #mobil #soustredeni"
+}

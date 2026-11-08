@@ -1,0 +1,51 @@
+{
+  "id": "k08-mistake-1f3002",
+  "chapter": 8,
+  "chapter_title": "Tvůj plán",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Týdenní plán, který vydrží",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba v plánování? Dát si na tejden *pět hlavních úkolů*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Slibuješ si osm hodin učení denně a pak neuděláš *ani jednu*.",
+      "broll": [
+        "stress",
+        "clock"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Blok je [pětadvacet|25] minut práce na jedný věci a pak [pět|5] minut pauza. Začíná se snáz, protože *konec je vidět*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Každýmu bloku dej *čas a místo*. Ideálně pořád stejný.",
+      "broll": [
+        "library",
+        "clock"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.2,
+  "caption": "Týdenní plán, který vydrží 👇\n\nNejvětší chyba v plánování? Dát si na tejden pět hlavních úkolů.\n\n#vysoka #vysokaskola #student #jeste5minut #planovani #produktivita #studium"
+}

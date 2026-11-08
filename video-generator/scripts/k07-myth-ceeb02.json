@@ -1,0 +1,49 @@
+{
+  "id": "k07-myth-ceeb02",
+  "chapter": 7,
+  "chapter_title": "Když to nevyjde",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Co dělat, když to nevyjde",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jeden vynechanej den nic nezkazí. Zkazí to až myšlenka, že *už je to stejně jedno*.",
+      "broll": [
+        "window_rain"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Z plánu na hodinu jsou najednou tři. Úkol vyroste, odpor taky a smyčka se roztočí *znovu*.",
+      "broll": [
+        "clock"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Výčitky jsou nepříjemnej pocit. A víš, kam takový pocity vedou. K *dalšímu útěku*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Nedoháněj.* Pokračuj tam, kde jsi skončil, a plán prostě posuň.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.5,
+  "caption": "Co dělat, když to nevyjde 👇\n\nJeden vynechanej den nic nezkazí. Zkazí to až myšlenka, že už je to stejně jedno.\n\n#vysoka #vysokaskola #student #jeste5minut #motivace #restart #studium"
+}

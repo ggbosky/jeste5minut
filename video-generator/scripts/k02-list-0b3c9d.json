@@ -1,0 +1,57 @@
+{
+  "id": "k02-list-0b3c9d",
+  "chapter": 2,
+  "chapter_title": "Pravidlo pěti minut",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Pravidlo 5 minut",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] triky, jak začít, když se ti *fakt nechce*.",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: dej si jen [pět|5] minut. A pak *fakt smíš přestat*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: z mlhy udělej krok. Ne napsat seminárku, ale *napsat nadpis*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: rozhodni předem, kdy začneš. Ne odpoledne, ale *ve dvě u stolu*.",
+      "broll": [
+        "clock",
+        "desk"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "[Pět|5] minut práce je pořád o pět víc *než včera*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 23.4,
+  "caption": "Pravidlo 5 minut 👇\n\n3 triky, jak začít, když se ti fakt nechce.\n\n#vysoka #vysokaskola #student #jeste5minut #pravidlo5minut #motivace #studium"
+}

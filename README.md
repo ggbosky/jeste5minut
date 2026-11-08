@@ -2,6 +2,10 @@
 
 One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwind CSS 4, vanilla JS bez knihoven (animace nadpisu, najíždění sekcí, formulář). Systémové písmo, žádné fonty ke stažení.
 
+## Generátor videí pro sociální sítě
+
+Složka [`video-generator/`](video-generator/) obsahuje lokální Python aplikaci, která z obsahu e-booku automaticky vyrábí krátká videa pro TikTok, Reels a Shorts (hlas, jump cuty, kinetické titulky). Bez placených API. Návod je v [`video-generator/README.md`](video-generator/README.md).
+
 ## Spuštění
 
 Potřebuješ Node.js **22.22+** (`.nvmrc`).

@@ -1,0 +1,57 @@
+{
+  "id": "k05-pov-279f69",
+  "chapter": 5,
+  "chapter_title": "Bakalářská práce",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak konečně začít bakalářku",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: otevřeš dokument s bakalářkou a koukáš na *prázdnou stránku*.",
+      "broll": [
+        "writing",
+        "laptop_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "A schůzku s vedoucím odkládáš, protože *zatím nemáš co ukázat*.",
+      "broll": [
+        "campus"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Každej z těch důvodů by stačil sám. Dohromady je bakalářka *ideální úkol na odkládání*.",
+      "broll": [
+        "books"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Piš *ošklivej první draft*. Nech si v textu poznámky jako doplnit a jeď dál.",
+      "broll": [
+        "writing"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Prázdná stránka děsí. *Osnova ne.*",
+      "broll": [
+        "writing"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.2,
+  "caption": "Jak konečně začít bakalářku 👇\n\nPOV: otevřeš dokument s bakalářkou a koukáš na prázdnou stránku.\n\n#vysoka #vysokaskola #student #jeste5minut #bakalarka #bakalarskaprace #diplomka"
+}

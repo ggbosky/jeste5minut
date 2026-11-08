@@ -1,0 +1,56 @@
+{
+  "id": "k06-mistake-08850b",
+  "chapter": 6,
+  "chapter_title": "Perfekcionismus",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Perfekcionismus tě brzdí",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba? Psát a *opravovat zároveň*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "A nejjistější způsob, jak neudělat chybu, je *nedělat nic*.",
+      "broll": [
+        "window_rain"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Většina zaseknutí vzniká tím, že se snažíš napsat první větu rovnou *dokonale*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Řekni si předem, co znamená *hotovo*. A až toho dosáhneš, skonči.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Rozděl práci na dvě fáze. Když píšeš, *nepiluješ*. Když upravuješ, nepíšeš nový.",
+      "broll": [
+        "writing"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.3,
+  "caption": "Perfekcionismus tě brzdí 👇\n\nNejvětší chyba? Psát a opravovat zároveň.\n\n#vysoka #vysokaskola #student #jeste5minut #perfekcionismus #seminarka #studium"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "k04-challenge-da4455",
+  "chapter": 4,
+  "chapter_title": "Zkouškové",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Plán na zkouškové za 14 dní",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Nechce se ti? V pohodě. *Tohle zvládneš i tak.*",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Udělej si rozpis *ještě dneska*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Napiš datum nejbližší zkoušky a spočítej, kolik dní *zbývá*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Sepiš *všechny okruhy* a rozděl je do dnů.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A dnešní celek otevři a *pět minut* na něm pracuj.",
+      "broll": [
+        "timer",
+        "desk"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Pustit okruh, na kterej se skoro neptají, je *rozhodnutí*. Ne selhání.",
+      "broll": [
+        "exam"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.5,
+  "caption": "Plán na zkouškové za 14 dní 👇\n\nNechce se ti? V pohodě. Tohle zvládneš i tak.\n\n#vysoka #vysokaskola #student #jeste5minut #zkouskove #zkouska #uceni"
+}

@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+.venv/
+config.toml
+
+# stažené modely (Piper, Whisper, převedené reference XTTS)
+/models/
+
+# generované soubory
+/output/*
+!/output/.gitkeep
+/video/cache/
+/video/work/
+/audio/*
+!/audio/voices/
+!/audio/music/
+
+# vlastní nahrávky, hudba a záběry se necommitují (velké / osobní)
+/audio/voices/*
+!/audio/voices/README.md
+/audio/music/*
+!/audio/music/README.md
+/video/library/*
+!/video/library/README.md

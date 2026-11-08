@@ -1,0 +1,49 @@
+{
+  "id": "k03-myth-fede1b",
+  "chapter": 3,
+  "chapter_title": "Mobil",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak tě mobil krade o učení",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Mobil není tvůj nepřítel. Jen by neměl bejt *první volba*.",
+      "broll": [
+        "phone_down"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Aplikace jsou navržený tak, aby tě udržely *co nejdýl*. Vůle proti tomu prohrává. Vyhrává *vzdálenost*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Upřímně, když je mobil v jiný místnosti, musel by ses zvednout a dojít pro něj. A ten malej odpor *většinou stačí*.",
+      "broll": [
+        "phone_down"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "A teď pozor. *Odhlas se* z aplikace, kde trávíš nejvíc času. Zadávat znova heslo je přesně ten malej odpor, co potřebuješ.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 31.4,
+  "caption": "Jak tě mobil krade o učení 👇\n\nMobil není tvůj nepřítel. Jen by neměl bejt první volba.\n\n#vysoka #vysokaskola #student #jeste5minut #screentime #mobil #soustredeni"
+}

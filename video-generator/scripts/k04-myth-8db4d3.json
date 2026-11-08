@@ -1,0 +1,50 @@
+{
+  "id": "k04-myth-8db4d3",
+  "chapter": 4,
+  "chapter_title": "Zkouškové",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Plán na zkouškové za 14 dní",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Učení noc před zkouškou má jednu výhodu. Strach přebije odpor. Jinak má *samý nevýhody*.",
+      "broll": [
+        "laptop_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Stejná látka *třikrát po hodině* s odstupem vydrží v hlavě mnohem dýl než tři hodiny v kuse.",
+      "broll": [
+        "clock",
+        "books"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Zakryj text a zkus odpovědět *zpaměti*. Je to nepříjemný, protože hned vidíš, co nevíš. A přesně proto to funguje.",
+      "broll": [
+        "notes"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "A teď pozor. Uč se *vybavováním*, ne čtením. Ke každýmu okruhu tři otázky a odpovídej zpaměti.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Tohle je [čtvrtá|4.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 32.2,
+  "caption": "Plán na zkouškové za 14 dní 👇\n\nUčení noc před zkouškou má jednu výhodu. Strach přebije odpor. Jinak má samý nevýhody.\n\n#vysoka #vysokaskola #student #jeste5minut #zkouskove #zkouska #uceni"
+}

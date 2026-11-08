@@ -1,0 +1,56 @@
+{
+  "id": "k07-list-3fc613",
+  "chapter": 7,
+  "chapter_title": "Když to nevyjde",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Co dělat, když to nevyjde",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] kroky, jak se vrátit po dni, kdy se *nic neudělalo*.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: *neodsuzuj*. Řekni si, jeden den nevyšel. To se stává.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: *zmenši to*. Nedělej dneska dvojnásobek. Udělej dvouminutovou verzi.",
+      "broll": [
+        "timer"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: *naplánuj*. Kdy a co uděláš zítra. Čas, místo a první krok.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Nezáleží na tom, kolikrát vynecháš. Záleží na tom, *kolikrát se vrátíš*.",
+      "broll": [
+        "campus"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.9,
+  "caption": "Co dělat, když to nevyjde 👇\n\n3 kroky, jak se vrátit po dni, kdy se nic neudělalo.\n\n#vysoka #vysokaskola #student #jeste5minut #motivace #restart #studium"
+}

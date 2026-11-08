@@ -1,0 +1,41 @@
+# Zkopíruj jako config.toml a uprav jen to, co chceš změnit.
+# Všechny volby a výchozí hodnoty jsou v j5m/config.py.
+
+[tts]
+backend = "xtts"          # xtts | piper | dummy
+gap = 0.16                # pauza mezi větami v sekundách
+
+[tts.xtts]
+speed = 1.08
+temperature = 0.7         # vyšší = živější, ale méně stabilní
+
+[tts.piper]
+length_scale = 0.92       # < 1 = rychlejší řeč
+
+[captions]
+style = "pop"             # pop | highlight
+font = "assets/fonts/Inter-Black.otf"
+font_size = 104
+keyword_color = "#FB6720"
+uppercase = false
+progress_bar = false
+
+[video]
+min_cut = 2.0
+max_cut = 4.0
+punch_in = 1.14
+grain = 7                 # 0 = bez zrna
+grade = "warm"            # warm | neutral | cold
+cta_visual = "cover"      # cover | broll
+
+[audio]
+music_volume = 0.22
+whoosh = true
+
+[broll]
+pexels = true
+per_tag = 6
+
+[scripter]
+engine = "template"       # template | ollama
+ollama_model = "llama3.1:8b"

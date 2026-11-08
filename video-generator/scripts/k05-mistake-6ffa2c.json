@@ -1,0 +1,50 @@
+{
+  "id": "k05-mistake-6ffa2c",
+  "chapter": 5,
+  "chapter_title": "Bakalářská práce",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak konečně začít bakalářku",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba u bakalářky? Začínat *textem*. A ne osnovou.",
+      "broll": [
+        "writing"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Hele, je velká, termín je daleko, nikdo tě nehlídá a nic podobnýho jsi nikdy nepsal. Dohromady z toho je *hora*.",
+      "broll": [
+        "library",
+        "books"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Hora se neleze najednou. Rozlož ji na kroky, který zvládneš za *patnáct až pětadvacet minut*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Ne napsat teorii. Ale *napsat první odstavec* podkapitoly [dva jedna|2.1].",
+      "broll": [
+        "writing"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Tohle je [pátá|5.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 29.2,
+  "caption": "Jak konečně začít bakalářku 👇\n\nNejvětší chyba u bakalářky? Začínat textem. A ne osnovou.\n\n#vysoka #vysokaskola #student #jeste5minut #bakalarka #bakalarskaprace #diplomka"
+}

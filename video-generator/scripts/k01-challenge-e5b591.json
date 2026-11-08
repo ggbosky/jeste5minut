@@ -1,0 +1,57 @@
+{
+  "id": "k01-challenge-e5b591",
+  "chapter": 1,
+  "chapter_title": "Proč odkládáme",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Proč odkládáš učení (a není to lenost)",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jestli tohle sleduješ *místo učení*, udělej se mnou jednu věc.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Úkol na dnešek. Zabere [pět|5] minut.",
+      "broll": [
+        "notes"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Vypiš *všechno*, co teď odkládáš. Nehodnoť, jen piš.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Vyber *jednu věc*. Tu, která tě nejvíc tíží.",
+      "broll": [
+        "desk"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A přepiš ji *konkrétně*. Ne učit se na statistiku, ale projít příklady [jedna až deset|1–10].",
+      "broll": [
+        "writing",
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.8,
+  "caption": "Proč odkládáš učení (a není to lenost) 👇\n\nJestli tohle sleduješ místo učení, udělej se mnou jednu věc.\n\n#vysoka #vysokaskola #student #jeste5minut #prokrastinace #odkladani #studium"
+}

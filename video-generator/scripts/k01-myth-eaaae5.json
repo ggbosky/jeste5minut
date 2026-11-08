@@ -1,0 +1,51 @@
+{
+  "id": "k01-myth-eaaae5",
+  "chapter": 1,
+  "chapter_title": "Proč odkládáme",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Proč odkládáš učení (a není to lenost)",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Myslíš si, že odkládáš, protože jsi *línej*. Nejsi.",
+      "broll": [
+        "stress"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Úkol v tobě vyvolá nepříjemnej pocit. *Nejistotu*, nudu nebo strach, že to nebude dobrý.",
+      "broll": [
+        "stress",
+        "notes"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Mozek chce ten pocit hned vypnout. A mobil ti nabídne *úlevu za dvě sekundy*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Zmenši úkol*. Čím menší úkol, tím menší odpor. A tím míň důvodů utíkat.",
+      "broll": [
+        "notes",
+        "desk"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.2,
+  "caption": "Proč odkládáš učení (a není to lenost) 👇\n\nMyslíš si, že odkládáš, protože jsi línej. Nejsi.\n\n#vysoka #vysokaskola #student #jeste5minut #prokrastinace #odkladani #studium"
+}

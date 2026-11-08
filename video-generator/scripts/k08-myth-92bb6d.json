@@ -1,0 +1,59 @@
+{
+  "id": "k08-myth-92bb6d",
+  "chapter": 8,
+  "chapter_title": "Tvůj plán",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Týdenní plán, který vydrží",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Plán nestav na hodinách. Stav ho na *blocích*.",
+      "broll": [
+        "timer",
+        "calendar"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Víš co? Blok je [pětadvacet|25] minut práce na jedný věci a pak [pět|5] minut pauza. Začíná se snáz, protože *konec je vidět*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Lepší málo *každej den* než hodně jednou.",
+      "broll": [
+        "coffee",
+        "desk"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Hele, každýmu bloku dej *čas a místo*. Ideálně pořád stejný.",
+      "broll": [
+        "library",
+        "clock"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Ke každýmu bloku napiš *první krok*, ať nemusíš ráno vymýšlet, co dělat.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Tohle je [osmá|8.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.1,
+  "caption": "Týdenní plán, který vydrží 👇\n\nPlán nestav na hodinách. Stav ho na blocích.\n\n#vysoka #vysokaskola #student #jeste5minut #planovani #produktivita #studium"
+}

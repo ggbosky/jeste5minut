@@ -1,0 +1,50 @@
+{
+  "id": "k08-pov-22f52f",
+  "chapter": 8,
+  "chapter_title": "Tvůj plán",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Týdenní plán, který vydrží",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: v neděli večer si slibuješ, že od pondělka *fakt začneš*.",
+      "broll": [
+        "calendar",
+        "city_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Upřímně, blok je [pětadvacet|25] minut práce na jedný věci a pak [pět|5] minut pauza. Začíná se snáz, protože *konec je vidět*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Vyber *jeden až dva* hlavní úkoly. Ne pět.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Neexistuje univerzální systém. Existuje ten, *kterej funguje tobě*.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.5,
+  "caption": "Týdenní plán, který vydrží 👇\n\nPOV: v neděli večer si slibuješ, že od pondělka fakt začneš.\n\n#vysoka #vysokaskola #student #jeste5minut #planovani #produktivita #studium"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "k06-pov-bc92a2",
+  "chapter": 6,
+  "chapter_title": "Perfekcionismus",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Perfekcionismus tě brzdí",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: přepisuješ první větu seminárky *už počtvrtý*.",
+      "broll": [
+        "writing",
+        "laptop_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Když má bejt výsledek bezchybnej, každej začátek je *riziko*.",
+      "broll": [
+        "stress"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Odkládáš, protože se bojíš, že to nebude dobrý. Pak máš málo času, takže to dobrý *opravdu není*.",
+      "broll": [
+        "clock",
+        "stress"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Hele, řekni si předem, co znamená *hotovo*. A až toho dosáhneš, skonči.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Hotový se dá vylepšit. *Nezačatý ne.*",
+      "broll": [
+        "writing"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Tohle je [šestá|6.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.7,
+  "caption": "Perfekcionismus tě brzdí 👇\n\nPOV: přepisuješ první větu seminárky už počtvrtý.\n\n#vysoka #vysokaskola #student #jeste5minut #perfekcionismus #seminarka #studium"
+}

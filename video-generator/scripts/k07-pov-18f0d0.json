@@ -1,0 +1,50 @@
+{
+  "id": "k07-pov-18f0d0",
+  "chapter": 7,
+  "chapter_title": "Když to nevyjde",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Co dělat, když to nevyjde",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: tři dny za sebou a skripta *ani neotevřený*.",
+      "broll": [
+        "books",
+        "window_rain"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Z plánu na hodinu jsou najednou tři. Úkol vyroste, odpor taky a smyčka se roztočí *znovu*.",
+      "broll": [
+        "clock"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Nedoháněj.* Pokračuj tam, kde jsi skončil, a plán prostě posuň.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Nezáleží na tom, kolikrát vynecháš. Záleží na tom, *kolikrát se vrátíš*.",
+      "broll": [
+        "campus"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.7,
+  "caption": "Co dělat, když to nevyjde 👇\n\nPOV: tři dny za sebou a skripta ani neotevřený.\n\n#vysoka #vysokaskola #student #jeste5minut #motivace #restart #studium"
+}

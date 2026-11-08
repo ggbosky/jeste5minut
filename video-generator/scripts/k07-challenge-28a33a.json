@@ -1,0 +1,64 @@
+{
+  "id": "k07-challenge-28a33a",
+  "chapter": 7,
+  "chapter_title": "Když to nevyjde",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Co dělat, když to nevyjde",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Nechce se ti? V pohodě. *Tohle zvládneš i tak.*",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Napiš si tohle, *ještě než to přijde*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Vzpomeň si na poslední den, kdy plán *nevyšel*, a najdi důvod.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Napiš řešení, který na něj *příště použiješ*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A napiš si větu na návrat. Třeba: zítra [v devět|v 9:00] udělám *jeden krok*.",
+      "broll": [
+        "clock",
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Nezáleží na tom, kolikrát vynecháš. Záleží na tom, *kolikrát se vrátíš*.",
+      "broll": [
+        "campus"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Tohle je [sedmá|7.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.7,
+  "caption": "Co dělat, když to nevyjde 👇\n\nNechce se ti? V pohodě. Tohle zvládneš i tak.\n\n#vysoka #vysokaskola #student #jeste5minut #motivace #restart #studium"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "k03-mistake-34f5b6",
+  "chapter": 3,
+  "chapter_title": "Mobil",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak tě mobil krade o učení",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba? Snažit se mobil porazit *silou vůle*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Hele, každý zaváhání u úkolu skončí v telefonu, když leží *na stole*.",
+      "broll": [
+        "phone_scroll",
+        "desk"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Aplikace jsou navržený tak, aby tě udržely *co nejdýl*. Vůle proti tomu prohrává. Vyhrává *vzdálenost*.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Odhlas se* z aplikace, kde trávíš nejvíc času. Zadávat znova heslo je přesně ten malej odpor, co potřebuješ.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.8,
+  "caption": "Jak tě mobil krade o učení 👇\n\nNejvětší chyba? Snažit se mobil porazit silou vůle.\n\n#vysoka #vysokaskola #student #jeste5minut #screentime #mobil #soustredeni"
+}

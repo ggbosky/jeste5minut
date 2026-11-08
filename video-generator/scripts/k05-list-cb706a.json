@@ -1,0 +1,57 @@
+{
+  "id": "k05-list-cb706a",
+  "chapter": 5,
+  "chapter_title": "Bakalářská práce",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak konečně začít bakalářku",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] pravidla, díky kterým bakalářku *fakt dopíšeš*.",
+      "broll": [
+        "library"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: *začni osnovou*. Prázdná stránka děsí, osnova ne.",
+      "broll": [
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: piš *ošklivej první draft*. Upravovat jde jen to, co je napsaný.",
+      "broll": [
+        "writing"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: *krátce, ale často*. Pětadvacet minut denně je víc než celej víkend jednou za měsíc.",
+      "broll": [
+        "library",
+        "timer"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Prázdná stránka děsí. *Osnova ne.*",
+      "broll": [
+        "writing"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Tohle je [pátá|5.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 26.1,
+  "caption": "Jak konečně začít bakalářku 👇\n\n3 pravidla, díky kterým bakalářku fakt dopíšeš.\n\n#vysoka #vysokaskola #student #jeste5minut #bakalarka #bakalarskaprace #diplomka"
+}

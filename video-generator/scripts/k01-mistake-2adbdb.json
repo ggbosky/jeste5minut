@@ -1,0 +1,52 @@
+{
+  "id": "k01-mistake-2adbdb",
+  "chapter": 1,
+  "chapter_title": "Proč odkládáme",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Proč odkládáš učení (a není to lenost)",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba? Myslet si, že ti chybí *silná vůle*.",
+      "broll": [
+        "stress"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Upřímně, sedíš nad skripty, víš, co by bylo rozumný, a o deset minut později koukáš na *videa*.",
+      "broll": [
+        "laptop_night",
+        "phone_scroll"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Upřímně, úleva přijde hned, *výčitky až potom*. A tak se ta smyčka točí pořád dokola.",
+      "broll": [
+        "city_night",
+        "clock"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Zmenši úkol*. Čím menší úkol, tím menší odpor. A tím míň důvodů utíkat.",
+      "broll": [
+        "notes",
+        "desk"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Tohle je [první|1.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.0,
+  "caption": "Proč odkládáš učení (a není to lenost) 👇\n\nNejvětší chyba? Myslet si, že ti chybí silná vůle.\n\n#vysoka #vysokaskola #student #jeste5minut #prokrastinace #odkladani #studium"
+}

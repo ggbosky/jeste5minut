@@ -1,0 +1,51 @@
+{
+  "id": "k04-pov-914958",
+  "chapter": 4,
+  "chapter_title": "Zkouškové",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Plán na zkouškové za 14 dní",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: zkouška je ráno a ty se to učíš *noc předtím*. Zase.",
+      "broll": [
+        "laptop_night",
+        "city_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Stejná látka *třikrát po hodině* s odstupem vydrží v hlavě mnohem dýl než tři hodiny v kuse.",
+      "broll": [
+        "clock",
+        "books"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "A teď pozor. Uč se *vybavováním*, ne čtením. Ke každýmu okruhu tři otázky a odpovídej zpaměti.",
+      "broll": [
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Panika je normální. Ale i tři dny jsou pořád *patnáct až dvacet bloků* práce.",
+      "broll": [
+        "clock"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 26.8,
+  "caption": "Plán na zkouškové za 14 dní 👇\n\nPOV: zkouška je ráno a ty se to učíš noc předtím. Zase.\n\n#vysoka #vysokaskola #student #jeste5minut #zkouskove #zkouska #uceni"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "k02-mistake-ba6a9d",
+  "chapter": 2,
+  "chapter_title": "Pravidlo pěti minut",
+  "format": "mistake",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Pravidlo 5 minut",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Největší chyba? Dát si úkol učit se na zkoušku. To není úkol, to je *mlha*.",
+      "broll": [
+        "window_rain"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Největší odpor cítíš *před začátkem*, ne během práce.",
+      "broll": [
+        "stress"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "Upřímně, jakmile se rozjedeš, nepříjemnej pocit často *sám povolí*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Ne učit se na makro. Ale otevřít skripta a přečíst *dvě strany*.",
+      "broll": [
+        "books",
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Ne napsat seminárku. Ale otevřít dokument a napsat *nadpis a jednu větu*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.8,
+  "caption": "Pravidlo 5 minut 👇\n\nNejvětší chyba? Dát si úkol učit se na zkoušku. To není úkol, to je mlha.\n\n#vysoka #vysokaskola #student #jeste5minut #pravidlo5minut #motivace #studium"
+}

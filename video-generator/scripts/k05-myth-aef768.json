@@ -1,0 +1,50 @@
+{
+  "id": "k05-myth-aef768",
+  "chapter": 5,
+  "chapter_title": "Bakalářská práce",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak konečně začít bakalářku",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Bakalářka se nepíše. Bakalářka se *skládá z malých kroků*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Každej z těch důvodů by stačil sám. Dohromady je bakalářka *ideální úkol na odkládání*.",
+      "broll": [
+        "books"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Hora se neleze najednou. Rozlož ji na kroky, který zvládneš za *patnáct až pětadvacet minut*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "*Začni osnovou*, ne textem. Jen nadpisy kapitol a pod každou dvě tři odrážky.",
+      "broll": [
+        "notes",
+        "writing"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Tohle je [pátá|5.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 27.7,
+  "caption": "Jak konečně začít bakalářku 👇\n\nBakalářka se nepíše. Bakalářka se skládá z malých kroků.\n\n#vysoka #vysokaskola #student #jeste5minut #bakalarka #bakalarskaprace #diplomka"
+}

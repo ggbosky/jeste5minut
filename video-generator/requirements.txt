@@ -1,0 +1,21 @@
+# Ještě 5 minut – generátor videí. Všechno open-source, běží lokálně.
+# Python 3.10–3.13 (doporučeno 3.11 nebo 3.12) + ffmpeg v systému.
+
+# --- střih, titulky, stahování ---
+moviepy>=2.1,<3
+numpy>=1.26
+pillow>=10.3
+requests>=2.31
+
+# --- hlas: Coqui XTTS-v2 (udržovaný fork coqui-tts od Idiap) ---
+# Pro NVIDIA GPU nainstaluj nejdřív torch s CUDA podle https://pytorch.org/get-started/locally/
+torch>=2.2
+torchaudio>=2.2
+transformers>=4.57
+coqui-tts[codec]>=0.27
+
+# --- hlas: Piper (lehká alternativa, MIT, i na slabém CPU) ---
+piper-tts>=1.3
+
+# --- přesné časování titulků (Whisper lokálně) ---
+faster-whisper>=1.1

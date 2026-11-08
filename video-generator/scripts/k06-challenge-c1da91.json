@@ -1,0 +1,64 @@
+{
+  "id": "k06-challenge-c1da91",
+  "chapter": 6,
+  "chapter_title": "Perfekcionismus",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Perfekcionismus tě brzdí",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jestli tohle sleduješ *místo učení*, udělej se mnou jednu věc.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Mini úkol na [pět|5] minut.",
+      "broll": [
+        "timer"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Vezmi svůj úkol a napiš, co přesně musí *splňovat*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Napiš, jakej výsledek ti *stačí*, a urči *časovej limit*.",
+      "broll": [
+        "notes",
+        "timer"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A pět minut pracuj na verzi *dost dobrá*. Rychleji, než je ti příjemný.",
+      "broll": [
+        "writing"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Dost dobrý je *cíl*. Ne kompromis.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.6,
+  "caption": "Perfekcionismus tě brzdí 👇\n\nJestli tohle sleduješ místo učení, udělej se mnou jednu věc.\n\n#vysoka #vysokaskola #student #jeste5minut #perfekcionismus #seminarka #studium"
+}

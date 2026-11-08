@@ -1,0 +1,56 @@
+{
+  "id": "k01-list-b9dee2",
+  "chapter": 1,
+  "chapter_title": "Proč odkládáme",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Proč odkládáš učení (a není to lenost)",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] věci, co ti o odkládání nikdo neřekl.",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: není to lenost. Je to útěk před *nepříjemným pocitem*.",
+      "broll": [
+        "stress"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: úleva přijde hned, ale výčitky *až potom*. Proto se to opakuje.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: silou vůle to nevyhraješ. *Zmenši úkol* a ztiž si útěk.",
+      "broll": [
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Není to lenost. Je to *smyčka*. A smyčka se dá přerušit.",
+      "broll": [
+        "clock"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 26.2,
+  "caption": "Proč odkládáš učení (a není to lenost) 👇\n\n3 věci, co ti o odkládání nikdo neřekl.\n\n#vysoka #vysokaskola #student #jeste5minut #prokrastinace #odkladani #studium"
+}

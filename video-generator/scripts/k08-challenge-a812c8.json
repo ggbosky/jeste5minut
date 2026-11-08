@@ -1,0 +1,64 @@
+{
+  "id": "k08-challenge-a812c8",
+  "chapter": 8,
+  "chapter_title": "Tvůj plán",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Týdenní plán, který vydrží",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jestli tohle sleduješ *místo učení*, udělej se mnou jednu věc.",
+      "broll": [
+        "phone_scroll"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Udělej to hned, *dokud to máš v hlavě*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Napiš *hlavní úkol* na příští tejden.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Vyber dny a časy bloků a ke každýmu *první krok*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "A první blok si zapiš *do kalendáře v mobilu*. Jo, i telefon se někdy hodí.",
+      "broll": [
+        "phone_down",
+        "calendar"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Každej tejden přidej jen trochu. Za měsíc budeš *úplně jinde*.",
+      "broll": [
+        "campus"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 26.6,
+  "caption": "Týdenní plán, který vydrží 👇\n\nJestli tohle sleduješ místo učení, udělej se mnou jednu věc.\n\n#vysoka #vysokaskola #student #jeste5minut #planovani #produktivita #studium"
+}

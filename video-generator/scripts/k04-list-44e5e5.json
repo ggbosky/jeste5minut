@@ -1,0 +1,58 @@
+{
+  "id": "k04-list-44e5e5",
+  "chapter": 4,
+  "chapter_title": "Zkouškové",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Plán na zkouškové za 14 dní",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jak se naučit na zkoušku za [čtrnáct dní|14 dní] *bez panikaření*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "[Dny čtrnáct až dvanáct|Dny 14–12]: *zmapuj*. Sylabus, okruhy, slajdy a starý otázky.",
+      "broll": [
+        "calendar",
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "[Dny jedenáct až čtyři|Dny 11–4]: *projdi a vybav si*. Dva až čtyři bloky denně.",
+      "broll": [
+        "library",
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Poslední tři dny: *žádná nová látka*. Jen opakuj a dej si zkoušku nanečisto.",
+      "broll": [
+        "exam"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Panika je normální. Ale i tři dny jsou pořád *patnáct až dvacet bloků* práce.",
+      "broll": [
+        "clock"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.4,
+  "caption": "Plán na zkouškové za 14 dní 👇\n\nJak se naučit na zkoušku za 14 dní bez panikaření.\n\n#vysoka #vysokaskola #student #jeste5minut #zkouskove #zkouska #uceni"
+}

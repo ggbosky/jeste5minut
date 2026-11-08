@@ -1,0 +1,57 @@
+{
+  "id": "k02-myth-c78b83",
+  "chapter": 2,
+  "chapter_title": "Pravidlo pěti minut",
+  "format": "myth",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Pravidlo 5 minut",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Myslíš si, že na začátek potřebuješ *motivaci*. Je to přesně naopak.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "[Pět|5] minut je tak málo, že se proti nim těžko hledá *výmluva*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Víš co? Jakmile se rozjedeš, nepříjemnej pocit často *sám povolí*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Ale mysli to vážně. Po pěti minutách *fakt smíš skončit*. Jinak mozek ten trik prokoukne.",
+      "broll": [
+        "clock"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Ne učit se na makro. Ale otevřít skripta a přečíst *dvě strany*.",
+      "broll": [
+        "books",
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Osm kapitol, každá na [pět|5] minut čtení. *Ještě [pět|5] minut*, odkaz v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 28.9,
+  "caption": "Pravidlo 5 minut 👇\n\nMyslíš si, že na začátek potřebuješ motivaci. Je to přesně naopak.\n\n#vysoka #vysokaskola #student #jeste5minut #pravidlo5minut #motivace #studium"
+}

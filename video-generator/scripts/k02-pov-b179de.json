@@ -1,0 +1,57 @@
+{
+  "id": "k02-pov-b179de",
+  "chapter": 2,
+  "chapter_title": "Pravidlo pěti minut",
+  "format": "pov",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Pravidlo 5 minut",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "POV: celý odpoledne se ti nechce otevřít *seminárku*.",
+      "broll": [
+        "laptop_night"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "A když to konečně otevřeš, po deseti minutách zjistíš, že to vlastně *jde*.",
+      "broll": [
+        "writing"
+      ],
+      "role": "scene"
+    },
+    {
+      "text": "[Pět|5] minut je tak málo, že se proti nim těžko hledá *výmluva*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "insight"
+    },
+    {
+      "text": "Ne učit se na makro. Ale otevřít skripta a přečíst *dvě strany*.",
+      "broll": [
+        "books",
+        "notes"
+      ],
+      "role": "fix"
+    },
+    {
+      "text": "Začínat je *dovednost*. A trénuje se jako cokoli jinýho.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Tohle je [druhá|2.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 26.7,
+  "caption": "Pravidlo 5 minut 👇\n\nPOV: celý odpoledne se ti nechce otevřít seminárku.\n\n#vysoka #vysokaskola #student #jeste5minut #pravidlo5minut #motivace #studium"
+}

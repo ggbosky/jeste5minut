@@ -1,0 +1,64 @@
+{
+  "id": "k05-challenge-7ac92e",
+  "chapter": 5,
+  "chapter_title": "Bakalářská práce",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Jak konečně začít bakalářku",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Nechce se ti? V pohodě. *Tohle zvládneš i tak.*",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Tohle zvládneš *ještě dneska*.",
+      "broll": [
+        "desk"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Sepiš *hlavní části* svý práce.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Vyber tu, na který teď pracuješ, a rozlož ji na *pět až osm kroků*.",
+      "broll": [
+        "notes",
+        "writing"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "První krok musí jít udělat do *pěti minut*. A udělej ho *dneska*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Termín schůzky s vedoucím je ten nejlepší *malej deadline*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.8,
+  "caption": "Jak konečně začít bakalářku 👇\n\nNechce se ti? V pohodě. Tohle zvládneš i tak.\n\n#vysoka #vysokaskola #student #jeste5minut #bakalarka #bakalarskaprace #diplomka"
+}

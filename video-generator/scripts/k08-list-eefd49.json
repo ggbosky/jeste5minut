@@ -1,0 +1,56 @@
+{
+  "id": "k08-list-eefd49",
+  "chapter": 8,
+  "chapter_title": "Tvůj plán",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Týdenní plán, který vydrží",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Jak si za [deset|10] minut naplánovat *celej tejden*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: vyber *jeden až dva* hlavní úkoly. Ne pět.",
+      "broll": [
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: každýmu bloku dej *čas, místo a první krok*.",
+      "broll": [
+        "calendar"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: v neděli *deset minut revize*. Co fungovalo, to nech.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Neexistuje univerzální systém. Existuje ten, *kterej funguje tobě*.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Jestli se v tom vidíš, mrkni na *Ještě [pět|5] minut*. Odkaz je v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.0,
+  "caption": "Týdenní plán, který vydrží 👇\n\nJak si za 10 minut naplánovat celej tejden.\n\n#vysoka #vysokaskola #student #jeste5minut #planovani #produktivita #studium"
+}

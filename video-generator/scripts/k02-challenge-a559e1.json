@@ -1,0 +1,64 @@
+{
+  "id": "k02-challenge-a559e1",
+  "chapter": 2,
+  "chapter_title": "Pravidlo pěti minut",
+  "format": "challenge",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Pravidlo 5 minut",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "Nechce se ti? V pohodě. *Tohle zvládneš i tak.*",
+      "broll": [
+        "desk"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Zkus to hned teď.",
+      "broll": [
+        "timer"
+      ],
+      "role": "intro"
+    },
+    {
+      "text": "Napiš si první krok, kterej zvládneš do *pěti minut*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Rozhodni, kdy přesně začneš. Ne odpoledne, ale *ve dvě po obědě u stolu*.",
+      "broll": [
+        "clock",
+        "desk"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "Nastav *časovač na [pět|5] minut* a jeď. Pak se rozhodni, jestli pokračuješ.",
+      "broll": [
+        "timer"
+      ],
+      "role": "step"
+    },
+    {
+      "text": "[Pět|5] minut práce je pořád o pět víc *než včera*.",
+      "broll": [
+        "timer"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Celej postup najdeš v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz máš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 25.6,
+  "caption": "Pravidlo 5 minut 👇\n\nNechce se ti? V pohodě. Tohle zvládneš i tak.\n\n#vysoka #vysokaskola #student #jeste5minut #pravidlo5minut #motivace #studium"
+}

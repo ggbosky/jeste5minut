@@ -1,0 +1,56 @@
+{
+  "id": "k06-list-248f39",
+  "chapter": 6,
+  "chapter_title": "Perfekcionismus",
+  "format": "list",
+  "engine": "template",
+  "seed": 42,
+  "hook_text": "Perfekcionismus tě brzdí",
+  "cta_text": "Odkaz na e-book je v biu",
+  "beats": [
+    {
+      "text": "[Tři|3] otázky, který si polož, *než začneš psát*.",
+      "broll": [
+        "notes"
+      ],
+      "role": "hook"
+    },
+    {
+      "text": "Jedna: co přesně musí výsledek *splňovat*? Zadání, rozsah, kritéria. Nic navíc.",
+      "broll": [
+        "notes"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dvě: jakej výsledek ti *stačí*? Známka, počet stran, úroveň.",
+      "broll": [
+        "writing"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Tři: kolik času tomu *dáš*? Až vyprší, odevzdáš, co máš.",
+      "broll": [
+        "timer"
+      ],
+      "role": "item"
+    },
+    {
+      "text": "Dost dobrý je *cíl*. Ne kompromis.",
+      "broll": [
+        "coffee"
+      ],
+      "role": "punch"
+    },
+    {
+      "text": "Tohle je [šestá|6.] kapitola z [íbuku|e-booku] *Ještě [pět|5] minut*. Zbytek najdeš v biu.",
+      "broll": [
+        "cover"
+      ],
+      "role": "cta"
+    }
+  ],
+  "est_seconds": 24.8,
+  "caption": "Perfekcionismus tě brzdí 👇\n\n3 otázky, který si polož, než začneš psát.\n\n#vysoka #vysokaskola #student #jeste5minut #perfekcionismus #seminarka #studium"
+}
