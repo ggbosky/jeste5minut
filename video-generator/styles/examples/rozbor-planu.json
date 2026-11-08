@@ -1,0 +1,30 @@
+{
+  "id": "ukazka-rozbor-planu",
+  "mode": "motion",
+  "format": "rozbor",
+  "chapter": 4,
+  "title": "Rozbor #1: plán na zkouškové",
+  "beats": [
+    {"text": "Takhle vypadá plán, se kterým *neprojde* skoro nikdo.", "bg": "paper", "mood": "wave",
+     "visual": {"type": "plan", "title": "Zkouškové · týden 1", "rows": [["Po", "Celá makra"], ["Út", "Celá statistika"], ["St", "Opakovat všechno"], ["Čt", "Zkouška"]]},
+     "stickers": ["ROZBOR #1"], "note": "série rozborů · díl 1"},
+    {"text": "Chyba [jedna|1]: *celá makra* není úkol. Je to mlha.", "bg": "paper", "mood": "think",
+     "visual": {"type": "same"}, "badge": 1, "mark": [0], "note": "chyba 1 · mlha místo kroku"},
+    {"text": "Lepší: *kapitola tři*, příklady [jedna až deset|1–10].", "bg": "paper", "mood": "happy",
+     "visual": {"type": "strike", "old": "celá makra", "new": "kap. 3, příklady 1–10"}, "badge": 1},
+    {"text": "Chyba [dvě|2]: *žádné pauzy*. Mozek po hodině vypne.", "bg": "dark", "mood": "surprised",
+     "visual": {"type": "timer", "minutes": 25, "label": "25 min práce + 5 min pauza"}, "badge": 2,
+     "stickers": ["bloky po 25 min"], "note": "chyba 2 · žádné bloky"},
+    {"text": "Chyba [tři|3]: jen *čteš*. Nezkoušíš se zpaměti.", "bg": "paper", "mood": "think",
+     "visual": {"type": "checklist", "title": "Opakování", "items": ["Přečíst skripta", "Přečíst znova", "Přečíst potřetí"], "done": [0, 1, 2]},
+     "badge": 3, "stamp": {"text": "CHYBA ✗", "tone": "bad"}, "note": "chyba 3 · žádné vybavování"},
+    {"text": "Za *pochvalu*? Nezačíná až *noc předem*.", "bg": "coral", "mood": "happy",
+     "visual": {"type": "plan", "title": "Zkouškové · týden 1", "rows": [["Po", "Celá makra"], ["Út", "Celá statistika"], ["St", "Opakovat všechno"], ["Čt", "Zkouška"]]},
+     "stamp": {"text": "DOBŘE ✓", "tone": "good"}, "stickers": ["začíná včas"]},
+    {"text": "Pošli svůj plán do komentářů. Příště může být *tvůj*!", "bg": "paper", "mood": "happy",
+     "visual": {"type": "chat", "name": "ty · právě teď", "text": "tady je můj plán, rozeberte ho!"},
+     "stickers": ["rozbor #2 = tvůj plán"], "note": "plán napiš do komentářů"},
+    {"text": "*Ulož* si to a *sleduj*, ať ti nic *neuteče*!", "bg": "paper", "mood": "wink",
+     "visual": {"type": "follow", "name": "Ještě 5 minut", "handle": "@jeste5minut"}}
+  ]
+}

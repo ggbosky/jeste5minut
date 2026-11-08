@@ -1,0 +1,25 @@
+{
+  "id": "ukazka-tip-5-minut",
+  "mode": "motion",
+  "format": "tip",
+  "chapter": 2,
+  "title": "Pravidlo pěti minut",
+  "beats": [
+    {"text": "Celý odpoledne *odkládáš* jednu seminárku?", "bg": "paper", "mood": "wave",
+     "visual": {"type": "alarm", "label": "Seminárka · odevzdání zítra", "time": "16:55", "button": "Odložit"},
+     "stickers": ["TIP #1"], "note": "pravidlo pěti minut"},
+    {"text": "Řekni si: dám tomu [pět|5] minut. *Pak smím přestat.*", "bg": "dark", "mood": "think",
+     "visual": {"type": "timer", "minutes": 5, "label": "jen 5 minut"}},
+    {"text": "Největší odpor je totiž *před začátkem*. Ne během práce.", "bg": "paper", "mood": "think",
+     "visual": {"type": "quote", "text": "Nejtěžší je otevřít ten dokument."}},
+    {"text": "Takže ne napsat seminárku. Ale *nadpis a jednu větu*.", "bg": "paper", "mood": "happy",
+     "visual": {"type": "strike", "old": "napsat seminárku", "new": "nadpis + 1 věta"}},
+    {"text": "Po pěti minutách se rozhodni. Skončit je *v pohodě*.", "bg": "coral", "mood": "happy",
+     "visual": {"type": "checklist", "items": ["5 minut hotovo", "Pokračuju? Klidně i ne"], "done": [0, 1]},
+     "stamp": {"text": "DOBŘE ✓", "tone": "good"}},
+    {"text": "Celej postup je v [íbuku|e-booku] *Ještě [pět|5] minut*. Odkaz je v biu.", "bg": "dark", "mood": "wave",
+     "visual": {"type": "cover"}, "stickers": ["odkaz v biu"]},
+    {"text": "*Ulož* si to dřív, než to *odložíš*.", "bg": "paper", "mood": "wink",
+     "visual": {"type": "follow", "name": "Ještě 5 minut", "handle": "@jeste5minut"}}
+  ]
+}

@@ -170,20 +170,31 @@ def render(script_path: Path, cfg: dict, tts_name: str | None = None, align_meth
     # 1) hlas
     backend = make_backend(tts_name or cfg["tts"]["backend"], cfg)
     timings = synthesize_script(script, backend, cfg, audio_dir)
-    total = timings["duration"] + float(cfg["video"]["tail"])
+    total = timings["duration"] + float(cfg["video"]["tail"]) + (0.8 if script.get("mode") == "motion" else 0.0)
     log(f"Hlas hotový: {timings['duration']:.1f} s")
 
     # 2) časy slov
     words = align_mod.align(script, timings, audio_dir, align_method or cfg["align"]["method"], cfg["align"]["whisper_model"])
     write_json(audio_dir / "words.json", words)
 
-    # 3+4) střihy a B-roll
-    cuts = plan_cuts(timings, words, script, total, cfg, rng)
-    used = build_base(cuts, cfg, script["chapter"], work, rng, allow_pexels)
+    v = cfg["video"]
+    silent = work / "captioned.mp4"
+    sfx = audio_dir / "sfx.wav"
+    used: list[str] = []
+    if script.get("mode") == "motion":
+        # 3–6) motion graphics: celé video se kreslí snímek po snímku
+        from .motion import render_frames
+
+        events = render_frames(script, timings, words, cfg, total, silent)
+        audio_mix.build_sfx(events, total, cfg, sfx)
+    else:
+        # 3+4) střihy a B-roll
+        cuts = plan_cuts(timings, words, script, total, cfg, rng)
+        used = build_base(cuts, cfg, script["chapter"], work, rng, allow_pexels)
+        audio_mix.build_sfx([(c["start"], "whoosh") for c in cuts[1:]] + [(w["start"], "tick") for w in words if w["key"]],
+                            total, cfg, sfx)
 
     # 5) zvuk
-    sfx = audio_dir / "sfx.wav"
-    audio_mix.build_sfx([c["start"] for c in cuts[1:]], [w["start"] for w in words if w["key"]], total, cfg, sfx)
     music = audio_mix.pick_music(rng)
     if music:
         log(f"Hudba: {music.name}")
@@ -191,14 +202,13 @@ def render(script_path: Path, cfg: dict, tts_name: str | None = None, align_meth
     audio_mix.mix(audio_dir / "voice.wav", sfx, music, total, cfg, mix_path)
 
     # 6) titulky (moviepy, snímek po snímku) + mux
-    cta_start = timings["beats"][-1]["start"] if script["beats"][-1].get("role") == "cta" else None
-    cap = CaptionRenderer(words, cfg, total, script.get("hook_text"), script.get("cta_text"), cta_start)
-    v = cfg["video"]
-    silent = work / "captioned.mp4"
-    with VideoFileClip(str(work / "base.mp4"), audio=False) as base:
-        clip = base.transform(lambda gf, t: cap.draw(gf(t), t)).with_duration(min(base.duration, total))
-        clip.write_videofile(str(silent), fps=v["fps"], codec="libx264", audio=False, preset=v["preset"],
-                             ffmpeg_params=["-crf", str(v["crf"]), "-pix_fmt", "yuv420p"], logger="bar")
+    if script.get("mode") != "motion":
+        cta_start = timings["beats"][-1]["start"] if script["beats"][-1].get("role") == "cta" else None
+        cap = CaptionRenderer(words, cfg, total, script.get("hook_text"), script.get("cta_text"), cta_start)
+        with VideoFileClip(str(work / "base.mp4"), audio=False) as base:
+            clip = base.transform(lambda gf, t: cap.draw(gf(t), t)).with_duration(min(base.duration, total))
+            clip.write_videofile(str(silent), fps=v["fps"], codec="libx264", audio=False, preset=v["preset"],
+                                 ffmpeg_params=["-crf", str(v["crf"]), "-pix_fmt", "yuv420p"], logger="bar")
     ffmpeg("-i", str(silent), "-i", str(mix_path), "-map", "0:v", "-map", "1:a", "-c:v", "copy",
            "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(out_path))
 
@@ -220,7 +230,7 @@ def _write_post(script: dict, out_path: Path, used: list[str], tts_name: str) ->
             if meta:
                 credits.append(f"- Pexels: {meta.get('author')} – {meta.get('url')}")
     lines = [
-        script["caption"],
+        script.get("caption") or script.get("title", ""),
         "",
         "---",
         "Pozn. pro zveřejnění (nekopírovat do popisku):",

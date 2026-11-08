@@ -1,5 +1,8 @@
-Inter font family
-Copyright 2016-2023 The Inter Project Authors (https://github.com/rsms/inter)
+Fonty v této složce jsou pod SIL Open Font License 1.1:
+
+- Inter, Inter Display – Copyright 2016-2023 The Inter Project Authors (https://github.com/rsms/inter)
+- Instrument Serif – Copyright 2022 The Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif)
+- JetBrains Mono – Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 

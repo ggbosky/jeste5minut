@@ -87,17 +87,71 @@ def cmd_list(args, cfg) -> None:
     for p in scripts:
         s = read_json(p)
         done = "✔" if (PATHS["output"] / f"{s['id']}.mp4").exists() else " "
-        print(f"{done} {s['id']:<24} ~{s['est_seconds']:>4} s  {strip_markup(s['beats'][0]['text'])}")
+        mode = "motion" if s.get("mode") == "motion" else "broll "
+        print(f"{done} {s['id']:<24} {mode} ~{s.get('est_seconds', 0):>4} s  {strip_markup(s['beats'][0]['text'])}")
 
 
 def cmd_show(args, cfg) -> None:
     from j5m.markup import strip_markup
 
     s = read_json(args.script)
-    print(f"{s['id']} · kapitola {s['chapter']} ({s['chapter_title']}) · {s['format']} · ~{s['est_seconds']} s\n")
+    print(f"{s['id']} · kapitola {s['chapter']} ({s.get('chapter_title', '')}) · {s['format']} · ~{s.get('est_seconds', '?')} s\n")
     for b in s["beats"]:
-        print(f"  [{'/'.join(b['broll'])}] {strip_markup(b['text'])}")
+        if s.get("mode") == "motion":
+            extra = "".join(f" #{b['badge']}" for _ in [0] if b.get("badge"))
+            print(f"  [{b.get('bg', 'paper'):<5} {b['visual']['type']:<10}{extra}] {strip_markup(b['text'])}")
+        else:
+            print(f"  [{'/'.join(b['broll'])}] {strip_markup(b['text'])}")
     print("\n" + s["caption"])
+
+
+def cmd_write(args, cfg) -> None:
+    from j5m import llm
+
+    if args.model:
+        cfg["llm"]["model"] = args.model
+    if args.provider:
+        cfg["llm"]["provider"] = args.provider
+    brief = args.brief
+    if args.brief_file:
+        brief = Path(args.brief_file).read_text(encoding="utf-8")
+    made = []
+    for i in range(args.count):
+        episode = args.episode + i if args.episode else None
+        try:
+            script = llm.write(args.format, args.chapter, cfg, brief, episode, args.refine or None)
+        except llm.LLMError as e:
+            raise SystemExit(f"! {e}")
+        path = llm.save(script)
+        made.append(path)
+        log(f"{path.name}  (~{script['est_seconds']} s)  „{script['title']}“")
+        cmd_show(argparse.Namespace(script=str(path)), cfg)
+    if args.render:
+        args.scripts = [str(p) for p in made]
+        args.keep = False
+        args.style = None
+        args.draft = False
+        args.no_pexels = False
+        cmd_render(args, cfg)
+
+
+def cmd_preview(args, cfg) -> None:
+    from j5m.motion import preview
+
+    s = read_json(args.script)
+    if s.get("mode") != "motion":
+        raise SystemExit("Náhled umí jen skripty v režimu motion (z příkazu write nebo styles/examples).")
+    out = Path(args.out or (PATHS["output"] / f"{s['id']}-nahled.png"))
+    n = len(s["beats"])
+    from j5m.markup import estimate_seconds
+
+    t, times = 0.0, []
+    for b in s["beats"]:
+        d = max(estimate_seconds(b["text"]), 1.0)
+        times.append(t + d * 0.85)
+        t += d + 0.15
+    preview(s, cfg, times[:n], out)
+    log(f"Náhled → {out}")
 
 
 def cmd_voice(args, cfg) -> None:
@@ -165,6 +219,24 @@ def main() -> None:
     p.add_argument("--engine", choices=["template", "ollama"], help="přepíše scripter.engine z configu")
     p.add_argument("--seed", type=int)
 
+    p = sub.add_parser("write", help="jazykový model napíše animované video ve stylu rozborů")
+    p.add_argument("--format", default="rozbor", choices=["rozbor", "tip", "mytus", "pov"])
+    p.add_argument("--chapter", type=int, default=1, help="kapitola e-booku 1–8")
+    p.add_argument("--brief", help="skutečný podklad k rozboru (např. plán od sledujícího)")
+    p.add_argument("--brief-file", help="brief ze souboru")
+    p.add_argument("--episode", type=int, help="číslo dílu série (ROZBOR #N)")
+    p.add_argument("--count", type=int, default=1)
+    p.add_argument("--refine", action="store_true", help="druhé kolo: věty přepsat přirozeněji")
+    p.add_argument("--model", help="např. gemma3:12b, qwen3:14b")
+    p.add_argument("--provider", choices=["ollama", "openai"])
+    p.add_argument("--render", action="store_true", help="hned i vyrenderovat")
+    p.add_argument("--tts", choices=["xtts", "piper", "dummy"])
+    p.add_argument("--align", choices=["auto", "whisper", "estimate"])
+
+    p = sub.add_parser("preview", help="rychlý náhled motion skriptu jako obrázek (bez hlasu)")
+    p.add_argument("script")
+    p.add_argument("--out")
+
     sub.add_parser("list", help="přehled skriptů (✔ = video hotové)")
 
     p = sub.add_parser("show", help="vypíše skript čitelně")
@@ -195,7 +267,7 @@ def main() -> None:
 
     args = ap.parse_args()
     cfg = config_mod.load(args.config)
-    {"setup": cmd_setup, "scripts": cmd_scripts, "list": cmd_list, "show": cmd_show, "voice": cmd_voice,
+    {"setup": cmd_setup, "scripts": cmd_scripts, "write": cmd_write, "preview": cmd_preview, "list": cmd_list, "show": cmd_show, "voice": cmd_voice,
      "render": cmd_render, "batch": cmd_batch, "broll": cmd_broll}[args.cmd](args, cfg)
 
 

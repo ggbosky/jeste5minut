@@ -4,10 +4,17 @@ Lokální aplikace v Pythonu, která z obsahu e-booku **„Ještě 5 minut“** 
 
 **Bez placených API.** Skripty, hlas, časování titulků i střih běží na tvém počítači na open-source nástrojích. Jediná síťová služba je volitelná: Pexels (stock videa zdarma, potřebuje bezplatný klíč).
 
+Umí dva druhy videí:
+
+| Režim | Jak vypadá | Kdo píše skript |
+| --- | --- | --- |
+| **motion** (hlavní) | animovaný „rozbor“: text naskakuje s hlasem, UI karty, čísla chyb, kroužky, razítka, maskot | **jazykový model** (lokálně přes Ollamu) podle stylového profilu |
+| **broll** | „real cut“: záběry po 2–4 s, kinetické titulky přes video | šablony z obsahu e-booku |
+
 ```
-skript (JSON) ──► hlas (XTTS-v2 / Piper) ──► časy slov (Whisper / odhad)
-      ──► jump cuty z B-rollu po 2–4 s (ffmpeg) ──► kinetické titulky (PIL + moviepy)
-      ──► mix hlasu, swooshů a hudby na −14 LUFS ──► output/<id>.mp4 + popisek
+jazykový model ──► skript (scény) ──► hlas (XTTS-v2 / Piper) ──► časy slov (Whisper)
+      ──► animace snímek po snímku (PIL + moviepy)  nebo  jump cuty z B-rollu (ffmpeg)
+      ──► mix hlasu, efektů a hudby na −14 LUFS ──► output/<id>.mp4 + popisek
 ```
 
 ---
@@ -53,6 +60,21 @@ python main.py setup
 
 ## 2. Rychlý start
 
+Animované video, které napíše jazykový model (potřebuješ běžící Ollamu, viz bod 3):
+
+```bash
+python main.py write --format rozbor --chapter 4 --episode 1 --render --tts piper
+```
+
+Bez jazykového modelu si můžeš hned vyrenderovat hotové ukázky:
+
+```bash
+python main.py render styles/examples/rozbor-planu.json --tts piper
+python main.py render styles/examples/tip-5-minut.json --tts piper
+```
+
+Videa ve stylu „real cut“ ze šablon:
+
 ```bash
 python main.py scripts --chapter 2 --format pov --count 3     # 3 skripty ke kapitole 2
 python main.py list                                           # přehled skriptů
@@ -77,17 +99,124 @@ python main.py batch --limit 10             # vyrenderuje prvních 10, které je
 
 ---
 
-## 3. Struktura projektu
+## 3. Animovaná videa s jazykovým modelem (režim motion)
+
+Styl vychází z referenčního rozboru (Project Two, „Rozbor #1“): 20–28 s, žádný herec ani stock záběry.
+Nahoře naskakuje přesně to, co říká hlas, akcentová slova jsou oranžovou kurzívou. Uprostřed je jedna
+velká UI karta, na kterou se kreslí čísla chyb, kroužky, nálepky a razítka. Pozadí se střídá: papír s tečkami,
+tmavé, oranžové paprsky. Video končí výzvou do komentářů a kartou „Sledovat“ s animovaným kliknutím.
+Je to stejný žánr, ale **vlastní vizuál značky Ještě 5 minut** (barvy, logo, písma). Maskota ani grafiku
+Project Two to nekopíruje.
+
+### Jazykový model – lokálně a zdarma
+
+1. Nainstaluj [Ollamu](https://ollama.com/download) (Windows, macOS, Linux).
+2. Stáhni model s dobrou češtinou:
+   ```bash
+   ollama pull gemma3:12b        # doporučeno, ~8 GB, chce 16 GB RAM (GPU výrazně zrychlí)
+   ollama pull gemma3:4b         # slabší PC, horší čeština
+   ```
+3. Napiš a vyrenderuj video:
+   ```bash
+   python main.py write --format rozbor --chapter 4 --episode 1 --render --tts piper
+   ```
+
+Místo Ollamy můžeš použít jakýkoli lokální server s OpenAI-kompatibilním API (LM Studio, llama.cpp
+server, vLLM): `--provider openai`, adresa v `config.toml → llm.openai_url`.
+
+### Co model dostane a jak se hlídá výsledek
+
+- **Stylový profil** `styles/rozbor.md`: stavba videa, délka vět, tón, poctivost, pravidla pro pozadí a nálepky. Chceš jiný styl? Uprav tenhle soubor.
+- **Ukázky** `styles/examples/*.json`: dva hotové skripty jako vzor (few-shot). Další ukázky přidáš tak, že do složky dáš další JSON.
+- **Katalog vizuálů**: co umí renderer nakreslit (viz tabulka níže).
+- **Podklady z kapitoly** e-booku (`j5m/content.py`) a volitelně **brief**.
+- Výstup je vynucený JSON schématem. Pak ho zkontroluje validace: neznámé vizuály, chybějící konec, moc dlouhé věty, video delší než ~28 s. Problémy se pošlou modelu zpátky k opravě (`llm.retries`).
+- `--refine` přidá druhé kolo, ve kterém model přepíše věty tak, aby zněly přirozeněji nahlas.
+
+Před zveřejněním si skript vždy přečti (`python main.py show scripts/<id>.json`) a uprav, co nesedí. Je to obyčejný JSON.
+
+### Formáty
+
+| `--format` | Stavba |
+| --- | --- |
+| `rozbor` | háček → chyba 1–3 (číslo, kroužek, oprava) → „Za pochvalu?“ → „pošli svůj do komentářů“ → Sledovat |
+| `tip` | bolest → technika z e-booku → proč funguje → příklad (přeškrtnutí) → e-book → Sledovat |
+| `mytus` | „Myslíš si, že…“ → „Jenže…“ → co dělat → e-book → Sledovat |
+| `pov` | POV situace na mobilu/budíku → eskalace → řešení → e-book → Sledovat |
+
+### Série rozborů se skutečnými příspěvky
+
+Nejsilnější smyčka z reference: „Pošli svůj plán do komentářů, příště může být tvůj.“ Když ti pak někdo
+plán pošle, dej ho modelu jako brief. Rozebere přesně ten plán a nic si nevymyslí:
+
+```bash
+python main.py write --format rozbor --chapter 4 --episode 2 --brief "Po–Pá 8–20 makro, So celý den statistika, Ne opakování, zkouška v pondělí"
+```
+
+```bash
+python main.py write --format rozbor --chapter 5 --episode 3 --brief-file brief.txt --refine
+```
+
+Bez briefu model rozebírá *typický* případ a tak ho i označí („Takhle vypadá plán, se kterým…“).
+Profil zakazuje vymyšlené statistiky, recenze a „poslal nám to sledující“.
+
+### Náhled bez čekání
+
+```bash
+python main.py preview scripts/<id>.json
+```
+
+Uloží jeden snímek z každé scény do PNG, bez hlasu.
+
+### Vizuály, které umí renderer
+
+| typ | co to je |
+| --- | --- |
+| `plan` | rozvrh / plán (řádky den–úkol), dají se kroužkovat |
+| `phone` | zamčený mobil s notifikacemi |
+| `alarm` | budík s tlačítkem „Odložit“ |
+| `screentime` | čas u obrazovky s grafem aplikací |
+| `checklist`, `steps` | zaškrtávací / číslovaný seznam (položky naskakují) |
+| `timer` | odpočet s kruhem |
+| `doc` | dokument se psaním a blikajícím kurzorem |
+| `stat` | velké číslo |
+| `chat` | komentář, který se „píše“ |
+| `strike` | přeškrtnutí: staré → nové |
+| `quote` | věta na kartě |
+| `cover` | obálka e-booku |
+| `follow` | profil s kurzorem, který klikne na Sledovat a uloží příspěvek |
+| `same` | nech kartu z minulé scény (na ni se pak kreslí kroužky a razítka) |
+
+Ke každé scéně jde přidat: `badge` (číslo chyby), `stickers` (až 2 nálepky), `mark` (kroužek kolem řádku karty),
+`stamp` (razítko DOBŘE ✓ / CHYBA ✗), `note` (komentář „// chyba 1 · …“) a `mood` (výraz maskota).
+
+### Maskot
+
+Do `assets/mascot/` dej vlastní postavičku jako PNG s průhledným pozadím: `wave.png`, `think.png`,
+`happy.png`, `surprised.png`, `wink.png` (návod je v `assets/mascot/README.md`). Bez maskota se karty zvětší
+a video funguje taky.
+
+### Zvuk a tempo
+
+Na každém střihu scény je swoosh, karty a nálepky mají „pop“, razítko má úder a kliknutí na Sledovat cvakne.
+Všechno se generuje lokálně. Hudbu přidáš do `audio/music/`. Hlas v tomhle režimu mluví o 16 % rychleji
+(`tts.motion_speed`), protože rozbory mají rychlé tempo.
+
+---
+
+## 4. Struktura projektu
 
 ```
 video-generator/
-├── main.py                 CLI (setup, scripts, list, show, voice, render, batch, broll)
+├── main.py                 CLI (setup, write, preview, scripts, list, show, voice, render, batch, broll)
 ├── requirements.txt        plná instalace (torch, transformers, coqui-tts, moviepy, …)
 ├── requirements-lite.txt   bez PyTorch (jen Piper)
 ├── config.example.toml     zkopíruj jako config.toml a uprav
 ├── j5m/
 │   ├── content.py          obsah e-booku: 8 kapitol, bolesti, řešení, úkoly, CTA
-│   ├── scripter.py         skládá skripty (šablony nebo lokální LLM přes Ollamu)
+│   ├── llm.py              jazykový model: píše motion skripty, validuje, opravuje
+│   ├── motion.py           animovaná videa: karty, nadpisy, kroužky, razítka, maskot
+│   ├── scripter.py         skládá broll skripty ze šablon
 │   ├── markup.py           mini-syntaxe *klíčové slovo* a [vyslovení|zobrazení]
 │   ├── tts.py              lokální hlas: XTTS-v2, Piper, dummy
 │   ├── align.py            časování slov (faster-whisper nebo odhad podle slabik)
@@ -95,7 +224,10 @@ video-generator/
 │   ├── captions.py         kinetická typografie (PIL)
 │   ├── audio_mix.py        swooshe, hudba s duckingem, loudness −14 LUFS
 │   └── render.py           celý pipeline
-├── scripts/                vygenerované skripty (JSON) – 40 ukázkových je v repu
+├── styles/
+│   ├── rozbor.md           stylový profil pro jazykový model
+│   └── examples/           vzorové skripty (few-shot) – dají se rovnou renderovat
+├── scripts/                vygenerované skripty (JSON) – 40 ukázkových (broll) je v repu
 ├── audio/
 │   ├── voices/             TVOJE nahrávky hlasu pro klonování (XTTS)
 │   ├── music/              volitelná hudba na pozadí
@@ -105,13 +237,13 @@ video-generator/
 │   ├── cache/              stažené klipy z Pexels, grafické karty
 │   └── work/<id>/          mezisoubory renderu (po dokončení se mažou)
 ├── output/                 hotová videa + popisky
-├── assets/                 písmo Inter (OFL), obálka e-booku
+├── assets/                 písma (OFL), obálka e-booku, mascot/ pro vlastního maskota
 └── models/                 stažené modely (Piper, Whisper)
 ```
 
 ---
 
-## 4. Obsahový modul (Scripter)
+## 5. Obsahový modul pro režim broll (Scripter)
 
 `j5m/content.py` obsahuje rozebraný e-book: ke každé z 8 kapitol (Proč odkládáme, Pravidlo pěti minut, Mobil, Zkouškové, Bakalářská práce, Perfekcionismus, Když to nevyjde, Tvůj plán) háčky, scénky, vysvětlení, řešení, úkol na 5 minut a pointy. Texty jsou psané pro mluvené slovo, tykají, používají hovorovou češtinu („dobrý“, „jinej“, „tejden“) a Scripter do nich náhodně vkládá vsuvky („Hele,“ „Upřímně,“ „Víš co?“).
 
@@ -143,7 +275,7 @@ Skripty jsou obyčejné JSON soubory – klidně je ručně uprav nebo napiš vl
 - `[pět|5]` – hlas řekne „pět“, titulek ukáže „5“. Hodí se pro čísla a zkratky (`[íbuku|e-booku]`, `[v devět|v 9:00]`).
 - `broll` – tagy záběrů pod větou (seznam v `content.py → BROLL_TAGS`).
 
-### Volitelně: lokální LLM přes Ollamu
+### Volitelně: broll skripty přes Ollamu
 
 Pokud máš [Ollamu](https://ollama.com) (open-source, běží lokálně), Scripter může nechat skripty psát model nad podklady z kapitoly:
 
@@ -156,7 +288,7 @@ Výstup se validuje (tagy, struktura); když model selže, použije se šablona.
 
 ---
 
-## 5. Hlas – lokální TTS bez API
+## 6. Hlas – lokální TTS bez API
 
 | Backend | Kvalita češtiny | Rychlost | Licence | Kdy použít |
 | --- | --- | --- | --- | --- |
@@ -190,7 +322,7 @@ Ladění v `config.toml → [tts.xtts]`: `speed` (1.0–1.15 je pro sociální s
 
 ### ⚠️ Licence hlasu – čti před prvním komerčním videem
 
-- **XTTS-v2** je pod [Coqui Public Model License](https://coqui.ai/cpml.txt), která povoluje **jen nekomerční použití**. Videa, která prodávají e-book, jsou komerční. Firma Coqui skončila, takže komerční licenci si už koupit nejde. Pro reklamní videa proto používej **Piper** (`--tts piper` nebo `backend = "piper"` v `config.toml`), nebo věty namluv sám/sama (viz bod 9).
+- **XTTS-v2** je pod [Coqui Public Model License](https://coqui.ai/cpml.txt), která povoluje **jen nekomerční použití**. Videa, která prodávají e-book, jsou komerční. Firma Coqui skončila, takže komerční licenci si už koupit nejde. Pro reklamní videa proto používej **Piper** (`--tts piper` nebo `backend = "piper"` v `config.toml`), nebo věty namluv sám/sama (viz bod 10).
 - **Piper cs_CZ-jirka-medium**: repozitář hlasů je pod MIT, dataset hlasu CC0. Hlas je doladěný z anglického modelu „lessac“. Pokud to s komercí myslíš vážně, projdi si `MODEL_CARD` u obou modelů.
 - **Klonování hlasu:** klonuj jen svůj hlas, nebo hlas člověka, který ti k tomu dal výslovný souhlas.
 
@@ -200,7 +332,7 @@ Syntetický hlas, který zní jako skutečný člověk, je realistický AI obsah
 
 ---
 
-## 6. Střih a vizuál („Real Cut“)
+## 7. Střih a vizuál („Real Cut“)
 
 ### Jump cuty každé 2–4 s
 
@@ -252,7 +384,7 @@ Titulky se kreslí přes PIL snímek po snímku (moviepy `transform`) a vypálí
 
 ---
 
-## 7. Jak probíhá finální render
+## 8. Jak probíhá finální render
 
 `python main.py render scripts/<id>.json` udělá postupně:
 
@@ -270,7 +402,7 @@ Orientační časy pro 30s video na běžném CPU: Piper ~2 s, Whisper ~10 s, st
 
 ---
 
-## 8. Konfigurace
+## 9. Konfigurace
 
 ```bash
 cp config.example.toml config.toml
@@ -291,7 +423,7 @@ Uprav jen to, co chceš změnit. Všechny volby s komentáři jsou v `j5m/config
 
 ---
 
-## 9. Tipy, aby videa nepůsobila „vyrobeně“
+## 10. Tipy, aby videa nepůsobila „vyrobeně“
 
 - **Vlastní záběry > stock.** I 15 krátkých klipů z mobilu (tvoje skripta, tvůj stůl, tvoje knihovna) udělá víc než stovka stock videí.
 - **Vlastní hlas.** Naklonovaný vlastní hlas, nebo rovnou namluvené `voice.wav`, zní nejlíp. Postup: `python main.py voice …`, nahraď věty ve složce `audio/<id>/` vlastní nahrávkou se stejným názvem a pusť `render`.
@@ -301,7 +433,7 @@ Uprav jen to, co chceš změnit. Všechny volby s komentáři jsou v `j5m/config
 
 ---
 
-## 10. Řešení problémů
+## 11. Řešení problémů
 
 | Problém | Řešení |
 | --- | --- |
@@ -309,6 +441,9 @@ Uprav jen to, co chceš změnit. Všechny volby s komentáři jsou v `j5m/config
 | XTTS hlásí licenci | Nastav `COQUI_TOS_AGREED=1` (jen pokud s licencí souhlasíš) nebo použij `--tts piper`. |
 | XTTS: chyba při načítání nahrávky | `pip install "coqui-tts[codec]"` (torchcodec). Nahrávky se převádějí do `models/xtts_refs/`. |
 | XTTS je pomalý | Použij GPU, nebo Piper. Věty se cachují, takže druhý render je rychlý. |
+| `Jazykový model neběží` | Spusť Ollamu (aplikace nebo `ollama serve`) a stáhni model (`ollama pull gemma3:12b`). |
+| Model píše divnou češtinu | Větší model (`--model gemma3:12b` nebo `qwen3:14b`), `--refine`, víc ukázek ve `styles/examples/`. |
+| Video je moc dlouhé | Zkrať věty ve skriptu, nebo zvyš `tts.motion_speed`. |
 | Titulky jdou mimo řeč | Nainstaluj `faster-whisper` (`--align whisper`); pro přesnější časy nastav `align.whisper_model = "medium"`. |
 | Pexels nic nestahuje | Zkontroluj `PEXELS_API_KEY`. Bez klíče se použijí vlastní záběry nebo karty. |
 | Chci jiné písmo | Dej TTF/OTF do `assets/fonts/` a nastav `captions.font`. Písmo musí umět českou diakritiku. |

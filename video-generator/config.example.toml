@@ -1,9 +1,21 @@
 # Zkopíruj jako config.toml a uprav jen to, co chceš změnit.
 # Všechny volby a výchozí hodnoty jsou v j5m/config.py.
 
+[brand]
+name = "Ještě 5 minut"
+handle = "@jeste5minut"   # tvůj profil – ukáže se na kartě „Sledovat“
+
+[llm]
+provider = "ollama"       # ollama | openai (= LM Studio, llama.cpp server… lokálně)
+model = "gemma3:12b"      # slabší PC: gemma3:4b
+temperature = 0.8
+refine = false            # true = druhé kolo, věty přepíše přirozeněji
+style = "rozbor.md"       # stylový profil ve styles/
+
 [tts]
 backend = "xtts"          # xtts | piper | dummy
 gap = 0.16                # pauza mezi větami v sekundách
+motion_speed = 1.16       # animovaná videa: rychlejší tempo řeči
 
 [tts.xtts]
 speed = 1.08

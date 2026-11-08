@@ -64,6 +64,8 @@ DEFAULTS: dict = {
         "backend": "xtts",       # xtts | piper | dummy
         "language": "cs",
         "gap": 0.16,             # pauza mezi větami (s); krátká = svižné tempo
+        "motion_speed": 1.16,    # režim motion: o kolik rychleji mluvit (rozbory mají rychlé tempo)
+        "motion_gap": 0.10,
         "xtts": {
             "model": "tts_models/multilingual/multi-dataset/xtts_v2",
             "speaker": "Ana Florence",   # vestavěný hlas, když v audio/voices/ není vlastní nahrávka
@@ -93,6 +95,22 @@ DEFAULTS: dict = {
     "broll": {
         "pexels": True,          # stahovat z Pexels, když chybí vlastní záběry (vyžaduje PEXELS_API_KEY zdarma)
         "per_tag": 6,            # kolik klipů na tag stáhnout do cache
+    },
+    "brand": {
+        "name": "Ještě 5 minut",
+        "handle": "@jeste5minut",   # uprav na svůj profil
+    },
+    "llm": {
+        "provider": "ollama",    # ollama | openai (= LM Studio, llama.cpp server, vLLM… na tvém PC)
+        "model": "gemma3:12b",   # slabší PC: gemma3:4b
+        "url": "http://localhost:11434",
+        "openai_url": "http://localhost:1234/v1",
+        "temperature": 0.8,
+        "num_ctx": 12288,
+        "timeout": 900,
+        "retries": 2,            # kolikrát poslat modelu chyby k opravě
+        "refine": False,         # druhé kolo: přepsat věty, aby zněly víc jako mluvená řeč
+        "style": "rozbor.md",    # stylový profil ve styles/
     },
     "scripter": {
         "engine": "template",    # template | ollama

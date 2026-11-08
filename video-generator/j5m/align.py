@@ -128,6 +128,6 @@ def align(script: dict, timings: dict, audio_dir: Path, method: str = "auto", wh
             starts = _estimate(units, tb["start"], tb["end"])
         for k, (u, s) in enumerate(zip(units, starts)):
             e = starts[k + 1] if k + 1 < len(starts) else tb["end"]
-            words.append({"show": u.show, "key": u.key, "start": round(s, 3), "end": round(e, 3),
+            words.append({"show": u.show, "full": u.full or u.show, "key": u.key, "start": round(s, 3), "end": round(e, 3),
                           "beat": tb["index"], "brk": pause_weight(u.say_words[-1]) > 0})
     return words

@@ -40,23 +40,56 @@ def _tick(sr: int) -> np.ndarray:
     return (np.sin(2 * np.pi * 1600 * t) * np.exp(-t * 90)).astype(np.float32)
 
 
-def build_sfx(cut_times: list[float], key_times: list[float], total: float, cfg: dict, path: Path) -> None:
+def _pop(sr: int) -> np.ndarray:
+    """Krátké „bublinkové“ pop: sinus klouzající dolů s rychlým útlumem."""
+    n = int(0.09 * sr)
+    t = np.arange(n) / sr
+    f = 950 * np.exp(-t * 18) + 260
+    return (np.sin(2 * np.pi * np.cumsum(f) / sr) * np.exp(-t * 45)).astype(np.float32)
+
+
+def _thud(sr: int, rng: np.random.Generator) -> np.ndarray:
+    """Razítko: hluboký úder + trocha šumu."""
+    n = int(0.18 * sr)
+    t = np.arange(n) / sr
+    body = np.sin(2 * np.pi * (110 * np.exp(-t * 8) + 50) * t) * np.exp(-t * 22)
+    noise = _bandpass(rng.standard_normal(n).astype(np.float32), sr, 200, 2500) * np.exp(-t * 60) * 0.4
+    x = (body + noise).astype(np.float32)
+    return x / (np.max(np.abs(x)) + 1e-9)
+
+
+def _click(sr: int) -> np.ndarray:
+    n = int(0.03 * sr)
+    t = np.arange(n) / sr
+    return (np.sin(2 * np.pi * 3200 * t) * np.exp(-t * 260)).astype(np.float32)
+
+
+def build_sfx(events: list[tuple[float, str]], total: float, cfg: dict, path: Path) -> None:
+    """events = [(čas, druh)], druh: whoosh | tick | pop | thud | click."""
     a = cfg["audio"]
     sr = int(a["sample_rate"])
     out = np.zeros(int(total * sr) + sr, dtype=np.float32)
     rng = np.random.default_rng(7)
-    if a["whoosh"]:
-        for t in cut_times:
-            w = _whoosh(sr, rng) * float(a["whoosh_gain"])
-            s = int((t - 0.2) * sr)
-            if s < 0:
-                w, s = w[-s:], 0
-            out[s:s + len(w)] += w[: len(out) - s]
-    if a["keyword_tick"]:
-        tk = _tick(sr) * 0.08
-        for t in key_times:
-            s = int(t * sr)
-            out[s:s + len(tk)] += tk[: len(out) - s]
+    g = float(a["whoosh_gain"])
+    sounds = {
+        "tick": lambda: _tick(sr) * 0.08,
+        "pop": lambda: _pop(sr) * 0.16,
+        "thud": lambda: _thud(sr, rng) * 0.30,
+        "click": lambda: _click(sr) * 0.35,
+        "whoosh": lambda: _whoosh(sr, rng) * g,
+    }
+    for t, kind in events:
+        if kind == "whoosh" and not a["whoosh"]:
+            continue
+        if kind == "tick" and not a["keyword_tick"]:
+            continue
+        if kind not in sounds or t <= 0.01 and kind == "whoosh":
+            continue
+        w = sounds[kind]()
+        s = int((t - (0.2 if kind == "whoosh" else 0.0)) * sr)
+        if s < 0:
+            w, s = w[-s:], 0
+        out[s:s + len(w)] += w[: max(len(out) - s, 0)]
     save_wav(path, out[: int(total * sr)], sr)
 
 

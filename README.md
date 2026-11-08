@@ -4,7 +4,7 @@ One-page obchod pro e-book „Ještě 5 minut“. Astro (statický web) + Tailwi
 
 ## Generátor videí pro sociální sítě
 
-Složka [`video-generator/`](video-generator/) obsahuje lokální Python aplikaci, která z obsahu e-booku automaticky vyrábí krátká videa pro TikTok, Reels a Shorts (hlas, jump cuty, kinetické titulky). Bez placených API. Návod je v [`video-generator/README.md`](video-generator/README.md).
+Složka [`video-generator/`](video-generator/) obsahuje lokální Python aplikaci, která z obsahu e-booku automaticky vyrábí krátká videa pro TikTok, Reels a Shorts: animované „rozbory“, které píše lokální jazykový model, i videa se záběry a kinetickými titulky. Bez placených API. Návod je v [`video-generator/README.md`](video-generator/README.md).
 
 ## Spuštění
 

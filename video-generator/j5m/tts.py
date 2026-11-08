@@ -30,6 +30,10 @@ PIPER_BASE = "https://huggingface.co/rhasspy/piper-voices/resolve/main"
 class TTSBackend:
     name = "base"
     sample_rate = 24000
+    rate = 1.0          # násobek rychlosti řeči (režim motion mluví rychleji)
+
+    def set_rate(self, rate: float) -> None:
+        self.rate = float(rate)
 
     def synth(self, text: str) -> np.ndarray:  # float32 mono
         raise NotImplementedError
@@ -97,12 +101,12 @@ class XTTSBackend(TTSBackend):
         self.torch.manual_seed(self.seed)
         wav = self.tts.tts(
             text=text, language=self.language, speaker_wav=self.speaker_wav, speaker=self.speaker,
-            speed=self.speed, temperature=self.temperature, split_sentences=True,
+            speed=self.speed * self.rate, temperature=self.temperature, split_sentences=True,
         )
         return np.asarray(wav, dtype=np.float32)
 
     def cache_key(self) -> str:
-        return f"xtts-{self._key}"
+        return f"xtts-{self._key}-r{self.rate:g}"
 
 
 # ---------------------------------------------------------------- Piper
@@ -155,14 +159,15 @@ class PiperBackend(TTSBackend):
 
         buf = io.BytesIO()
         with wave.open(buf, "wb") as w:
-            self.voice.synthesize_wav(text, w, syn_config=SynthesisConfig(**self.params))
+            params = dict(self.params, length_scale=self.params["length_scale"] / self.rate)
+            self.voice.synthesize_wav(text, w, syn_config=SynthesisConfig(**params))
         buf.seek(0)
         with wave.open(buf, "rb") as r:
             pcm = np.frombuffer(r.readframes(r.getnframes()), dtype=np.int16)
         return pcm.astype(np.float32) / 32768.0
 
     def cache_key(self) -> str:
-        return f"piper-{self._key}"
+        return f"piper-{self._key}-r{self.rate:g}"
 
 
 # ---------------------------------------------------------------- Dummy
@@ -173,7 +178,7 @@ class DummyBackend(TTSBackend):
     sample_rate = 24000
 
     def synth(self, text: str) -> np.ndarray:
-        n = int(estimate_seconds(text) * self.sample_rate)
+        n = int(estimate_seconds(text) / self.rate * self.sample_rate)
         return np.zeros(max(n, self.sample_rate // 2), dtype=np.float32)
 
 
@@ -199,6 +204,9 @@ def synthesize_script(script: dict, backend: TTSBackend, cfg: dict, out_dir: Pat
     """
     sr = int(cfg["audio"]["sample_rate"])
     gap = float(cfg["tts"]["gap"])
+    if script.get("mode") == "motion":
+        gap = float(cfg["tts"]["motion_gap"])
+        backend.set_rate(cfg["tts"]["motion_speed"])
     out_dir.mkdir(parents=True, exist_ok=True)
     key = backend.cache_key()
 

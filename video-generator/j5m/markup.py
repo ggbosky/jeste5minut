@@ -21,6 +21,7 @@ class Unit:
     say: str     # co vysloví TTS (včetně interpunkce)
     show: str    # co se ukáže v titulku (bez zbytečné interpunkce)
     key: bool    # klíčové slovo
+    full: str = ""  # zobrazení i s interpunkcí (nadpisy v režimu motion)
 
     @property
     def say_words(self) -> list[str]:
@@ -48,7 +49,8 @@ def parse(text: str) -> list[Unit]:
         nonlocal say, show, key_hit
         s = "".join(say).strip()
         if s:
-            units.append(Unit(say=s, show=_clean_show("".join(show)), key=key_hit))
+            raw = "".join(show).replace("„", "").replace("“", "").replace('"', "").strip()
+            units.append(Unit(say=s, show=_clean_show(raw), key=key_hit, full=raw))
         say, show, key_hit = [], [], False
 
     while i < len(text):
